@@ -36,10 +36,16 @@ class PhotosFragment : Fragment() {
         photos.add("https://pixabay.com/get/53e8d3424b5ba414f6da8c7dda79367d1c3ed6e250576c48732f72d2964ccc51b1_1280.jpg")
         photos.add("https://pixabay.com/get/5ee8d2474e51b108f5d08460962934771437d9e6554c704f75267dd59649c65c_1280.jpg")
         photos.add("https://pixabay.com/get/57e5d6454a5aa414f6da8c7dda79367d1c3ed6e250576c48732f72d2964cc15bbc_1280.jpg")
-        photos.add("https://pixabay.com/get/57e6d7444b5baf14f6da8c7dda79367d1c3ed6e250576c48732f72d2964cc15bbc_1280.jpg")
         photos.add("https://pixabay.com/get/53e8d647425ba514f6da8c7dda79367d1c3ed6e250576c48732f72d2964ccc51b1_1280.jpg")
         photos.add("https://pixabay.com/get/57e5d6454a5aa414f6da8c7dda79367d1c3ed6e250576c48732f72d2964cc15bbc_1280.jpg")
         photos.add("https://pixabay.com/get/57e6d7444b5baf14f6da8c7dda79367d1c3ed6e250576c48732f72d2964cc15bbc_1280.jpg")
+        photos.add("https://pixabay.com/get/53e8d34a4a57ae14f6da8c7dda79367d1c3ed6e250576c48732f72d2964ac75ab8_1280.jpg")
+        photos.add("https://pixabay.com/get/53e8d34a4a56a514f6da8c7dda79367d1c3ed6e250576c48732f72d2964ac75ab8_1280.jpg")
+        photos.add("https://pixabay.com/get/53e8d34a4d56a814f6da8c7dda79367d1c3ed6e250576c48732f72d2964ac75ab8_1280.jpg")
+        photos.add("https://pixabay.com/get/53e8d34a4c5ba914f6da8c7dda79367d1c3ed6e250576c48732f72d2964ac75ab8_1280.jpg")
+        photos.add("https://pixabay.com/get/53e8d3444a53a514f6da8c7dda79367d1c3ed6e250576c48732f72d2964ac75ab8_1280.jpg")
+        photos.add("https://pixabay.com/get/53e8d3464c56a914f6da8c7dda79367d1c3ed6e250576c48732f72d2964ac75ab8_1280.jpg")
+        photos.add("https://pixabay.com/get/53e8d3454a51ac14f6da8c7dda79367d1c3ed6e250576c48732f72d2964ac75ab8_1280.jpg")
 
         /*photos.add("https://pixabay.com/get/57e9d2414e53ad14f1dc8460962934771437d9e6554c704f75267ed59e4fc050_640.jpg")
         photos.add("https://pixabay.com/get/57e9d2414e53ad14f1dc8460962934771437d9e6554c704f75267ed59e4fc050_640.jpg")
@@ -48,7 +54,7 @@ class PhotosFragment : Fragment() {
         photos.add("https://pixabay.com/get/57e9d2414e53ad14f1dc8460962934771437d9e6554c704f75267ed59e4fc050_640.jpg")*/
 
         photosRecyclerView.apply {
-        layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+             layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
             adapter = PhotosRecyclerViewAdapter(photos)
         }
     }

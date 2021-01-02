@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="2dp"
-    card_view:cardUseCompatPadding="true">
+    tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/photoHandler"
+
+
+    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="sth"
-        android:src="@drawable/ic_launcher_background"/>
-</androidx.cardview.widget.CardView>
+        android:layout_margin="1dp"
+        card_view:cardUseCompatPadding="true">
+
+        <ImageView
+            android:id="@+id/photoHandler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="sth"
+            android:src="@drawable/ic_launcher_background" />
+    </androidx.cardview.widget.CardView>
+
+
+    <ProgressBar
+        android:id="@+id/progressHandler"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:visibility="visible" />
+
+</RelativeLayout>
