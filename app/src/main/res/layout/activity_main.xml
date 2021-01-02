@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:theme="@style/Widget.BottomNavigationView"
         android:layout_height="wrap_content"
-        android:background="#171717"
+        android:background="#181818"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:itemIconTint="@drawable/bottom_nav_icons_tint"
