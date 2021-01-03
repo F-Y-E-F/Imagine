@@ -30,21 +30,30 @@ class PhotosFragment : Fragment() {
         getInitialPhotos()
 
         loadMoreButton.setOnClickListener {
-            Log.d("TAG",photosCount.toString())
-            Log.d("TAG WYNIK",((photosCount/30) + 1).toString())
+            onStartLoad()
             photosVm.addPhotosPage((photosCount/30) + 1)
         }
 
     }
 
-
     private fun getInitialPhotos() {
         photosRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         photosVm.photos.observe(viewLifecycleOwner) {
+            onEndLoad()
             photosCount = it.photos.size
             photosRecyclerView.apply {
                 adapter = PhotosRecyclerViewAdapter(it.photos)
             }
         }
     }
+
+    private fun onStartLoad(){
+        loadMoreButton.visibility = View.GONE
+        loadMoreProgress.visibility = View.VISIBLE
+    }
+    private fun onEndLoad(){
+        loadMoreButton.visibility = View.VISIBLE
+        loadMoreProgress.visibility = View.GONE
+    }
+
 }
