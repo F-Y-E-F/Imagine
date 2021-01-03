@@ -11,7 +11,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.imagine.R
-import com.example.imagine.models.Photo
+import com.example.imagine.mvvm.models.Photo
 import com.example.imagine.screens.adapters.view_holders.PhotosViewHolder
 
 class PhotosRecyclerViewAdapter(private val listOfPhotos:List<Photo>):RecyclerView.Adapter<PhotosViewHolder>() {
@@ -22,27 +22,16 @@ class PhotosRecyclerViewAdapter(private val listOfPhotos:List<Photo>):RecyclerVi
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
 
         Glide.with(holder.itemView.context).load(listOfPhotos[holder.adapterPosition].largeImageURL).fitCenter().listener(object: RequestListener<Drawable>{
-            override fun onLoadFailed(
-                e: GlideException?,
-                model: Any?,
-                target: Target<Drawable>?,
-                isFirstResource: Boolean
-            ): Boolean {
+            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                 holder.progress.visibility = View.GONE
+                holder.progress.isEnabled = false
                 return false
             }
-
-            override fun onResourceReady(
-                resource: Drawable?,
-                model: Any?,
-                target: Target<Drawable>?,
-                dataSource: DataSource?,
-                isFirstResource: Boolean
-            ): Boolean {
+            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                 holder.progress.visibility = View.GONE
+                holder.progress.isEnabled = false
                 return false
             }
-
         }).into(holder.photo)
     }
 

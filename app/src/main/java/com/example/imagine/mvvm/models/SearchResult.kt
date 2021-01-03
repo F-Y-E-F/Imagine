@@ -1,4 +1,4 @@
-package com.example.imagine.models
+package com.example.imagine.mvvm.models
 
 import com.google.gson.annotations.SerializedName
 
