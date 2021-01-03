@@ -11,16 +11,17 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.imagine.R
+import com.example.imagine.models.Photo
 import com.example.imagine.screens.adapters.view_holders.PhotosViewHolder
 
-class PhotosRecyclerViewAdapter(private val listOfPhotos:ArrayList<String>):RecyclerView.Adapter<PhotosViewHolder>() {
+class PhotosRecyclerViewAdapter(private val listOfPhotos:List<Photo>):RecyclerView.Adapter<PhotosViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosViewHolder {
         return PhotosViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.photo,parent,false))
     }
 
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
 
-        Glide.with(holder.itemView.context).load(listOfPhotos[holder.adapterPosition]).fitCenter().listener(object: RequestListener<Drawable>{
+        Glide.with(holder.itemView.context).load(listOfPhotos[holder.adapterPosition].largeImageURL).fitCenter().listener(object: RequestListener<Drawable>{
             override fun onLoadFailed(
                 e: GlideException?,
                 model: Any?,

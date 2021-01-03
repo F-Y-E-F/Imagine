@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.imagine.R
+import com.example.imagine.retrofit.PhotosRepository
 import com.example.imagine.screens.adapters.PhotosRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_photos.*
 
@@ -53,11 +54,15 @@ class PhotosFragment : Fragment() {
         photos.add("https://pixabay.com/get/57e9d2414e53ad14f1dc8460962934771437d9e6554c704f75267ed59e4fc050_640.jpg")
         photos.add("https://pixabay.com/get/57e9d2414e53ad14f1dc8460962934771437d9e6554c704f75267ed59e4fc050_640.jpg")*/
 
-        photosRecyclerView.apply {
-             layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
-            adapter = PhotosRecyclerViewAdapter(photos)
-        }
+        PhotosRepository()
+            .getPhotos()
+            .subscribe {
+                requireActivity().runOnUiThread {
+                    photosRecyclerView.apply {
+                        layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+                        adapter = PhotosRecyclerViewAdapter(it.photos)
+                    }
+                }
+            }
     }
-
-
 }
