@@ -11,4 +11,5 @@
         android:name="com.example.imagine.screens.PhotosFragment"
         android:label="fragment_photos"
         tools:layout="@layout/fragment_photos" />
+
 </navigation>
