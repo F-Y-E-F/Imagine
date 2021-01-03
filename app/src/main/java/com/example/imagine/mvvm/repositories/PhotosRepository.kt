@@ -8,13 +8,26 @@ import com.example.imagine.retrofit.PhotosClient
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class PhotosRepository {
-    fun getPhotos(): LiveData<SearchResult> {
+    private val result = MutableLiveData<SearchResult>()
 
-        val result = MutableLiveData<SearchResult>()
-        PhotosClient.client.getPhotos().subscribeOn(Schedulers.io()).subscribe {
-            result.postValue(it)
-        }
+    //get photos from web
+    fun addPhotosPage(nbOfPage: Int) {
+        PhotosClient.client.getPhotos(nbOfPage).subscribeOn(Schedulers.io())
+            .subscribe { searchResult ->
+                if (result.value == null)
+                    result.postValue(searchResult) //get just first photos page
+                else {                                                   //on load more button clicked
+                    (result.value!!.photos as ArrayList).addAll(searchResult.photos)
+                    result.postValue(result.value)
+                }
+            }
+    }
+
+    fun getPhotos(): LiveData<SearchResult> {
+        if (result.value == null)
+            addPhotosPage(1)
         return result
     }
+
 
 }

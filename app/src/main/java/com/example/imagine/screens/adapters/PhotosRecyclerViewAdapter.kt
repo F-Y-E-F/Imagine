@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.example.imagine.R
 import com.example.imagine.mvvm.models.Photo
@@ -21,7 +23,7 @@ class PhotosRecyclerViewAdapter(private val listOfPhotos:List<Photo>):RecyclerVi
 
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
 
-        Glide.with(holder.itemView.context).load(listOfPhotos[holder.adapterPosition].largeImageURL).fitCenter().listener(object: RequestListener<Drawable>{
+        Glide.with(holder.itemView.context).load(listOfPhotos[holder.adapterPosition].webformatURL).fitCenter().listener(object: RequestListener<Drawable>{
             override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                 holder.progress.visibility = View.GONE
                 holder.progress.isEnabled = false
@@ -32,7 +34,7 @@ class PhotosRecyclerViewAdapter(private val listOfPhotos:List<Photo>):RecyclerVi
                 holder.progress.isEnabled = false
                 return false
             }
-        }).into(holder.photo)
+        }).override(Target.SIZE_ORIGINAL).centerCrop().transform(RoundedCorners(2)).apply( RequestOptions().override(300, 300)).into(holder.photo)
     }
 
     override fun getItemCount(): Int {
