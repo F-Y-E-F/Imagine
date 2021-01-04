@@ -40,6 +40,7 @@ class PhotosFragment : Fragment() {
 
     }
 
+    //---------------| Get Start Photos |------------------
     private fun getInitialPhotos() {
         photosRecyclerView.layoutManager = StaggeredGridLayoutManager(
             2,
@@ -55,7 +56,9 @@ class PhotosFragment : Fragment() {
             }
         }
     }
+    //========================================================
 
+    //---------------------- On load more button click, load more images ----------------------------
     private fun loadMorePhotos(){
         loadMoreButton.setOnClickListener {
             onStartLoad()
@@ -65,16 +68,20 @@ class PhotosFragment : Fragment() {
             }
         }
     }
+    //===============================================================================================
 
+    //start loading photos
     private fun onStartLoad(){
         loadMoreButton.visibility = View.GONE
         loadMoreProgress.visibility = View.VISIBLE
     }
+    //stop loading photos
     private fun onEndLoad(){
         loadMoreButton.visibility = View.VISIBLE
         loadMoreProgress.visibility = View.GONE
     }
 
+    //-------------- Search on done button click ------------------
     private fun detectSearch(){
         searchPhotoET.imeOptions = EditorInfo.IME_ACTION_DONE
         searchPhotoET.setOnEditorActionListener { v, actionId, event ->
@@ -86,7 +93,10 @@ class PhotosFragment : Fragment() {
             false
         }
     }
+    //==============================================================
 
+
+    //-----------------------| Search the photos |--------------------------
     private fun search(){
         photosVm.clearPhotos()
         if(searchPhotoET.text?.toString() != null && searchPhotoET.text?.toString() != ""){
@@ -95,4 +105,5 @@ class PhotosFragment : Fragment() {
             photosVm.addCategoryPhotosPage(1)
         }
     }
+    //========================================================================
 }

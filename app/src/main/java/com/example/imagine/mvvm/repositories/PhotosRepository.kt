@@ -1,6 +1,5 @@
 package com.example.imagine.mvvm.repositories
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.imagine.mvvm.models.SearchResult
@@ -13,6 +12,7 @@ class PhotosRepository {
     private val client:PhotosService = PhotosClient.client
     val type = MutableLiveData<String>()
 
+    //add photos page to existing photos
     private fun addPage(searchResult:SearchResult){
         if (result.value == null)
             result.postValue(searchResult) //get just first photos page
@@ -22,6 +22,7 @@ class PhotosRepository {
         }
     }
 
+    //get all photos
     fun getPhotos(): LiveData<SearchResult> {
         if (result.value == null)
             addCategoryPhotosPage(1)
@@ -29,7 +30,7 @@ class PhotosRepository {
     }
 
 
-    //get photos from web
+    //get category photos page
     fun addCategoryPhotosPage(nbOfPage: Int?) {
         client.getPhotos(nbOfPage).subscribeOn(Schedulers.io())
             .subscribe {
@@ -39,7 +40,7 @@ class PhotosRepository {
     }
 
 
-
+    //get searched photos page
     fun searchPhotos(query:String?, nbOfPage: Int?){
         client.getQueryPhotos(query, nbOfPage).subscribeOn(Schedulers.io())
             .subscribe{
@@ -48,6 +49,7 @@ class PhotosRepository {
             }
     }
 
+    //clear all photos
     fun clearPhotos(){
         result.postValue(null)
     }

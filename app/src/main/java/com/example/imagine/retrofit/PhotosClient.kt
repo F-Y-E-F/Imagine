@@ -6,6 +6,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object PhotosClient {
 
+    //get pixabay - retrofit api client
+
     val client : PhotosService by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://pixabay.com/api/")
