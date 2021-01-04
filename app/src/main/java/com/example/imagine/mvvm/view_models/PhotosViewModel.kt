@@ -12,8 +12,8 @@ class PhotosViewModel:ViewModel() {
     val photos : LiveData<SearchResult> = photosRepository.getPhotos()
     val type : LiveData<String> = photosRepository.type
 
-    fun addPhotosPage(nbOfPage: Int?) {
-        photosRepository.addPhotosPage(nbOfPage)
+    fun addCategoryPhotosPage(nbOfPage: Int?) {
+        photosRepository.addCategoryPhotosPage(nbOfPage)
     }
 
     fun searchPhotos(query:String?, nbOfPage: Int?){

@@ -19,6 +19,7 @@ class PhotosFragment : Fragment() {
 
     private val photosVm by viewModels<PhotosViewModel>()
     private var photosCount =  0
+    private var type = "category"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +35,8 @@ class PhotosFragment : Fragment() {
         getInitialPhotos()
         loadMorePhotos()
         detectSearch()
+
+        photosVm.type.observe(viewLifecycleOwner){ this.type = it }
 
     }
 
@@ -56,7 +59,10 @@ class PhotosFragment : Fragment() {
     private fun loadMorePhotos(){
         loadMoreButton.setOnClickListener {
             onStartLoad()
-            photosVm.addPhotosPage((photosCount / 30) + 1)
+            when(type){
+                "category" -> photosVm.addCategoryPhotosPage((photosCount / 30) + 1)
+                "search" -> photosVm.searchPhotos(searchPhotoET.text.toString(),(photosCount / 30) + 1)
+            }
         }
     }
 
@@ -82,9 +88,11 @@ class PhotosFragment : Fragment() {
     }
 
     private fun search(){
+        photosVm.clearPhotos()
         if(searchPhotoET.text?.toString() != null && searchPhotoET.text?.toString() != ""){
-            photosVm.clearPhotos()
             photosVm.searchPhotos(searchPhotoET.text.toString(),1)
+        }else{
+            photosVm.addCategoryPhotosPage(1)
         }
     }
 }
