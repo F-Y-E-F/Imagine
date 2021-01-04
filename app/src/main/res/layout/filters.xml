@@ -83,25 +83,15 @@
         app:layout_constraintTop_toBottomOf="@+id/horizontalCheckBox" />
 
 
-
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
-        android:layout_width="200dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/colorsGrid"
+        android:layout_marginTop="@dimen/dimen_8"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/rounded_border_5"
-        android:backgroundTint="#232323"
-        android:completionThreshold="1"
-        android:drawableEnd="@drawable/ic_dropdown"
-        android:fontFamily="@font/montserrat_regular"
-        android:hint="Select Colors"
-        android:padding="10dp"
-        android:textColor="@color/colorWhite"
-        android:textColorHint="#ACACAC"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
 
     <TextView
         android:id="@+id/textView7"
@@ -114,6 +104,6 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/colorsGrid" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

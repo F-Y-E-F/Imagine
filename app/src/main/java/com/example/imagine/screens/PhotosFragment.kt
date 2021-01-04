@@ -1,24 +1,32 @@
 package com.example.imagine.screens
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.imagine.R
+import com.example.imagine.models.PhotoColor
 import com.example.imagine.mvvm.view_models.PhotosViewModel
+import com.example.imagine.screens.adapters.ColorsGridAdapter
 import com.example.imagine.screens.adapters.PhotosRecyclerViewAdapter
+import kotlinx.android.synthetic.main.filters.*
 import kotlinx.android.synthetic.main.fragment_photos.*
 
 
 class PhotosFragment : Fragment() {
 
     private val photosVm by viewModels<PhotosViewModel>()
-    private var photosCount =  0
+    private var photosCount = 0
     private var type = "category"
 
     override fun onCreateView(
@@ -36,12 +44,14 @@ class PhotosFragment : Fragment() {
         loadMorePhotos()
         detectSearch()
 
-        photosVm.type.observe(viewLifecycleOwner){ this.type = it }
+        photosVm.type.observe(viewLifecycleOwner) { this.type = it }
 
         filtersImageView.setOnClickListener {
-            if(filters.visibility == View.GONE) filters.visibility = View.VISIBLE
+            if (filters.visibility == View.GONE) filters.visibility = View.VISIBLE
             else filters.visibility = View.GONE
         }
+
+        setupFilters()
 
     }
 
@@ -52,7 +62,7 @@ class PhotosFragment : Fragment() {
             StaggeredGridLayoutManager.VERTICAL
         )
         photosVm.photos.observe(viewLifecycleOwner) {
-            if(it!=null) {
+            if (it != null) {
                 onEndLoad()
                 photosCount = it.photos.size
                 photosRecyclerView.apply {
@@ -64,30 +74,34 @@ class PhotosFragment : Fragment() {
     //========================================================
 
     //---------------------- On load more button click, load more images ----------------------------
-    private fun loadMorePhotos(){
+    private fun loadMorePhotos() {
         loadMoreButton.setOnClickListener {
             onStartLoad()
-            when(type){
+            when (type) {
                 "category" -> photosVm.addCategoryPhotosPage((photosCount / 30) + 1)
-                "search" -> photosVm.searchPhotos(searchPhotoET.text.toString(),(photosCount / 30) + 1)
+                "search" -> photosVm.searchPhotos(
+                    searchPhotoET.text.toString(),
+                    (photosCount / 30) + 1
+                )
             }
         }
     }
     //===============================================================================================
 
     //start loading photos
-    private fun onStartLoad(){
+    private fun onStartLoad() {
         loadMoreButton.visibility = View.GONE
         loadMoreProgress.visibility = View.VISIBLE
     }
+
     //stop loading photos
-    private fun onEndLoad(){
+    private fun onEndLoad() {
         loadMoreButton.visibility = View.VISIBLE
         loadMoreProgress.visibility = View.GONE
     }
 
     //-------------- Search on done button click ------------------
-    private fun detectSearch(){
+    private fun detectSearch() {
         searchPhotoET.imeOptions = EditorInfo.IME_ACTION_DONE
         searchPhotoET.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -102,13 +116,37 @@ class PhotosFragment : Fragment() {
 
 
     //-----------------------| Search the photos |--------------------------
-    private fun search(){
+    private fun search() {
         photosVm.clearPhotos()
-        if(searchPhotoET.text?.toString() != null && searchPhotoET.text?.toString() != ""){
-            photosVm.searchPhotos(searchPhotoET.text.toString(),1)
-        }else{
+        if (searchPhotoET.text?.toString() != null && searchPhotoET.text?.toString() != "") {
+            photosVm.searchPhotos(searchPhotoET.text.toString(), 1)
+        } else {
             photosVm.addCategoryPhotosPage(1)
         }
     }
-    //========================================================================
+    //========================================                    ================================
+
+
+    private fun fillFilterColorsList(): ArrayList<PhotoColor> {
+        val list = ArrayList<PhotoColor>()
+        list.add(PhotoColor("Grayscale", Color.parseColor("#C0C0C0"), false))
+        list.add(PhotoColor("Transparent", Color.parseColor("#00FFFFFF"), false))
+        list.add(PhotoColor("Red", Color.parseColor("#FF0000"), false))
+        list.add(PhotoColor("Orange", Color.parseColor("#ffb700"), false))
+        list.add(PhotoColor("Yellow", Color.parseColor("#fff700"), false))
+        list.add(PhotoColor("Green", Color.parseColor("#27e800"), false))
+        list.add(PhotoColor("Turquoise", Color.parseColor("#00d3de"), false))
+        list.add(PhotoColor("Blue", Color.parseColor("#0008ff"), false))
+        list.add(PhotoColor("Pink", Color.parseColor("#ff00dd"), false))
+        list.add(PhotoColor("White", Color.parseColor("#FFFFFF"), false))
+        list.add(PhotoColor("Gray", Color.parseColor("#343434"), false))
+        list.add(PhotoColor("Black", Color.parseColor("#000000"), false))
+        list.add(PhotoColor("Brown", Color.parseColor("#663c00"), false))
+        return list
+    }
+
+    private fun setupFilters() {
+       colorsGrid.layoutManager = LinearLayoutManager(requireContext())
+        colorsGrid.adapter = ColorsGridAdapter(fillFilterColorsList())
+    }
 }
