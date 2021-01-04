@@ -38,6 +38,11 @@ class PhotosFragment : Fragment() {
 
         photosVm.type.observe(viewLifecycleOwner){ this.type = it }
 
+        filtersImageView.setOnClickListener {
+            if(filters.visibility == View.GONE) filters.visibility = View.VISIBLE
+            else filters.visibility = View.GONE
+        }
+
     }
 
     //---------------| Get Start Photos |------------------
