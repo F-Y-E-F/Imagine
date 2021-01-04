@@ -66,7 +66,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/searchPhotoET"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_8"
@@ -76,13 +76,14 @@
             android:drawablePadding="10dp"
             android:fontFamily="@font/opensans_semibold"
             android:hint="Search"
-            android:importantForAutofill="no"
+            android:imeActionLabel="Done"
+            android:imeOptions="actionDone"
             android:inputType="text"
-            android:maxLines="1"
             android:paddingStart="15dp"
             android:paddingTop="10dp"
             android:paddingEnd="15dp"
             android:paddingBottom="10dp"
+            android:singleLine="true"
             android:textColor="#E1E1E1"
             android:textColorHint="#ACACAC"
             app:layout_constraintEnd_toEndOf="@+id/textView3"
@@ -103,7 +104,7 @@
             android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            app:layout_constraintTop_toBottomOf="@+id/searchPhotoET" />
 
         <Button
             android:id="@+id/loadMoreButton"
