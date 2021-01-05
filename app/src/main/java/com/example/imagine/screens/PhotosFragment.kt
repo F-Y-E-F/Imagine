@@ -149,6 +149,8 @@ class PhotosFragment : Fragment(),ColorsInterface {
         return list
     }
 
+
+    //-------------------| Setup Filters Data |----------------------
     private fun setupFilters() {
         colorsGrid.layoutManager = GridLayoutManager(requireContext(), 6, GridLayoutManager.VERTICAL, false)
         colorsGrid.adapter = ColorsGridAdapter(colors,this)
@@ -157,11 +159,12 @@ class PhotosFragment : Fragment(),ColorsInterface {
         detectChangeOnCheckboxes()
         applyFilters()
     }
+    //=================================================================
 
 
+    //----------------------| Get Filters Data From View Model |---------------------------
     private fun setFiltersViewModelData(){
         photosVm.filters.observe(viewLifecycleOwner){
-            
             grayscaleCheckBox.isChecked = it.isGrayScale
             transparentCheckBox.isChecked = it.isTransparent
 
@@ -172,10 +175,10 @@ class PhotosFragment : Fragment(),ColorsInterface {
                 colorsGrid.adapter = ColorsGridAdapter(colors,this)
         }
     }
+    //=====================================================================================
 
 
-
-
+    //----------------------------| Detect if somebody check the radio button or checkbox |--------------------------------------
     private fun detectChangeOnCheckboxes(){
         popularCheckBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) latestCheckBox.isChecked = false
@@ -194,8 +197,10 @@ class PhotosFragment : Fragment(),ColorsInterface {
             else colorsGrid.adapter = ColorsGridAdapter(colors,this)
         }
     }
+    //=============================================================================================================================
 
 
+    //--------------------------------------| Apply filters to view model on apply button was clicked |---------------------------------------
     private fun applyFilters(){
         applyFiltersButton.setOnClickListener {
             val orientation : String = if (verticalCheckBox.isChecked && horizontalCheckBox.isChecked) "all"
@@ -220,12 +225,15 @@ class PhotosFragment : Fragment(),ColorsInterface {
             filters.visibility = View.GONE
         }
     }
+    //============================================================================================================================================
 
 
     //set colors list to the list from gridview
     override fun setColor(listOfColors:ArrayList<PhotoColor>) {
         colors = listOfColors
     }
+
+
 }
 
 
