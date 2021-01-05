@@ -129,24 +129,29 @@ class PhotosFragment : Fragment() {
 
     private fun fillFilterColorsList(): ArrayList<PhotoColor> {
         val list = ArrayList<PhotoColor>()
-        list.add(PhotoColor("Grayscale", Color.parseColor("#C0C0C0"), false))
-        list.add(PhotoColor("Transparent", Color.parseColor("#00FFFFFF"), false))
         list.add(PhotoColor("Red", Color.parseColor("#FF0000"), false))
         list.add(PhotoColor("Orange", Color.parseColor("#ffb700"), false))
         list.add(PhotoColor("Yellow", Color.parseColor("#fff700"), false))
         list.add(PhotoColor("Green", Color.parseColor("#27e800"), false))
         list.add(PhotoColor("Turquoise", Color.parseColor("#00d3de"), false))
         list.add(PhotoColor("Blue", Color.parseColor("#0008ff"), false))
+        list.add(PhotoColor("Lilac", Color.parseColor("#af30cf"), false))
         list.add(PhotoColor("Pink", Color.parseColor("#ff00dd"), false))
         list.add(PhotoColor("White", Color.parseColor("#FFFFFF"), false))
-        list.add(PhotoColor("Gray", Color.parseColor("#343434"), false))
+        list.add(PhotoColor("Gray", Color.parseColor("#434343"), false))
         list.add(PhotoColor("Black", Color.parseColor("#000000"), false))
         list.add(PhotoColor("Brown", Color.parseColor("#663c00"), false))
         return list
     }
 
     private fun setupFilters() {
-       colorsGrid.layoutManager = LinearLayoutManager(requireContext())
+        colorsGrid.layoutManager = GridLayoutManager(requireContext(),6,GridLayoutManager.VERTICAL,false)
         colorsGrid.adapter = ColorsGridAdapter(fillFilterColorsList())
+
+        popularCheckBox.setOnCheckedChangeListener { _, isChecked -> if(isChecked) latestCheckBox.isChecked = false }
+        latestCheckBox.setOnCheckedChangeListener { _, isChecked -> if(isChecked) popularCheckBox.isChecked = false }
+
+        
+
     }
 }

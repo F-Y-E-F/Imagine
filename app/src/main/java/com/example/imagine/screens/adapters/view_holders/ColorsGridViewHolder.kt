@@ -5,10 +5,8 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.color_acrv_row.view.*
+import kotlinx.android.synthetic.main.color_in_filters.view.*
 
 class ColorsGridViewHolder(v:View):RecyclerView.ViewHolder(v) {
-    val name:TextView = v.colorName
     val color: ImageView = v.colorColor
-    val checked:CheckBox = v.colorChecked
 }
