@@ -2,6 +2,7 @@ package com.example.imagine.screens
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,18 +17,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.imagine.R
 import com.example.imagine.models.PhotoColor
+import com.example.imagine.mvvm.models.Filters
 import com.example.imagine.mvvm.view_models.PhotosViewModel
 import com.example.imagine.screens.adapters.ColorsGridAdapter
 import com.example.imagine.screens.adapters.PhotosRecyclerViewAdapter
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.filters.*
 import kotlinx.android.synthetic.main.fragment_photos.*
 
 
-class PhotosFragment : Fragment() {
+class PhotosFragment : Fragment(),ColorsInterface {
 
     private val photosVm by viewModels<PhotosViewModel>()
     private var photosCount = 0
     private var type = "category"
+
+    private var colors = fillFilterColorsList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -145,14 +150,58 @@ class PhotosFragment : Fragment() {
     }
 
     private fun setupFilters() {
-        colorsGrid.layoutManager = GridLayoutManager(requireContext(),6,GridLayoutManager.VERTICAL,false)
-        colorsGrid.adapter = ColorsGridAdapter(fillFilterColorsList())
+        colorsGrid.layoutManager =
+            GridLayoutManager(requireContext(), 6, GridLayoutManager.VERTICAL, false)
 
-        popularCheckBox.setOnCheckedChangeListener { _, isChecked -> if(isChecked) latestCheckBox.isChecked = false }
-        latestCheckBox.setOnCheckedChangeListener { _, isChecked -> if(isChecked) popularCheckBox.isChecked = false }
+        colorsGrid.adapter = ColorsGridAdapter(colors,this)
+        photosVm.filters.observe(viewLifecycleOwner){
+            this.colors = it.colors
+            colorsGrid.adapter = ColorsGridAdapter(colors,this)
+        }
+
+
+        popularCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) latestCheckBox.isChecked = false
+        }
+        latestCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) popularCheckBox.isChecked = false
+        }
 
         applyFiltersButton.setOnClickListener {
+            val orientation : String = if (verticalCheckBox.isChecked && horizontalCheckBox.isChecked) "all"
+            else if (verticalCheckBox.isChecked) "vertical"
+            else if (horizontalCheckBox.isChecked) "horizontal"
+            else{
+                Snackbar.make(requireView(), "Please choose orientation", Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(Color.parseColor("#232323")).show()
+                return@setOnClickListener
+            }
 
+            val order = if(latestCheckBox.isChecked) "latest" else "popular"
+
+            photosVm.setFilters(
+                Filters(
+                    orientation,
+                    colors,order
+                )
+            )
+            filters.visibility = View.GONE
         }
     }
+
+    override fun setColor(listOfColors:ArrayList<PhotoColor>) {
+        colors = listOfColors
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+

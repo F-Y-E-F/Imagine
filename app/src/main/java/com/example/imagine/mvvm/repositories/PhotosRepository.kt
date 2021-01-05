@@ -2,6 +2,7 @@ package com.example.imagine.mvvm.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.imagine.mvvm.models.Filters
 import com.example.imagine.mvvm.models.SearchResult
 import com.example.imagine.retrofit.PhotosClient
 import com.example.imagine.retrofit.PhotosService
@@ -11,6 +12,7 @@ class PhotosRepository {
     private val result = MutableLiveData<SearchResult>()
     private val client:PhotosService = PhotosClient.client
     val type = MutableLiveData<String>()
+    val filters = MutableLiveData<Filters>()
 
     //add photos page to existing photos
     private fun addPage(searchResult:SearchResult){
@@ -53,5 +55,11 @@ class PhotosRepository {
     fun clearPhotos(){
         result.postValue(null)
     }
+
+
+    fun setFilters(userFilters: Filters){
+        filters.postValue(userFilters)
+    }
+
 
 }
