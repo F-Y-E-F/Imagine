@@ -151,7 +151,8 @@ class PhotosFragment : Fragment() {
         popularCheckBox.setOnCheckedChangeListener { _, isChecked -> if(isChecked) latestCheckBox.isChecked = false }
         latestCheckBox.setOnCheckedChangeListener { _, isChecked -> if(isChecked) popularCheckBox.isChecked = false }
 
-        
+        applyFiltersButton.setOnClickListener {
 
+        }
     }
 }
