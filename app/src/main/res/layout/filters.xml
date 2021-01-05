@@ -71,11 +71,11 @@
         android:text="Transparent"
         android:textColor="@color/colorWhite"
         android:textSize="13.5sp"
-        app:layout_constraintBottom_toBottomOf="@+id/verticalCheckBox4"
+        app:layout_constraintBottom_toBottomOf="@+id/transparentCheckBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/verticalCheckBox4"
-        app:layout_constraintTop_toTopOf="@+id/verticalCheckBox4"
+        app:layout_constraintStart_toEndOf="@+id/transparentCheckBox"
+        app:layout_constraintTop_toTopOf="@+id/transparentCheckBox"
         app:layout_constraintVertical_bias="0.533" />
 
     <TextView
@@ -86,11 +86,11 @@
         android:text="Grayscale"
         android:textColor="@color/colorWhite"
         android:textSize="13.5sp"
-        app:layout_constraintBottom_toBottomOf="@+id/verticalCheckBox5"
+        app:layout_constraintBottom_toBottomOf="@+id/grayscaleCheckBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/verticalCheckBox5"
-        app:layout_constraintTop_toBottomOf="@+id/verticalCheckBox4"
+        app:layout_constraintStart_toEndOf="@+id/grayscaleCheckBox"
+        app:layout_constraintTop_toBottomOf="@+id/transparentCheckBox"
         />
 
     <TextView
@@ -117,7 +117,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <CheckBox
-        android:id="@+id/verticalCheckBox4"
+        android:id="@+id/transparentCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -129,7 +129,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <CheckBox
-        android:id="@+id/verticalCheckBox5"
+        android:id="@+id/grayscaleCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:buttonTint="@color/colorWhite"
@@ -137,8 +137,8 @@
         android:scaleX="0.9"
         android:scaleY="0.9"
         app:layout_constraintEnd_toStartOf="@+id/textView8"
-        app:layout_constraintStart_toStartOf="@+id/verticalCheckBox4"
-        app:layout_constraintTop_toBottomOf="@+id/verticalCheckBox4" />
+        app:layout_constraintStart_toStartOf="@+id/transparentCheckBox"
+        app:layout_constraintTop_toBottomOf="@+id/transparentCheckBox" />
 
     <RadioButton
         android:id="@+id/popularCheckBox"
@@ -192,7 +192,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/verticalCheckBox5" />
+        app:layout_constraintTop_toBottomOf="@+id/grayscaleCheckBox" />
 
     <TextView
         android:id="@+id/textView7"
