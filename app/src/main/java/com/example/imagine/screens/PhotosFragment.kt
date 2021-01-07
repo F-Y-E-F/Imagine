@@ -114,7 +114,6 @@ class PhotosFragment : Fragment(),ColorsInterface {
         searchPhotoET.imeOptions = EditorInfo.IME_ACTION_DONE
         searchPhotoET.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                Toast.makeText(requireContext(), searchPhotoET.text, Toast.LENGTH_SHORT).show()
                 searchPhotoET.clearFocus()
                 search()
             }
@@ -127,6 +126,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
     //-----------------------| Search the photos |--------------------------
     private fun search() {
         photosVm.clearPhotos()
+        onStartLoad()
         if (searchPhotoET.text?.toString() != null && searchPhotoET.text?.toString() != "") {
             photosVm.searchPhotos(searchPhotoET.text.toString(), 1)
         } else {

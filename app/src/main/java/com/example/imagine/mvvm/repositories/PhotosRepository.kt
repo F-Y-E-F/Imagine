@@ -40,7 +40,7 @@ class PhotosRepository {
         val orientation:String? = getOrientation()
         val order:String? = getOrderType()
         val colors:List<String>? = getColors()
-        client.getPhotos(nbOfPage,orientation,order,colors as List<String>?).subscribeOn(Schedulers.io())
+        client.getPhotos(nbOfPage,orientation,order, colors).subscribeOn(Schedulers.io())
             .subscribe {
                 addPage(it)
                 type.postValue("category")
@@ -50,7 +50,10 @@ class PhotosRepository {
 
     //get searched photos page
     fun searchPhotos(query:String?, nbOfPage: Int?){
-        client.getQueryPhotos(query, nbOfPage).subscribeOn(Schedulers.io())
+        val orientation:String? = getOrientation()
+        val order:String? = getOrderType()
+        val colors:List<String>? = getColors()
+        client.getQueryPhotos(query, nbOfPage,orientation,order, colors).subscribeOn(Schedulers.io())
             .subscribe{
                 addPage(it)
                 type.postValue("search")
@@ -68,6 +71,8 @@ class PhotosRepository {
         filters.postValue(userFilters)
     }
 
+
+    //-------------------------------| get query string types |----------------------------------------
 
     private fun getOrientation():String?{
         var orientation:String? = null
@@ -100,5 +105,7 @@ class PhotosRepository {
         }
         return colors
     }
+
+    //=================================================================================================
 
 }

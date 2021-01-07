@@ -14,5 +14,5 @@ interface PhotosService {
 
     //searched
     @GET("?key=${SecretApiKey.apiKey}&pretty=true&per_page=30&order=popular&safesearch=true&image_type=photo")
-    fun getQueryPhotos(@Query("q") q:String?, @Query("page") page:Int?) : Observable<SearchResult>
+    fun getQueryPhotos(@Query("q") q:String?, @Query("page") page:Int?, @Query("orientation") orientation:String?, @Query("order") order:String?, @Query("colors") colors : List<String>?) : Observable<SearchResult>
 }
