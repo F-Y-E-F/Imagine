@@ -1,5 +1,6 @@
 package com.example.imagine.mvvm.repositories
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.imagine.mvvm.models.Filters
@@ -7,6 +8,8 @@ import com.example.imagine.mvvm.models.SearchResult
 import com.example.imagine.retrofit.PhotosClient
 import com.example.imagine.retrofit.PhotosService
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PhotosRepository {
     private val result = MutableLiveData<SearchResult>()
@@ -34,7 +37,29 @@ class PhotosRepository {
 
     //get category photos page
     fun addCategoryPhotosPage(nbOfPage: Int?) {
-        client.getPhotos(nbOfPage).subscribeOn(Schedulers.io())
+        var orientation:String? = null
+        var order:String? = null
+        var colors:ArrayList<String>? = null
+        if(filters.value != null){
+            colors = arrayListOf()
+            orientation = filters.value!!.orientation
+            order = filters.value!!.order
+            if(filters.value!!.isGrayScale)
+                colors.add("grayscale")
+            if(filters.value!!.isTransparent)
+                colors.add("transparent")
+
+            if(!filters.value!!.isGrayScale){
+                filters.value!!.colors.forEach {
+                    if(it.isChecked) colors.add(it.name.toLowerCase(Locale.getDefault()))
+                }
+            }
+            Log.d("TAG",colors.toString())
+            Log.d("TAG",order.toString())
+            Log.d("TAG",orientation.toString())
+        }
+
+        client.getPhotos(nbOfPage,orientation,order,colors as List<String>?).subscribeOn(Schedulers.io())
             .subscribe {
                 addPage(it)
                 type.postValue("category")
@@ -62,4 +87,8 @@ class PhotosRepository {
     }
 
 
+    private fun checkColor(actualColor:String,colorToAdd:String):String{
+        return if(actualColor.isEmpty()) colorToAdd
+        else "&colors=$colorToAdd"
+    }
 }

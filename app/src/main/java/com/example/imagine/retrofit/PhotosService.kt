@@ -9,8 +9,8 @@ import retrofit2.http.Query
 
 interface PhotosService {
     //not searched
-    @GET("?key=${SecretApiKey.apiKey}&pretty=true&per_page=30&order=latest&safesearch=true")
-    fun getPhotos(@Query("page") page:Int?) : Observable<SearchResult>
+    @GET("?key=${SecretApiKey.apiKey}&pretty=true&per_page=30&safesearch=true&image_type=photo")
+    fun getPhotos(@Query("page") page:Int?, @Query("orientation") orientation:String?, @Query("order") order:String?, @Query("colors") colors : List<String>?) : Observable<SearchResult>
 
     //searched
     @GET("?key=${SecretApiKey.apiKey}&pretty=true&per_page=30&order=popular&safesearch=true")

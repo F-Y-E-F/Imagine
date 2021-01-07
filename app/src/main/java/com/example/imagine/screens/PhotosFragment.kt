@@ -129,7 +129,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
             photosVm.addCategoryPhotosPage(1)
         }
     }
-    //========================================                    ================================
+    //=======================================================================
 
 
     private fun fillFilterColorsList(): ArrayList<PhotoColor> {
@@ -152,10 +152,10 @@ class PhotosFragment : Fragment(),ColorsInterface {
 
     //-------------------| Setup Filters Data |----------------------
     private fun setupFilters() {
-        colorsGrid.layoutManager = GridLayoutManager(requireContext(), 6, GridLayoutManager.VERTICAL, false)
-
-
-        colorsGrid.adapter = ColorsGridAdapter(colors,this)
+        colorsGrid.apply {
+            layoutManager = GridLayoutManager(requireContext(), 6, GridLayoutManager.VERTICAL, false)
+            adapter = ColorsGridAdapter(colors,this@PhotosFragment)
+        }
 
         setFiltersViewModelData()
         detectChangeOnCheckboxes()
@@ -172,7 +172,6 @@ class PhotosFragment : Fragment(),ColorsInterface {
     //----------------------| Get Filters Data From View Model |---------------------------
     private fun setFiltersViewModelData(){
         photosVm.filters.observe(viewLifecycleOwner){
-            Log.d("TAG","wykonaLO SIE")
             grayscaleCheckBox.isChecked = it.isGrayScale
             transparentCheckBox.isChecked = it.isTransparent
             this.colors = it.colors
@@ -191,7 +190,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
                 popularCheckBox.isChecked = true
             }
 
-            if(it.isGrayScale || it.isTransparent)
+            if(it.isGrayScale)
                 colorsGrid.adapter = null
             else
                 colorsGrid.adapter = ColorsGridAdapter(colors,this)
@@ -209,13 +208,8 @@ class PhotosFragment : Fragment(),ColorsInterface {
             if (isChecked) popularCheckBox.isChecked = false
         }
 
-        transparentCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked || grayscaleCheckBox.isChecked) colorsGrid.adapter = null
-            else colorsGrid.adapter = ColorsGridAdapter(colors,this)
-        }
-
         grayscaleCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked || transparentCheckBox.isChecked) colorsGrid.adapter = null
+            if(isChecked) colorsGrid.adapter = null
             else colorsGrid.adapter = ColorsGridAdapter(colors,this)
         }
     }
