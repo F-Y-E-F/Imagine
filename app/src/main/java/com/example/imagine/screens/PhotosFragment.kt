@@ -1,12 +1,12 @@
 package com.example.imagine.screens
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.*
@@ -45,7 +45,6 @@ class PhotosFragment : Fragment(),ColorsInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         getInitialPhotos()
         loadMorePhotos()
@@ -110,6 +109,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
     }
 
     //-------------- Search on done button click ------------------
+    @SuppressLint("ClickableViewAccessibility")
     private fun detectSearch() {
         searchPhotoET.imeOptions = EditorInfo.IME_ACTION_DONE
         searchPhotoET.setOnEditorActionListener { v, actionId, event ->
@@ -119,6 +119,23 @@ class PhotosFragment : Fragment(),ColorsInterface {
             }
             false
         }
+
+        //delete text click
+        searchPhotoET.setOnTouchListener(OnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= searchPhotoET.right - searchPhotoET.compoundDrawables[2].bounds.width() - 20) {
+                    searchPhotoET.apply {
+                        clearFocus()
+                        text.clear()
+                    }
+                    photosVm.clearPhotos()
+                    onStartLoad()
+                    photosVm.addCategoryPhotosPage(1)
+                    return@OnTouchListener true
+                }
+            }
+            false
+        })
     }
     //==============================================================
 
@@ -157,8 +174,13 @@ class PhotosFragment : Fragment(),ColorsInterface {
     //-------------------| Setup Filters Data |----------------------
     private fun setupFilters() {
         colorsGrid.apply {
-            layoutManager = GridLayoutManager(requireContext(), 6, GridLayoutManager.VERTICAL, false)
-            adapter = ColorsGridAdapter(colors,this@PhotosFragment)
+            layoutManager = GridLayoutManager(
+                requireContext(),
+                6,
+                GridLayoutManager.VERTICAL,
+                false
+            )
+            adapter = ColorsGridAdapter(colors, this@PhotosFragment)
         }
 
         setFiltersViewModelData()
@@ -168,7 +190,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
     //=================================================================
 
     //set check of orientation checkboxes
-    private fun setOrientationCheckBoxChecked(firstState:Boolean, secondState:Boolean){
+    private fun setOrientationCheckBoxChecked(firstState: Boolean, secondState: Boolean){
         verticalCheckBox.isChecked = firstState
         horizontalCheckBox.isChecked = secondState
     }
@@ -181,7 +203,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
                 onStartLoad()
                 when (type) {
                     "category" -> photosVm.addCategoryPhotosPage(1)
-                    "search" -> photosVm.searchPhotos(searchPhotoET.text.toString(),1)
+                    "search" -> photosVm.searchPhotos(searchPhotoET.text.toString(), 1)
                 }
             }
 
@@ -190,8 +212,15 @@ class PhotosFragment : Fragment(),ColorsInterface {
             this.colors = it.colors
 
             when (it.orientation) {
-                "all" -> { setOrientationCheckBoxChecked(firstState = true, secondState = true) }
-                "horizontal" -> { setOrientationCheckBoxChecked(firstState = false, secondState = true) }
+                "all" -> {
+                    setOrientationCheckBoxChecked(firstState = true, secondState = true)
+                }
+                "horizontal" -> {
+                    setOrientationCheckBoxChecked(
+                        firstState = false,
+                        secondState = true
+                    )
+                }
                 else -> { setOrientationCheckBoxChecked(firstState = true, secondState = false) }
             }
 
@@ -206,7 +235,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
             if(it.isGrayScale)
                 colorsGrid.adapter = null
             else
-                colorsGrid.adapter = ColorsGridAdapter(colors,this)
+                colorsGrid.adapter = ColorsGridAdapter(colors, this)
         }
     }
     //=====================================================================================
@@ -223,7 +252,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
 
         grayscaleCheckBox.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked) colorsGrid.adapter = null
-            else colorsGrid.adapter = ColorsGridAdapter(colors,this)
+            else colorsGrid.adapter = ColorsGridAdapter(colors, this)
         }
     }
     //=============================================================================================================================
@@ -247,7 +276,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
             photosVm.setFilters(
                 Filters(
                     orientation,
-                    colors,order,
+                    colors, order,
                     grayscaleCheckBox.isChecked,
                     transparentCheckBox.isChecked
                 )
@@ -260,7 +289,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
 
 
     //set colors list to the list from gridview
-    override fun setColor(listOfColors:ArrayList<PhotoColor>) {
+    override fun setColor(listOfColors: ArrayList<PhotoColor>) {
         colors = listOfColors
     }
 
