@@ -7,13 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.imagine.R
 import com.example.imagine.models.PhotoColor
@@ -23,7 +20,9 @@ import com.example.imagine.screens.adapters.ColorsGridAdapter
 import com.example.imagine.screens.adapters.PhotosRecyclerViewAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.filters.*
+import kotlinx.android.synthetic.main.filters.view.*
 import kotlinx.android.synthetic.main.fragment_photos.*
+import kotlinx.android.synthetic.main.fragment_photos.view.*
 
 
 class PhotosFragment : Fragment(),ColorsInterface {
@@ -45,19 +44,20 @@ class PhotosFragment : Fragment(),ColorsInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         getInitialPhotos()
         loadMorePhotos()
         detectSearch()
 
         photosVm.type.observe(viewLifecycleOwner) { this.type = it }
 
+
+        setupFilters()
+
         filtersImageView.setOnClickListener {
             if (filters.visibility == View.GONE) filters.visibility = View.VISIBLE
             else filters.visibility = View.GONE
         }
-
-        setupFilters()
-
     }
 
     //---------------| Get Start Photos |------------------
@@ -153,6 +153,8 @@ class PhotosFragment : Fragment(),ColorsInterface {
     //-------------------| Setup Filters Data |----------------------
     private fun setupFilters() {
         colorsGrid.layoutManager = GridLayoutManager(requireContext(), 6, GridLayoutManager.VERTICAL, false)
+
+
         colorsGrid.adapter = ColorsGridAdapter(colors,this)
 
         setFiltersViewModelData()
@@ -161,14 +163,34 @@ class PhotosFragment : Fragment(),ColorsInterface {
     }
     //=================================================================
 
+    //set check of orientation checkboxes
+    private fun setOrientationCheckBoxChecked(firstState:Boolean, secondState:Boolean){
+        verticalCheckBox.isChecked = firstState
+        horizontalCheckBox.isChecked = secondState
+    }
 
     //----------------------| Get Filters Data From View Model |---------------------------
     private fun setFiltersViewModelData(){
         photosVm.filters.observe(viewLifecycleOwner){
+            Log.d("TAG","wykonaLO SIE")
             grayscaleCheckBox.isChecked = it.isGrayScale
             transparentCheckBox.isChecked = it.isTransparent
-
             this.colors = it.colors
+
+            when (it.orientation) {
+                "all" -> { setOrientationCheckBoxChecked(firstState = true, secondState = true) }
+                "horizontal" -> { setOrientationCheckBoxChecked(firstState = false, secondState = true) }
+                else -> { setOrientationCheckBoxChecked(firstState = true, secondState = false) }
+            }
+
+            if(it.order == "latest") {
+                latestCheckBox.isChecked = true
+                popularCheckBox.isChecked = false
+            }else{
+                latestCheckBox.isChecked = false
+                popularCheckBox.isChecked = true
+            }
+
             if(it.isGrayScale || it.isTransparent)
                 colorsGrid.adapter = null
             else
@@ -231,6 +253,17 @@ class PhotosFragment : Fragment(),ColorsInterface {
     //set colors list to the list from gridview
     override fun setColor(listOfColors:ArrayList<PhotoColor>) {
         colors = listOfColors
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        setOrientationCheckBoxChecked(firstState = true, secondState = true)
+        transparentCheckBox.isChecked = false
+        grayscaleCheckBox.isChecked = false
+        popularCheckBox.isChecked = true
+        latestCheckBox.isChecked = false
+
     }
 
 
