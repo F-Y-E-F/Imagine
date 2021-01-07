@@ -2,6 +2,8 @@ package com.example.imagine.screens
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -73,6 +75,8 @@ class PhotosFragment : Fragment(),ColorsInterface {
                 photosRecyclerView.apply {
                     adapter = PhotosRecyclerViewAdapter(it.photos)
                 }
+            }else{
+                photosRecyclerView.adapter = null
             }
         }
     }
@@ -172,6 +176,15 @@ class PhotosFragment : Fragment(),ColorsInterface {
     //----------------------| Get Filters Data From View Model |---------------------------
     private fun setFiltersViewModelData(){
         photosVm.filters.observe(viewLifecycleOwner){
+
+            if(photosVm.photos.value == null){
+                onStartLoad()
+                when (type) {
+                    "category" -> photosVm.addCategoryPhotosPage(1)
+                    "search" -> photosVm.searchPhotos(searchPhotoET.text.toString(),1)
+                }
+            }
+
             grayscaleCheckBox.isChecked = it.isGrayScale
             transparentCheckBox.isChecked = it.isTransparent
             this.colors = it.colors
@@ -230,6 +243,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
 
             val order = if(latestCheckBox.isChecked) "latest" else "popular"
 
+            photosVm.clearPhotos()
             photosVm.setFilters(
                 Filters(
                     orientation,
@@ -239,6 +253,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
                 )
             )
             filters.visibility = View.GONE
+
         }
     }
     //============================================================================================================================================

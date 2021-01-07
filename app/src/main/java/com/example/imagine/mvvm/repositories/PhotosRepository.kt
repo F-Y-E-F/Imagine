@@ -37,28 +37,9 @@ class PhotosRepository {
 
     //get category photos page
     fun addCategoryPhotosPage(nbOfPage: Int?) {
-        var orientation:String? = null
-        var order:String? = null
-        var colors:ArrayList<String>? = null
-        if(filters.value != null){
-            colors = arrayListOf()
-            orientation = filters.value!!.orientation
-            order = filters.value!!.order
-            if(filters.value!!.isGrayScale)
-                colors.add("grayscale")
-            if(filters.value!!.isTransparent)
-                colors.add("transparent")
-
-            if(!filters.value!!.isGrayScale){
-                filters.value!!.colors.forEach {
-                    if(it.isChecked) colors.add(it.name.toLowerCase(Locale.getDefault()))
-                }
-            }
-            Log.d("TAG",colors.toString())
-            Log.d("TAG",order.toString())
-            Log.d("TAG",orientation.toString())
-        }
-
+        val orientation:String? = getOrientation()
+        val order:String? = getOrderType()
+        val colors:List<String>? = getColors()
         client.getPhotos(nbOfPage,orientation,order,colors as List<String>?).subscribeOn(Schedulers.io())
             .subscribe {
                 addPage(it)
@@ -82,13 +63,42 @@ class PhotosRepository {
     }
 
 
+    //post value to filters
     fun setFilters(userFilters: Filters){
         filters.postValue(userFilters)
     }
 
 
-    private fun checkColor(actualColor:String,colorToAdd:String):String{
-        return if(actualColor.isEmpty()) colorToAdd
-        else "&colors=$colorToAdd"
+    private fun getOrientation():String?{
+        var orientation:String? = null
+        if(filters.value != null) {
+            orientation = filters.value!!.orientation
+        }
+        return orientation
     }
+
+    private fun getOrderType():String?{
+        var order:String? = null
+        if(filters.value != null) {
+            order = filters.value!!.order
+        }
+        return order
+    }
+
+
+    private fun getColors():List<String>?{
+        var colors:ArrayList<String>? = null
+        if(filters.value != null) {
+            colors = arrayListOf()
+            if(!filters.value!!.isGrayScale){
+                filters.value!!.colors.forEach {
+                    if(it.isChecked) colors.add(it.name.toLowerCase(Locale.getDefault()))
+                }
+            }else{
+                colors.add("grayscale")
+            }
+        }
+        return colors
+    }
+
 }
