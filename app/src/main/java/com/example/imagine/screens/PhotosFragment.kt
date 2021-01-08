@@ -199,7 +199,9 @@ class PhotosFragment : Fragment(), ColorsInterface {
     private fun setFiltersViewModelData() {
         photosVm.filters.observe(viewLifecycleOwner) {
             if (it != null) {
+
                 if (photosVm.photos.value == null) {
+                    //if photos is null (on setup filters) no on rotate device
                     onStartLoad()
                     when (type) {
                         "category" -> photosVm.addCategoryPhotosPage(1)
@@ -207,6 +209,7 @@ class PhotosFragment : Fragment(), ColorsInterface {
                     }
                 }
 
+                //setup checkboxes state based on filters
                 grayscaleCheckBox.isChecked = it.isGrayScale
                 transparentCheckBox.isChecked = it.isTransparent
                 this.colors = it.colors
@@ -238,8 +241,10 @@ class PhotosFragment : Fragment(), ColorsInterface {
                     colorsGrid.adapter = null
                 else
                     colorsGrid.adapter = ColorsGridAdapter(colors, this)
-            }else{
+            } else {
+                //on reset filters
                 if (photosVm.photos.value == null) {
+                    //no on rotate
                     colors = fillFilterColorsList()
                     resetFilters()
                     when (type) {
@@ -273,6 +278,8 @@ class PhotosFragment : Fragment(), ColorsInterface {
 
     //--------------------------------------| Apply filters to view model on apply button was clicked |---------------------------------------
     private fun applyFilters() {
+
+        //reset filters to start state
         resetFiltersButton.setOnClickListener {
             photosVm.clearPhotos()
             onStartLoad()
@@ -307,13 +314,15 @@ class PhotosFragment : Fragment(), ColorsInterface {
     }
     //============================================================================================================================================
 
-        private fun resetFilters(){
+    //-----------------------| Reset filters checkboxes to start state |----------------------------
+    private fun resetFilters() {
         setOrientationCheckBoxChecked(firstState = true, secondState = true)
         transparentCheckBox.isChecked = false
         grayscaleCheckBox.isChecked = false
         popularCheckBox.isChecked = true
         latestCheckBox.isChecked = false
     }
+    //==============================================================================================
 
     //set colors list to the list from gridview
     override fun setColor(listOfColors: ArrayList<PhotoColor>) {
@@ -325,17 +334,4 @@ class PhotosFragment : Fragment(), ColorsInterface {
         resetFilters()
     }
 
-
 }
-
-
-
-
-
-
-
-
-
-
-
-

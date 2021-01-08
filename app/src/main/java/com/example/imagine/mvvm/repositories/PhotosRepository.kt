@@ -35,7 +35,7 @@ class PhotosRepository {
     }
 
 
-    //get category photos page
+    //--------------------------------| get category photos page |----------------------------------
     fun addCategoryPhotosPage(nbOfPage: Int?) {
         val orientation:String? = getOrientation()
         val order:String? = getOrderType()
@@ -46,9 +46,10 @@ class PhotosRepository {
                 type.postValue("category")
             }
     }
+    //==============================================================================================
 
 
-    //get searched photos page
+    //---------------------------------| get searched photos page |---------------------------------
     fun searchPhotos(query:String?, nbOfPage: Int?){
         val orientation:String? = getOrientation()
         val order:String? = getOrderType()
@@ -59,6 +60,7 @@ class PhotosRepository {
                 type.postValue("search")
             }
     }
+    //==============================================================================================
 
     //clear all photos
     fun clearPhotos(){
