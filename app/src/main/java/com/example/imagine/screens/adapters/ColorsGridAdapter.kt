@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imagine.R
 import com.example.imagine.models.PhotoColor
-import com.example.imagine.screens.ColorsInterface
+import com.example.imagine.screens.PhotosInterface
 import com.example.imagine.screens.adapters.view_holders.ColorsGridViewHolder
 
-class ColorsGridAdapter(private val listOfColors:ArrayList<PhotoColor>,private val listener:ColorsInterface):RecyclerView.Adapter<ColorsGridViewHolder>() {
+class ColorsGridAdapter(private val listOfColors:ArrayList<PhotoColor>,private val listener:PhotosInterface):RecyclerView.Adapter<ColorsGridViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorsGridViewHolder {
         return ColorsGridViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.color_in_filters,parent,false))
     }

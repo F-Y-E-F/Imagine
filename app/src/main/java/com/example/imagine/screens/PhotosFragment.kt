@@ -1,6 +1,8 @@
 package com.example.imagine.screens
 
 import android.annotation.SuppressLint
+import android.app.ActivityOptions
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.imagine.R
 import com.example.imagine.models.PhotoColor
 import com.example.imagine.mvvm.models.Filters
+import com.example.imagine.mvvm.models.Photo
 import com.example.imagine.mvvm.view_models.PhotosViewModel
 import com.example.imagine.screens.adapters.ColorsGridAdapter
 import com.example.imagine.screens.adapters.PhotosRecyclerViewAdapter
@@ -27,13 +30,14 @@ import kotlinx.android.synthetic.main.fragment_photos.*
 import kotlinx.android.synthetic.main.fragment_photos.view.*
 
 
-class PhotosFragment : Fragment(), ColorsInterface {
+class PhotosFragment : Fragment(), PhotosInterface {
 
     private val photosVm by viewModels<PhotosViewModel>()
     private var photosCount = 0
     private var type = "category"
 
     private var colors = fillFilterColorsList()
+    lateinit var dataPasser: PassPhotoData
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,7 +76,7 @@ class PhotosFragment : Fragment(), ColorsInterface {
                 onEndLoad()
                 photosCount = it.photos.size
                 photosRecyclerView.apply {
-                    adapter = PhotosRecyclerViewAdapter(it.photos)
+                    adapter = PhotosRecyclerViewAdapter(it.photos, this@PhotosFragment)
                 }
             } else {
                 photosRecyclerView.adapter = null
@@ -333,5 +337,20 @@ class PhotosFragment : Fragment(), ColorsInterface {
         super.onSaveInstanceState(outState)
         resetFilters()
     }
+
+    override fun onChoosePhoto(photo: Photo, sharedView: ImageView) {
+        val transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(
+            requireActivity(),
+            sharedView,
+            "trans"
+        )
+        dataPasser = PhotoPreviewActivity()
+        dataPasser.onPhotoPass(photo)
+        startActivity(
+            Intent(requireContext(), PhotoPreviewActivity::class.java),
+            transitionActivityOptions.toBundle()
+        )
+    }
+
 
 }

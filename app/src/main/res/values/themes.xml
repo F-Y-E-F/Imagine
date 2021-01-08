@@ -10,4 +10,14 @@
         parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/montserrat_regular</item>
     </style>
+    <style name="MaterialAnimations" parent="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowEnterTransition">@transition/scale_in</item>
+        <item name="android:windowExitTransition">@transition/scale_in</item>
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">@transition/changebounds</item>
+        <item name="android:windowSharedElementExitTransition">@transition/changebounds</item>
+    </style>
 </resources>
