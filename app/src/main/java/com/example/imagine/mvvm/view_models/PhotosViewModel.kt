@@ -28,7 +28,7 @@ class PhotosViewModel:ViewModel() {
 
     fun clearPhotos() = photosRepository.clearPhotos()
 
-    fun setFilters(userFilters: Filters){
+    fun setFilters(userFilters: Filters?){
         photosRepository.setFilters(userFilters)
     }
 

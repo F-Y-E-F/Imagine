@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_photos.*
 import kotlinx.android.synthetic.main.fragment_photos.view.*
 
 
-class PhotosFragment : Fragment(),ColorsInterface {
+class PhotosFragment : Fragment(), ColorsInterface {
 
     private val photosVm by viewModels<PhotosViewModel>()
     private var photosCount = 0
@@ -74,7 +74,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
                 photosRecyclerView.apply {
                     adapter = PhotosRecyclerViewAdapter(it.photos)
                 }
-            }else{
+            } else {
                 photosRecyclerView.adapter = null
             }
         }
@@ -112,7 +112,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
     @SuppressLint("ClickableViewAccessibility")
     private fun detectSearch() {
         searchPhotoET.imeOptions = EditorInfo.IME_ACTION_DONE
-        searchPhotoET.setOnEditorActionListener { v, actionId, event ->
+        searchPhotoET.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 searchPhotoET.clearFocus()
                 search()
@@ -121,7 +121,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
         }
 
         //delete text click
-        searchPhotoET.setOnTouchListener(OnTouchListener { v, event ->
+        searchPhotoET.setOnTouchListener(OnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 if (event.rawX >= searchPhotoET.right - searchPhotoET.compoundDrawables[2].bounds.width() - 20) {
                     searchPhotoET.apply {
@@ -190,59 +190,72 @@ class PhotosFragment : Fragment(),ColorsInterface {
     //=================================================================
 
     //set check of orientation checkboxes
-    private fun setOrientationCheckBoxChecked(firstState: Boolean, secondState: Boolean){
+    private fun setOrientationCheckBoxChecked(firstState: Boolean, secondState: Boolean) {
         verticalCheckBox.isChecked = firstState
         horizontalCheckBox.isChecked = secondState
     }
 
     //----------------------| Get Filters Data From View Model |---------------------------
-    private fun setFiltersViewModelData(){
-        photosVm.filters.observe(viewLifecycleOwner){
-
-            if(photosVm.photos.value == null){
-                onStartLoad()
-                when (type) {
-                    "category" -> photosVm.addCategoryPhotosPage(1)
-                    "search" -> photosVm.searchPhotos(searchPhotoET.text.toString(), 1)
+    private fun setFiltersViewModelData() {
+        photosVm.filters.observe(viewLifecycleOwner) {
+            if (it != null) {
+                if (photosVm.photos.value == null) {
+                    onStartLoad()
+                    when (type) {
+                        "category" -> photosVm.addCategoryPhotosPage(1)
+                        "search" -> photosVm.searchPhotos(searchPhotoET.text.toString(), 1)
+                    }
                 }
-            }
 
-            grayscaleCheckBox.isChecked = it.isGrayScale
-            transparentCheckBox.isChecked = it.isTransparent
-            this.colors = it.colors
+                grayscaleCheckBox.isChecked = it.isGrayScale
+                transparentCheckBox.isChecked = it.isTransparent
+                this.colors = it.colors
 
-            when (it.orientation) {
-                "all" -> {
-                    setOrientationCheckBoxChecked(firstState = true, secondState = true)
+                when (it.orientation) {
+                    "all" -> {
+                        setOrientationCheckBoxChecked(firstState = true, secondState = true)
+                    }
+                    "horizontal" -> {
+                        setOrientationCheckBoxChecked(
+                            firstState = false,
+                            secondState = true
+                        )
+                    }
+                    else -> {
+                        setOrientationCheckBoxChecked(firstState = true, secondState = false)
+                    }
                 }
-                "horizontal" -> {
-                    setOrientationCheckBoxChecked(
-                        firstState = false,
-                        secondState = true
-                    )
-                }
-                else -> { setOrientationCheckBoxChecked(firstState = true, secondState = false) }
-            }
 
-            if(it.order == "latest") {
-                latestCheckBox.isChecked = true
-                popularCheckBox.isChecked = false
+                if (it.order == "latest") {
+                    latestCheckBox.isChecked = true
+                    popularCheckBox.isChecked = false
+                } else {
+                    latestCheckBox.isChecked = false
+                    popularCheckBox.isChecked = true
+                }
+
+                if (it.isGrayScale)
+                    colorsGrid.adapter = null
+                else
+                    colorsGrid.adapter = ColorsGridAdapter(colors, this)
             }else{
-                latestCheckBox.isChecked = false
-                popularCheckBox.isChecked = true
+                if (photosVm.photos.value == null) {
+                    colors = fillFilterColorsList()
+                    resetFilters()
+                    when (type) {
+                        "category" -> photosVm.addCategoryPhotosPage(1)
+                        "search" -> photosVm.searchPhotos(searchPhotoET.text.toString(), 1)
+                    }
+                }
             }
-
-            if(it.isGrayScale)
-                colorsGrid.adapter = null
-            else
-                colorsGrid.adapter = ColorsGridAdapter(colors, this)
         }
+
     }
     //=====================================================================================
 
 
     //----------------------------| Detect if somebody check the radio button or checkbox |--------------------------------------
-    private fun detectChangeOnCheckboxes(){
+    private fun detectChangeOnCheckboxes() {
         popularCheckBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) latestCheckBox.isChecked = false
         }
@@ -251,7 +264,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
         }
 
         grayscaleCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked) colorsGrid.adapter = null
+            if (isChecked) colorsGrid.adapter = null
             else colorsGrid.adapter = ColorsGridAdapter(colors, this)
         }
     }
@@ -259,18 +272,26 @@ class PhotosFragment : Fragment(),ColorsInterface {
 
 
     //--------------------------------------| Apply filters to view model on apply button was clicked |---------------------------------------
-    private fun applyFilters(){
-        applyFiltersButton.setOnClickListener {
-            val orientation : String = if (verticalCheckBox.isChecked && horizontalCheckBox.isChecked) "all"
-            else if (verticalCheckBox.isChecked) "vertical"
-            else if (horizontalCheckBox.isChecked) "horizontal"
-            else{
-                Snackbar.make(requireView(), "Please choose orientation", Snackbar.LENGTH_SHORT)
-                    .setBackgroundTint(Color.parseColor("#232323")).show()
-                return@setOnClickListener
-            }
+    private fun applyFilters() {
+        resetFiltersButton.setOnClickListener {
+            photosVm.clearPhotos()
+            onStartLoad()
+            photosVm.setFilters(null)
+            filters.visibility = View.GONE
+        }
 
-            val order = if(latestCheckBox.isChecked) "latest" else "popular"
+        applyFiltersButton.setOnClickListener {
+            val orientation: String =
+                if (verticalCheckBox.isChecked && horizontalCheckBox.isChecked) "all"
+                else if (verticalCheckBox.isChecked) "vertical"
+                else if (horizontalCheckBox.isChecked) "horizontal"
+                else {
+                    Snackbar.make(requireView(), "Please choose orientation", Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(Color.parseColor("#232323")).show()
+                    return@setOnClickListener
+                }
+
+            val order = if (latestCheckBox.isChecked) "latest" else "popular"
 
             photosVm.clearPhotos()
             photosVm.setFilters(
@@ -282,11 +303,17 @@ class PhotosFragment : Fragment(),ColorsInterface {
                 )
             )
             filters.visibility = View.GONE
-
         }
     }
     //============================================================================================================================================
 
+        private fun resetFilters(){
+        setOrientationCheckBoxChecked(firstState = true, secondState = true)
+        transparentCheckBox.isChecked = false
+        grayscaleCheckBox.isChecked = false
+        popularCheckBox.isChecked = true
+        latestCheckBox.isChecked = false
+    }
 
     //set colors list to the list from gridview
     override fun setColor(listOfColors: ArrayList<PhotoColor>) {
@@ -295,13 +322,7 @@ class PhotosFragment : Fragment(),ColorsInterface {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
-        setOrientationCheckBoxChecked(firstState = true, secondState = true)
-        transparentCheckBox.isChecked = false
-        grayscaleCheckBox.isChecked = false
-        popularCheckBox.isChecked = true
-        latestCheckBox.isChecked = false
-
+        resetFilters()
     }
 
 

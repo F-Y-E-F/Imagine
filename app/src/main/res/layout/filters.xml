@@ -90,8 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/grayscaleCheckBox"
-        app:layout_constraintTop_toBottomOf="@+id/transparentCheckBox"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/transparentCheckBox" />
 
     <TextView
         android:id="@+id/textView9"
@@ -187,8 +186,8 @@
         android:id="@+id/colorsGrid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:overScrollMode="never"
         android:layout_marginTop="@dimen/dimen_4"
+        android:overScrollMode="never"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -212,7 +211,6 @@
         android:id="@+id/applyFiltersButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:background="@drawable/rounded_border_50"
         android:backgroundTint="@color/colorWhite"
         android:fontFamily="@font/montserrat_semibold"
@@ -223,7 +221,27 @@
         android:text="Apply"
         android:textColor="#181818"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resetFiltersButton" />
+
+    <TextView
+        android:id="@+id/resetFiltersButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_border_50"
+        android:backgroundTint="#454545"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:paddingStart="20dp"
+        android:paddingTop="6dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="6dp"
+        android:textSize="13sp"
+        android:text="Reset Filters"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/popularCheckBox" />
 

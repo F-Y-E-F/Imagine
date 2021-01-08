@@ -67,7 +67,7 @@ class PhotosRepository {
 
 
     //post value to filters
-    fun setFilters(userFilters: Filters){
+    fun setFilters(userFilters: Filters?){
         filters.postValue(userFilters)
     }
 
