@@ -68,6 +68,9 @@ dependencies {
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
+    //google gson
+    implementation 'com.google.code.gson:gson:2.8.6'
+
 
 
 }

@@ -24,6 +24,7 @@ import com.example.imagine.mvvm.view_models.PhotosViewModel
 import com.example.imagine.screens.adapters.ColorsGridAdapter
 import com.example.imagine.screens.adapters.PhotosRecyclerViewAdapter
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.filters.*
 import kotlinx.android.synthetic.main.filters.view.*
 import kotlinx.android.synthetic.main.fragment_photos.*
@@ -37,7 +38,6 @@ class PhotosFragment : Fragment(), PhotosInterface {
     private var type = "category"
 
     private var colors = fillFilterColorsList()
-    lateinit var dataPasser: PassPhotoData
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -344,10 +344,11 @@ class PhotosFragment : Fragment(), PhotosInterface {
             sharedView,
             "trans"
         )
-        dataPasser = PhotoPreviewActivity()
-        dataPasser.onPhotoPass(photo)
+        val intent = Intent(requireContext(), PhotoPreviewActivity::class.java).apply {
+            putExtra("photo",Gson().toJson(photo))
+        }
         startActivity(
-            Intent(requireContext(), PhotoPreviewActivity::class.java),
+            intent,
             transitionActivityOptions.toBundle()
         )
     }
