@@ -21,11 +21,16 @@ class PhotoPreviewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_preview)
-
         photo = Gson().fromJson(intent.getStringExtra("photo")!!, Photo::class.java)
+        loadPhoto()
+
+        setupPhotoEvents()
+        setupPhotoInfo()
+    }
+
+    private fun loadPhoto() {
         Glide.with(applicationContext).load(photo.previewURL)
             .into(previewPhotoHandler)
-
         Glide.with(applicationContext).load(photo.largeImageURL).listener(object :
             RequestListener<Drawable> {
             override fun onLoadFailed(
@@ -50,6 +55,18 @@ class PhotoPreviewActivity : AppCompatActivity() {
         })
             .into(previewPhoto)
     }
+
+    private fun setupPhotoInfo(){
+        photoName.text = photo.tags
+        photoAuthor.text = "by ${photo.user}"
+    }
+
+    private fun setupPhotoEvents(){
+        photoPreviewBackButton.setOnClickListener { onBackPressed() }
+    }
+
+
+
 
 
 }

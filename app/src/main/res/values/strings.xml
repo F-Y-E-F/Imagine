@@ -7,4 +7,7 @@
     <string name="popular_photos">Popular photos</string>
     <string name="share">Share</string>
     <string name="colors">colors</string>
+    <string name="back" />
+    <string name="previewphoto">previewPhoto</string>
+    <string name="loadingpreviewphoto">LoadingPreviewPhoto</string>
 </resources>
