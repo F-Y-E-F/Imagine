@@ -13,6 +13,8 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.imagine.R
 import com.example.imagine.mvvm.models.Photo
+import com.example.imagine.screens.adapters.PhotoInfoBottomSheet
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_photo_preview.*
 
@@ -63,6 +65,10 @@ class PhotoPreviewActivity : AppCompatActivity() {
 
     private fun setupPhotoEvents(){
         photoPreviewBackButton.setOnClickListener { onBackPressed() }
+        showMoreInfoButton.setOnClickListener {
+            val bottomSheet = PhotoInfoBottomSheet()
+            bottomSheet.show(supportFragmentManager,"bottom_sheet")
+        }
     }
 
 
