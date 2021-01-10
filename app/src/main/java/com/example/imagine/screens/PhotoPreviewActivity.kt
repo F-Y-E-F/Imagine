@@ -3,8 +3,6 @@ package com.example.imagine.screens
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -14,7 +12,6 @@ import com.bumptech.glide.request.target.Target
 import com.example.imagine.R
 import com.example.imagine.mvvm.models.Photo
 import com.example.imagine.screens.adapters.PhotoInfoBottomSheet
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_photo_preview.*
 
@@ -58,21 +55,20 @@ class PhotoPreviewActivity : AppCompatActivity() {
             .into(previewPhoto)
     }
 
-    private fun setupPhotoInfo(){
+    private fun setupPhotoInfo() {
         photoName.text = photo.tags
         photoAuthor.text = "by ${photo.user}"
     }
 
-    private fun setupPhotoEvents(){
+    private fun setupPhotoEvents() {
         photoPreviewBackButton.setOnClickListener { onBackPressed() }
         showMoreInfoButton.setOnClickListener {
             val bottomSheet = PhotoInfoBottomSheet()
-            bottomSheet.show(supportFragmentManager,"bottom_sheet")
+            bottomSheet.arguments =
+                Bundle().apply { putString("photo", intent.getStringExtra("photo")!!) }
+            bottomSheet.show(supportFragmentManager, "bottom_sheet")
         }
     }
-
-
-
 
 
 }
