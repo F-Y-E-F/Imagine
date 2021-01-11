@@ -30,12 +30,12 @@
         android:padding="5dp"
         android:src="@drawable/ic_favorite_border"
         app:layout_constraintBottom_toBottomOf="@+id/photoPreviewBackButton"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintEnd_toStartOf="@+id/options"
         app:layout_constraintTop_toTopOf="@+id/photoPreviewBackButton"
         app:tint="@color/colorPrimary" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/options"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="@dimen/dimen_8"

@@ -37,18 +37,23 @@ class PhotoInfoBottomSheet : BottomSheetDialogFragment() {
         setupPhotoData()
     }
 
+    //--------------------------| Setup photo info data |------------------------------
 
     private fun setupPhotoData() {
 
+        //setup photo
         Glide.with(requireContext())
             .load(photo.webformatURL)
             .centerCrop()
             .into(bottomSheetPhotoPreview)
 
+
+
+        //setup photo info texts
+
         bottomSheetPhotoAuthor.text = "Author : ${photo.user}"
 
         bottomSheetPhotoSize.text = "Size : ${photo.imageWidth}x${photo.imageHeight}"
-
         val tagSpannable = SpannableStringBuilder("Tags : ${photo.tags}")
         tagSpannable.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorPrimary)),
@@ -84,6 +89,11 @@ class PhotoInfoBottomSheet : BottomSheetDialogFragment() {
         bottomSheetOfficialSite.text = officialSiteSpannable
         bottomSheetOfficialSite.movementMethod = LinkMovementMethod.getInstance()
 
+        bottomSheetUserLikes.text = photo.likes.toString()
+        bottomSheetUserComments.text = photo.comments.toString()
+        bottomSheetUserViews.text = photo.views.toString()
+
     }
+    //=================================================================================
 
 }

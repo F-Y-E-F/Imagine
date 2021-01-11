@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#222222"
+    android:background="#191919"
     android:paddingStart="@dimen/dimen_24"
     android:paddingTop="@dimen/dimen_24"
     android:paddingEnd="@dimen/dimen_24"
@@ -15,7 +15,7 @@
         android:id="@+id/closeMoreDetailsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:drawablePadding="10dp"
         android:fontFamily="@font/montserrat_semibold"
         android:gravity="center"
@@ -26,7 +26,7 @@
         app:drawableStartCompat="@drawable/ic_down"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottomSheetPhotoPreview" />
+        app:layout_constraintTop_toBottomOf="@+id/bottomSheetUserLikes" />
 
     <ImageView
         android:id="@+id/bottomSheetPhotoPreview"
@@ -103,6 +103,94 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/bottomSheetPhotoPreview"
         app:layout_constraintTop_toBottomOf="@+id/bottomSheetPhotoTags" />
+
+    <TextView
+        android:id="@+id/bottomSheetUserLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/montserrat_semibold"
+        android:maxLines="1"
+        android:text="1234123"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="2dp"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <TextView
+        android:id="@+id/bottomSheetUserComments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/montserrat_semibold"
+        android:maxLines="1"
+        android:text="1234123"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+    <TextView
+        android:id="@+id/bottomSheetUserViews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/montserrat_semibold"
+        android:maxLines="1"
+        android:text="1234123"
+        android:textColor="@color/colorWhite"
+        android:textSize="15sp"
+        android:layout_marginTop="2dp"
+
+        app:layout_constraintEnd_toEndOf="@+id/imageView6"
+        app:layout_constraintStart_toStartOf="@+id/imageView6"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/ic_favourite"
+        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottomSheetPhotoPreview"
+        app:tint="@color/colorWhite" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/ic_comment"
+        app:layout_constraintBottom_toTopOf="@+id/bottomSheetUserLikes"
+        app:layout_constraintEnd_toStartOf="@+id/imageView6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginEnd="30dp"
+
+        app:tint="@color/colorWhite" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/ic_eye"
+        app:layout_constraintBottom_toTopOf="@+id/bottomSheetUserComments"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="0.0"
+        app:tint="@color/colorWhite" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

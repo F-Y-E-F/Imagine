@@ -27,6 +27,7 @@ class PhotoPreviewActivity : AppCompatActivity() {
         setupPhotoInfo()
     }
 
+    //--------------------| Lazy load photo - first previewUrl then better quality photo |--------------------------
     private fun loadPhoto() {
         Glide.with(applicationContext).load(photo.previewURL)
             .into(previewPhotoHandler)
@@ -54,12 +55,15 @@ class PhotoPreviewActivity : AppCompatActivity() {
         })
             .into(previewPhoto)
     }
+    //=====================================================================================================================
 
+    //setup photo info
     private fun setupPhotoInfo() {
         photoName.text = photo.tags
         photoAuthor.text = "by ${photo.user}"
     }
 
+    //show photo details
     private fun setupPhotoEvents() {
         photoPreviewBackButton.setOnClickListener { onBackPressed() }
         showMoreInfoButton.setOnClickListener {
@@ -69,6 +73,16 @@ class PhotoPreviewActivity : AppCompatActivity() {
             bottomSheet.show(supportFragmentManager, "bottom_sheet")
         }
     }
+
+
+
+    //----------------------------| Options menu |------------------------------------
+
+    fun handlePhotoOptions(){
+        
+    }
+    //=================================================================================
+
 
 
 }
