@@ -1,19 +1,33 @@
 package com.example.imagine.screens
 
+import android.app.WallpaperManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Matrix
+import android.graphics.Paint
 import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.View
+import android.widget.PopupMenu
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import com.example.imagine.R
 import com.example.imagine.mvvm.models.Photo
 import com.example.imagine.screens.adapters.PhotoInfoBottomSheet
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_photo_preview.*
+
 
 class PhotoPreviewActivity : AppCompatActivity() {
     private lateinit var photo: Photo
@@ -25,6 +39,7 @@ class PhotoPreviewActivity : AppCompatActivity() {
 
         setupPhotoEvents()
         setupPhotoInfo()
+        handlePhotoOptions()
     }
 
     //--------------------| Lazy load photo - first previewUrl then better quality photo |--------------------------
@@ -75,14 +90,61 @@ class PhotoPreviewActivity : AppCompatActivity() {
     }
 
 
-
     //----------------------------| Options menu |------------------------------------
 
-    fun handlePhotoOptions(){
-        
+    private fun handlePhotoOptions() {
+        val ctw = ContextThemeWrapper(this, R.style.PopupMenu)
+        options.setOnClickListener {
+            PopupMenu(ctw, options).apply {
+                inflate(R.menu.photo_options_popup_menu)
+                setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.setWallpaper -> {
+                            Glide.with(applicationContext)
+                                .asBitmap()
+                                .load(photo.largeImageURL)
+                                .centerCrop()
+                                .into(object : CustomTarget<Bitmap>() {
+                                    override fun onResourceReady(
+                                        resource: Bitmap,
+                                        transition: Transition<in Bitmap>?
+                                    ) {
+                                        val wallPaperManager = WallpaperManager.getInstance(applicationContext)
+                                        try {
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+                                                wallPaperManager.setBitmap(
+                                                    resource,
+                                                    null,
+                                                    true,
+                                                    WallpaperManager.FLAG_LOCK
+                                                )
+                                            }else{
+                                                wallPaperManager.setBitmap(resource)
+                                            }
+                                        } catch (ex: Exception) {
+                                            Log.d("TAG", "blad ${ex}")
+                                        }
+                                    }
+
+                                    override fun onLoadCleared(placeholder: Drawable?) {}
+                                })
+                        }
+                        R.id.exportToGallery ->
+                            Toast.makeText(
+                                applicationContext,
+                                "You Clicked : " + item.title,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                    }
+                    true
+                }
+                show()
+            }
+        }
+
+
     }
     //=================================================================================
-
-
 
 }
