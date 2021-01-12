@@ -71,6 +71,9 @@ dependencies {
     //google gson
     implementation 'com.google.code.gson:gson:2.8.6'
 
+    //loading dialog
+    implementation 'com.github.d-max:spots-dialog:1.1@aar'
+
 
 
 }

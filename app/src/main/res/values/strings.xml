@@ -12,4 +12,7 @@
     <string name="loadingpreviewphoto">LoadingPreviewPhoto</string>
     <string name="set_as_wallpaper">Set As Wallpaper</string>
     <string name="export_to_gallery">Export to Gallery</string>
+    <string name="home_screen">Home Screen</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="both_screen">Home and Lock Screen</string>
 </resources>
