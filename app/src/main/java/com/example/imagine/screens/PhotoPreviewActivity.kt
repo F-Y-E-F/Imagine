@@ -124,7 +124,10 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
             }
         }
     }
+    //===================================================================================
 
+
+    //---------------------------------| Make Action Based on chosen option from popup menu |-------------------------------------
     private fun getPhoto(type: String) {
         Glide.with(applicationContext).asBitmap().load(photo.largeImageURL).centerCrop().into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(
@@ -161,8 +164,10 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
                 override fun onLoadCleared(placeholder: Drawable?) {}
             })
     }
+    //=============================================================================================================================
 
-    fun saveMediaToStorage(bitmap: Bitmap) {
+    //----------------------------------| Save image to gallery |--------------------------------------
+    private fun saveMediaToStorage(bitmap: Bitmap) {
         val filename = "${System.currentTimeMillis()}.jpg"
         var fos: OutputStream? = null
 
@@ -188,6 +193,8 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
         }
     }
+    //==================================================================================================
+
     //-----------------------------------| types chosen in wallpaper type dialog |-----------------------------------------
 
     @RequiresApi(Build.VERSION_CODES.N)
