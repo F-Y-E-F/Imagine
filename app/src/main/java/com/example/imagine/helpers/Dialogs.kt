@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.choose_wallpaper_type.view.*
 
 class Dialogs {
 
+    //--------------------------| Show dialog to chose wallpaper type |---------------------------
     fun showChooseWallpaperTypeDialog(
         activity: PhotoPreviewActivity,
         resource: Bitmap,
@@ -46,18 +47,20 @@ class Dialogs {
     }
 
 
+    //get loading dialog
     fun getLoadingDialog(context: Context): AlertDialog? {
         return SpotsDialog.Builder().setContext(context).build()
     }
 
 
+    //--------------------------| Show snackBar with bigger and bold text |---------------------------
     fun showSnackBar(view: View, text: String) {
         val snackbar =  Snackbar.make(view, text, Snackbar.LENGTH_SHORT)
             .setBackgroundTint(ContextCompat.getColor(view.context, R.color.colorBackgroundLight))
             .setTextColor(ContextCompat.getColor(view.context, R.color.colorPrimary))
         val snackbarActionTextView =
             snackbar.view.findViewById<View>(com.google.android.material.R.id.snackbar_text) as TextView
-        snackbarActionTextView.textSize = 17f
+        snackbarActionTextView.textSize = 16f
         snackbarActionTextView.setTypeface(snackbarActionTextView.typeface, Typeface.BOLD)
         snackbar.show()
     }

@@ -1,17 +1,22 @@
 package com.example.imagine.screens
 
 import android.app.WallpaperManager
+import android.content.ContentValues
+import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.media.MediaScannerConnection
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.os.Environment
+import android.provider.MediaStore
+import android.provider.MediaStore.Images.Media.insertImage
 import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -27,8 +32,10 @@ import com.example.imagine.mvvm.models.Photo
 import com.example.imagine.screens.adapters.PhotoInfoBottomSheet
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_photo_preview.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 
 
 class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
@@ -102,59 +109,93 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
                 inflate(R.menu.photo_options_popup_menu)
                 setOnMenuItemClickListener { item ->
                     when (item.itemId) {
-                        R.id.setWallpaper -> {
-                            Glide.with(applicationContext)
-                                .asBitmap()
-                                .load(photo.largeImageURL)
-                                .centerCrop()
-                                .into(object : CustomTarget<Bitmap>() {
-                                    override fun onResourceReady(
-                                        resource: Bitmap,
-                                        transition: Transition<in Bitmap>?
-                                    ) {
-                                        try {
-                                            val wallPaperManager =
-                                                WallpaperManager.getInstance(applicationContext)
-                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                                dialogs.showChooseWallpaperTypeDialog(
-                                                    this@PhotoPreviewActivity,
-                                                    resource,
-                                                    wallPaperManager,
-                                                    this@PhotoPreviewActivity
-                                                )
-                                            } else {
-                                                wallPaperManager.setBitmap(resource)
-                                            }
-                                        } catch (ex: Exception) {
-                                            Log.d("TAG", "blad ${ex}")
-                                        }
-                                    }
 
-                                    override fun onLoadCleared(placeholder: Drawable?) {}
-                                })
+                        //set image as wallpaper
+                        R.id.setWallpaper -> {
+                            getPhoto("wallpaper")
                         }
-                        R.id.exportToGallery ->
-                            Toast.makeText(
-                                applicationContext,
-                                "You Clicked : " + item.title,
-                                Toast.LENGTH_SHORT
-                            ).show()
+                        R.id.exportToGallery -> {
+                            getPhoto("gallery_export")
+                        }
                     }
                     true
                 }
                 show()
             }
         }
-
-
     }
 
+    private fun getPhoto(type: String) {
+        Glide.with(applicationContext).asBitmap().load(photo.largeImageURL).centerCrop().into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: Transition<in Bitmap>?
+                ) {
+                    if (type == "wallpaper") {
+                        try {
+                            val wallPaperManager =
+                                WallpaperManager.getInstance(applicationContext)
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                dialogs.showChooseWallpaperTypeDialog(
+                                    this@PhotoPreviewActivity,
+                                    resource,
+                                    wallPaperManager,
+                                    this@PhotoPreviewActivity
+                                )
+                            } else {
+                                wallPaperManager.setBitmap(resource)
+                            }
+                        } catch (ex: Exception) {
+                            Log.d("TAG", "blad $ex")
+                        }
+                    } else {
+                        try {
+                            saveMediaToStorage(resource)
+                        } catch (ex: Exception) {
+                            Log.d("TAG", "blad $ex")
+                        }
+                    }
+                }
 
+
+                override fun onLoadCleared(placeholder: Drawable?) {}
+            })
+    }
+
+    fun saveMediaToStorage(bitmap: Bitmap) {
+        val filename = "${System.currentTimeMillis()}.jpg"
+        var fos: OutputStream? = null
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            applicationContext?.contentResolver?.also { resolver ->
+                val contentValues = ContentValues().apply {
+                    put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+                    put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+                }
+
+                val imageUri: Uri? =
+                    resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+                fos = imageUri?.let { resolver.openOutputStream(it) }
+            }
+        } else {
+            val imagesDir = applicationContext.getExternalFilesDir(null)!!.absolutePath
+            val image = File(imagesDir, filename)
+            fos = FileOutputStream(image)
+        }
+        fos?.use {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+        }
+    }
+    //-----------------------------------| types chosen in wallpaper type dialog |-----------------------------------------
+
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onChooseHomeScreen(resource: Bitmap, wallpaperManager: WallpaperManager) {
-        wallpaperManager.setBitmap(resource)
+        wallpaperManager.setBitmap(resource, null, true, WallpaperManager.FLAG_SYSTEM)
         dialogs.showSnackBar(
             findViewById<View>(android.R.id.content).rootView,
-            "Wallpaper has been setted"
+            "Home Wallpaper has been setted"
         )
     }
 
@@ -163,21 +204,19 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
         wallpaperManager.setBitmap(resource, null, true, WallpaperManager.FLAG_LOCK)
         dialogs.showSnackBar(
             findViewById<View>(android.R.id.content).rootView,
-            "Wallpaper has been setted"
+            "Lock Wallpaper has been setted"
         )
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onChooseBothScreens(resource: Bitmap, wallpaperManager: WallpaperManager) {
         wallpaperManager.setBitmap(resource)
-        wallpaperManager.setBitmap(resource, null, true, WallpaperManager.FLAG_LOCK)
         dialogs.showSnackBar(
             findViewById<View>(android.R.id.content).rootView,
-            "Wallpaper has been setted"
+            "Lock And Home Wallpaper has been setted"
         )
     }
 
-
-    //=================================================================================
+    //============================================================================================================================
 
 }
