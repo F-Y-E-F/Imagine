@@ -191,6 +191,7 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
         }
         fos?.use {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+            showSnack("Image has been saved")
         }
     }
     //==================================================================================================
@@ -200,30 +201,24 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onChooseHomeScreen(resource: Bitmap, wallpaperManager: WallpaperManager) {
         wallpaperManager.setBitmap(resource, null, true, WallpaperManager.FLAG_SYSTEM)
-        dialogs.showSnackBar(
-            findViewById<View>(android.R.id.content).rootView,
-            "Home Wallpaper has been setted"
-        )
+        showSnack("Home Wallpaper has been setted")
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onChooseLockScreen(resource: Bitmap, wallpaperManager: WallpaperManager) {
         wallpaperManager.setBitmap(resource, null, true, WallpaperManager.FLAG_LOCK)
-        dialogs.showSnackBar(
-            findViewById<View>(android.R.id.content).rootView,
-            "Lock Wallpaper has been setted"
-        )
+        showSnack("Lock Wallpaper has been setted")
+
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onChooseBothScreens(resource: Bitmap, wallpaperManager: WallpaperManager) {
         wallpaperManager.setBitmap(resource)
-        dialogs.showSnackBar(
-            findViewById<View>(android.R.id.content).rootView,
-            "Lock And Home Wallpaper has been setted"
-        )
+        showSnack("Lock And Home Wallpaper has been setted")
     }
 
     //============================================================================================================================
+
+    private fun showSnack(text:String) = dialogs.showSnackBar(findViewById<View>(android.R.id.content).rootView, text)
 
 }
