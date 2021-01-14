@@ -11,5 +11,10 @@
         android:name="com.example.imagine.screens.PhotosFragment"
         android:label="fragment_photos"
         tools:layout="@layout/fragment_photos" />
+    <fragment
+        android:id="@+id/videosFragment"
+        android:name="com.example.imagine.screens.VideosFragment"
+        android:label="fragment_videos"
+        tools:layout="@layout/fragment_videos" />
 
 </navigation>
