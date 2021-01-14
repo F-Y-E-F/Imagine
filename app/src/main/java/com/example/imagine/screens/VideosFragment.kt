@@ -29,12 +29,11 @@ class VideosFragment : Fragment() {
         playerView.player = player
 
         val mediaItem: MediaItem =
-            MediaItem.fromUri(Uri.parse("https://player.vimeo.com/external/403777550.hd.mp4?s=2317662f5d6d3710a232e43b623e0a35d0741d21&profile_id=175"))
+            MediaItem.fromUri(Uri.parse("https://player.vimeo.com/external/338863706.hd.mp4?s=3de4038ce29d88a3426b2384332d06285d423718&profile_id=174"))
         player.setMediaItem(mediaItem)
         player.prepare()
 
 
     }
-
 
 }
