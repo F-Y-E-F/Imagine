@@ -74,6 +74,9 @@ dependencies {
     //loading dialog
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
 
+    //exoplayer
+    implementation 'com.google.android.exoplayer:exoplayer:2.12.3'
+
 
 
 }

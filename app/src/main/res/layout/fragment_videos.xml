@@ -96,22 +96,35 @@
             app:layout_constraintStart_toStartOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/videoFiltersImageView" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/videosRecyclerView"
-            android:layout_width="match_parent"
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/playerView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_16"
-            android:clipToPadding="true"
-            android:overScrollMode="never"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:paddingBottom="12dp"
-            android:scrollbars="none"
+            android:layout_marginTop="36dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:show_buffering="when_playing"
+            app:controller_layout_id="@layout/player_bg"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchVideoET" />
 
-        <Button
+
+        <!--      <androidx.recyclerview.widget.RecyclerView
+                  android:id="@+id/videosRecyclerView"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="@dimen/dimen_16"
+                  android:clipToPadding="true"
+                  android:overScrollMode="never"
+                  android:paddingStart="5dp"
+                  android:paddingEnd="5dp"
+                  android:paddingBottom="12dp"
+                  android:scrollbars="none"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toBottomOf="@+id/searchVideoET" />-->
+
+ <!--       <Button
             android:id="@+id/loadMoreButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -145,17 +158,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/videosRecyclerView"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0" />-->
 
-        <include
-            android:id="@+id/filters"
-            layout="@layout/filters"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="20dp"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/videoFiltersImageView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

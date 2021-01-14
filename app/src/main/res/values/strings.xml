@@ -16,4 +16,5 @@
     <string name="lock_screen">Lock Screen</string>
     <string name="both_screen">Home and Lock Screen</string>
     <string name="popular_videos">Popular Videos</string>
+    <string name="description">button</string>
 </resources>
