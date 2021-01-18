@@ -1,20 +1,18 @@
-package com.example.imagine.retrofit
+package com.example.imagine.retrofit.videos
 
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-object PhotosClient {
+object VideosClient {
 
-    //get pixabay - retrofit api client
-
-    val client : PhotosService by lazy {
+    val client: VideosService by lazy {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://pixabay.com/api/")
+            .baseUrl("https://pixabay.com/api/videos/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
-
-        retrofit.create(PhotosService::class.java)
+        retrofit.create(VideosService::class.java)
     }
+
 }

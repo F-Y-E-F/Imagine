@@ -2,17 +2,13 @@ package com.example.imagine.screens
 
 import android.app.WallpaperManager
 import android.content.ContentValues
-import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.provider.MediaStore.Images.Media.insertImage
 import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.View
@@ -28,11 +24,10 @@ import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.example.imagine.R
 import com.example.imagine.helpers.Dialogs
-import com.example.imagine.mvvm.models.Photo
+import com.example.imagine.mvvm.models.photos.Photo
 import com.example.imagine.screens.adapters.PhotoInfoBottomSheet
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_photo_preview.*
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream

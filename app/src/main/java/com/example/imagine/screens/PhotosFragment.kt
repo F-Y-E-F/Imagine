@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.imagine.R
 import com.example.imagine.models.PhotoColor
 import com.example.imagine.mvvm.models.Filters
-import com.example.imagine.mvvm.models.Photo
+import com.example.imagine.mvvm.models.photos.Photo
 import com.example.imagine.mvvm.view_models.PhotosViewModel
 import com.example.imagine.screens.adapters.ColorsGridAdapter
 import com.example.imagine.screens.adapters.PhotosRecyclerViewAdapter

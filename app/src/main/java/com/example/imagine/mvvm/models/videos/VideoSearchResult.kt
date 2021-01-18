@@ -1,10 +1,10 @@
-package com.example.imagine.mvvm.models
+package com.example.imagine.mvvm.models.videos
 
 import com.google.gson.annotations.SerializedName
 
-data class SearchResult(
+data class VideoSearchResult(
     @SerializedName("hits")
-    val photos: List<Photo>,
+    val videos: List<Video>,
     val total: Int,
     val totalHits: Int
 )

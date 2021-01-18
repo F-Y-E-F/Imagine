@@ -1,24 +1,23 @@
 package com.example.imagine.mvvm.repositories
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.imagine.mvvm.models.Filters
-import com.example.imagine.mvvm.models.SearchResult
-import com.example.imagine.retrofit.PhotosClient
-import com.example.imagine.retrofit.PhotosService
+import com.example.imagine.mvvm.models.photos.SearchResult
+import com.example.imagine.retrofit.photos.PhotosClient
+import com.example.imagine.retrofit.photos.PhotosService
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
 import kotlin.collections.ArrayList
 
 class PhotosRepository {
     private val result = MutableLiveData<SearchResult>()
-    private val client:PhotosService = PhotosClient.client
+    private val client: PhotosService = PhotosClient.client
     val type = MutableLiveData<String>()
     val filters = MutableLiveData<Filters>()
 
     //add photos page to existing photos
-    private fun addPage(searchResult:SearchResult){
+    private fun addPage(searchResult: SearchResult){
         if (result.value == null)
             result.postValue(searchResult) //get just first photos page
         else {                                                   //on load more button clicked

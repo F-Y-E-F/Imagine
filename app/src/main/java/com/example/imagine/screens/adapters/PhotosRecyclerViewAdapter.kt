@@ -13,12 +13,12 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.example.imagine.R
-import com.example.imagine.mvvm.models.Photo
+import com.example.imagine.mvvm.models.photos.Photo
 import com.example.imagine.screens.PhotosInterface
 import com.example.imagine.screens.adapters.view_holders.PhotosViewHolder
 
 
-class PhotosRecyclerViewAdapter(private val listOfPhotos: List<Photo>,private val listener: PhotosInterface):RecyclerView.Adapter<PhotosViewHolder>() {
+class PhotosRecyclerViewAdapter(private val listOfPhotos: List<Photo>, private val listener: PhotosInterface):RecyclerView.Adapter<PhotosViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosViewHolder {
         return PhotosViewHolder(
             LayoutInflater.from(parent.context).inflate(

@@ -15,7 +15,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.imagine.R
-import com.example.imagine.mvvm.models.Photo
+import com.example.imagine.mvvm.models.photos.Photo
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.photo_info_bottom_sheet.*

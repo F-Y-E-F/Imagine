@@ -1,7 +1,7 @@
-package com.example.imagine.retrofit
+package com.example.imagine.retrofit.photos
 
 import com.example.imagine.SecretApiKey
-import com.example.imagine.mvvm.models.SearchResult
+import com.example.imagine.mvvm.models.photos.SearchResult
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path

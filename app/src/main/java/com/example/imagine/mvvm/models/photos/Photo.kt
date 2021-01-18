@@ -1,4 +1,4 @@
-package com.example.imagine.mvvm.models
+package com.example.imagine.mvvm.models.photos
 
 data class Photo(
     val comments: Int,
