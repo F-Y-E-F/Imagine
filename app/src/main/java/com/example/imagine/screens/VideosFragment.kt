@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imagine.R
+import com.example.imagine.screens.adapters.VideosRecyclerViewAdapter
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 import kotlinx.android.synthetic.main.fragment_videos.*
@@ -25,13 +27,10 @@ class VideosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val player = SimpleExoPlayer.Builder(requireContext()).build()
-        playerView.player = player
-
-        val mediaItem: MediaItem =
-            MediaItem.fromUri(Uri.parse("https://player.vimeo.com/external/338863706.hd.mp4?s=3de4038ce29d88a3426b2384332d06285d423718&profile_id=174"))
-        player.setMediaItem(mediaItem)
-        player.prepare()
+        videosRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = VideosRecyclerViewAdapter()
+        }
 
 
     }

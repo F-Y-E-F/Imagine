@@ -96,24 +96,11 @@
             app:layout_constraintStart_toStartOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/videoFiltersImageView" />
 
-        <com.google.android.exoplayer2.ui.PlayerView
-            android:id="@+id/playerView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:show_buffering="when_playing"
-            app:controller_layout_id="@layout/player_bg"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchVideoET" />
-
-
-        <!--      <androidx.recyclerview.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
                   android:id="@+id/videosRecyclerView"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:layout_marginTop="@dimen/dimen_16"
+                  android:layout_marginTop="@dimen/dimen_24"
                   android:clipToPadding="true"
                   android:overScrollMode="never"
                   android:paddingStart="5dp"
@@ -122,7 +109,7 @@
                   android:scrollbars="none"
                   app:layout_constraintEnd_toEndOf="parent"
                   app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintTop_toBottomOf="@+id/searchVideoET" />-->
+                  app:layout_constraintTop_toBottomOf="@+id/searchVideoET" />
 
  <!--       <Button
             android:id="@+id/loadMoreButton"
