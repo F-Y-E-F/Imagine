@@ -1,13 +1,11 @@
 package com.example.imagine.screens.adapters
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imagine.R
 import com.example.imagine.mvvm.models.videos.Video
 import com.example.imagine.screens.adapters.view_holders.VideosViewHolder
-import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Renderer
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -32,5 +30,13 @@ class VideosRecyclerViewAdapter(private val listOfVideos:List<Video>):RecyclerVi
     override fun getItemCount(): Int {
         return listOfVideos.size
     }
+
+
+    override fun onViewDetachedFromWindow(holder: VideosViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        if(holder.playerView.player!=null)
+            holder.playerView.player!!.release()
+    }
+
 
 }

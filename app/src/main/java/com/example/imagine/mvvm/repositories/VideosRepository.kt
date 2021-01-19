@@ -8,33 +8,46 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class VideosRepository {
 
     val videos = MutableLiveData<VideoSearchResult>()
-    private val page = MutableLiveData<Int>()
-
-    private fun getVideosPage(videoSearchResult: VideoSearchResult) =
-        videos.postValue(videoSearchResult)
+    val page = MutableLiveData<Int>()
 
 
+
+    //----------------------------------| Get Video Page |-----------------------------------
     fun getVideos(){
         videos.postValue(null)
-        VideosClient.client.getVideos(null,page.value)
+        val pageNB = if(page.value == null) 1 else page.value!!+1
+        VideosClient.client.getVideos(null,pageNB)
             .subscribeOn(Schedulers.io())
             .subscribe{
-                getVideosPage(it)
+                videos.postValue(it)
             }
     }
+    //========================================================================================
 
 
+    //--------------------------| Get Query Video Page |---------------------------
     fun getQueryVideos(q:String){
         videos.postValue(null)
-        VideosClient.client.getVideos(q,page.value)
+        val pageNB = if(page.value == null) 1 else page.value!!+1
+        VideosClient.client.getVideos(q,pageNB)
             .subscribeOn(Schedulers.io())
             .subscribe{
-                getVideosPage(it)
+                videos.postValue(it)
             }
     }
+    //==============================================================================
 
-    fun nextPage() =
-        page.postValue(page.value!!.plus(1))
+
+
+    //------------------------| Increment Page |---------------------------
+    fun nextPage(){
+        if(page.value!=null)
+            page.postValue(page.value!! + 1)
+        else
+            page.postValue(1)
+    }
+    //=====================================================================
+
 
 
 }

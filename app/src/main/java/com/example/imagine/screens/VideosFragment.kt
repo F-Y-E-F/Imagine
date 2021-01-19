@@ -21,31 +21,56 @@ class VideosFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_videos, container, false)
-    }
+    ): View? =
+        inflater.inflate(R.layout.fragment_videos, container, false)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         videosRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
-
         }
+        
+        getVideos()
+        addNextPage()
 
+    }
 
-        videosViewModel.videos.observe(viewLifecycleOwner){
-            if(it!=null){
-                videosRecyclerView.adapter = VideosRecyclerViewAdapter(it.videos)
-                loadingProgress.visibility = View.GONE
-            }else{
-                videosRecyclerView.adapter = null
-                loadingProgress.visibility = View.VISIBLE
+    //-------------------| Setup Start Videos |-------------------------
+    private fun getVideos() {
+        videosViewModel.videos.observe(viewLifecycleOwner) {
+            if (it != null) {
+                setItemsVisibility(VideosRecyclerViewAdapter(it.videos), View.GONE, View.VISIBLE)
+            } else {
+                setItemsVisibility(null, View.VISIBLE, View.GONE)
             }
         }
 
+        videosViewModel.nextPage()
         videosViewModel.getQueryVideos("car")
-
     }
+    //=====================================================================
+
+    //--------------| Show next movies page on button click |------------------
+    private fun addNextPage() {
+        nextPageButton.setOnClickListener {
+            videosViewModel.nextPage()
+            videosViewModel.getQueryVideos("car")
+        }
+    }
+    //=========================================================================
+
+    //-----------------------| Set items visibility on search and on end search |-------------------------------
+    private fun setItemsVisibility(
+        adapter: VideosRecyclerViewAdapter?,
+        loadingProgressVisible: Int,
+        nextButtonVisible: Int
+    ) {
+        videosRecyclerView.adapter = adapter
+        loadingProgress.visibility = loadingProgressVisible
+        nextPageButton.visibility = nextButtonVisible
+    }
+    //===========================================================================================================
 
 }

@@ -9,6 +9,7 @@ class VideosViewModel:ViewModel() {
     private val videosRepository = VideosRepository()
 
     val videos : LiveData<VideoSearchResult> = videosRepository.videos
+    val page : LiveData<Int> = videosRepository.page
 
     fun getVideos() = videosRepository.getVideos()
     fun getQueryVideos(q:String) = videosRepository.getQueryVideos(q)
