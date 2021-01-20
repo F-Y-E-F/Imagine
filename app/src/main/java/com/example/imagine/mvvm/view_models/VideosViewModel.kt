@@ -9,11 +9,14 @@ class VideosViewModel:ViewModel() {
     private val videosRepository = VideosRepository()
 
     val videos : LiveData<VideoSearchResult> = videosRepository.videos
-    val page : LiveData<Int> = videosRepository.page
+    val page : LiveData<Int?> = videosRepository.page
+    val type : LiveData<String> = videosRepository.type
+
 
     fun getVideos() = videosRepository.getVideos()
     fun getQueryVideos(q:String) = videosRepository.getQueryVideos(q)
     fun nextPage() = videosRepository.nextPage()
+    fun clearPage() = videosRepository.clearPage()
 
 
 }

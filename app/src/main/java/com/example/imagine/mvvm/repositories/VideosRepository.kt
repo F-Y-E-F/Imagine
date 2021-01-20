@@ -8,7 +8,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class VideosRepository {
 
     val videos = MutableLiveData<VideoSearchResult>()
-    val page = MutableLiveData<Int>()
+    val page = MutableLiveData<Int?>()
+    val type = MutableLiveData<String>()
+
 
 
 
@@ -19,6 +21,7 @@ class VideosRepository {
         VideosClient.client.getVideos(null,pageNB)
             .subscribeOn(Schedulers.io())
             .subscribe{
+                type.postValue("category")
                 videos.postValue(it)
             }
     }
@@ -28,10 +31,11 @@ class VideosRepository {
     //--------------------------| Get Query Video Page |---------------------------
     fun getQueryVideos(q:String){
         videos.postValue(null)
-        val pageNB = if(page.value == null) 1 else page.value!!+1
+        val pageNB = if(page.value == null) 1 else page.value
         VideosClient.client.getVideos(q,pageNB)
             .subscribeOn(Schedulers.io())
             .subscribe{
+                type.postValue("search")
                 videos.postValue(it)
             }
     }
@@ -47,6 +51,10 @@ class VideosRepository {
             page.postValue(1)
     }
     //=====================================================================
+
+    fun clearPage() {
+        page.postValue(0)
+    }
 
 
 
