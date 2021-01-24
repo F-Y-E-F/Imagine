@@ -15,6 +15,7 @@ import com.example.imagine.R
 import com.example.imagine.mvvm.view_models.VideosViewModel
 import com.example.imagine.screens.adapters.VideosRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_videos.*
+import kotlinx.android.synthetic.main.video_filters.*
 
 
 class VideosFragment : Fragment() {
@@ -43,10 +44,21 @@ class VideosFragment : Fragment() {
         
         
         videosViewModel.type.observe(viewLifecycleOwner){this.type = it}
+        videosViewModel.orderBy.observe(viewLifecycleOwner){
+            if(it==null || it == "popular"){
+                popularVideosCheckBox.isChecked = true
+                latestVideosCheckBox.isChecked = false
+            }else{
+                latestVideosCheckBox.isChecked = true
+                popularVideosCheckBox.isChecked = false
+            }
+
+        }
         listenToChanges()
         getInitialVideos()
         addNextPage()
         detectSearch()
+        applyVideosFilters()
     }
 
     
@@ -70,6 +82,7 @@ class VideosFragment : Fragment() {
     
     //-------------------| Setup Start Videos |-------------------------
     private fun getInitialVideos() {
+
         videosViewModel.videos.observe(viewLifecycleOwner) {
             if (it != null) {
                 setItemsVisibility(VideosRecyclerViewAdapter(it.videos), View.GONE, View.VISIBLE)
@@ -77,8 +90,7 @@ class VideosFragment : Fragment() {
                 setItemsVisibility(null, View.VISIBLE, View.GONE)
             }
         }
-
-        videosViewModel.nextPage()
+        videosViewModel.getVideos()
     }
     //=====================================================================
 
@@ -135,5 +147,28 @@ class VideosFragment : Fragment() {
         type="search"
         videosViewModel.clearPage()
     }
+
+
+    private fun applyVideosFilters(){
+        latestVideosCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) popularVideosCheckBox.isChecked = false
+        }
+
+        popularVideosCheckBox.setOnCheckedChangeListener{_,isChecked ->
+            if (isChecked) latestVideosCheckBox.isChecked = false
+        }
+
+        applyVideosFiltersButton.setOnClickListener {
+            if(popularVideosCheckBox.isChecked){
+                videosViewModel.applyFilter("popular")
+            }
+            else{
+                videosViewModel.applyFilter("latest")
+            }
+            videoFilters.visibility = View.INVISIBLE
+            videosViewModel.clearPage()
+        }
+    }
+
 
 }

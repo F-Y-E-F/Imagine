@@ -195,8 +195,10 @@ class PhotosFragment : Fragment(), PhotosInterface {
 
     //set check of orientation checkboxes
     private fun setOrientationCheckBoxChecked(firstState: Boolean, secondState: Boolean) {
-        verticalCheckBox.isChecked = firstState
-        horizontalCheckBox.isChecked = secondState
+        if(verticalCheckBox!=null && horizontalCheckBox != null){
+            verticalCheckBox.isChecked = firstState
+            horizontalCheckBox.isChecked = secondState
+        }
     }
 
     //----------------------| Get Filters Data From View Model |---------------------------
@@ -321,10 +323,12 @@ class PhotosFragment : Fragment(), PhotosInterface {
     //-----------------------| Reset filters checkboxes to start state |----------------------------
     private fun resetFilters() {
         setOrientationCheckBoxChecked(firstState = true, secondState = true)
-        transparentCheckBox.isChecked = false
-        grayscaleCheckBox.isChecked = false
-        popularCheckBox.isChecked = true
-        latestCheckBox.isChecked = false
+        if(transparentCheckBox!=null){
+            transparentCheckBox.isChecked = false
+            grayscaleCheckBox.isChecked = false
+            popularCheckBox.isChecked = true
+            latestCheckBox.isChecked = false
+        }
     }
     //==============================================================================================
 

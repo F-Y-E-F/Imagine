@@ -1,5 +1,6 @@
 package com.example.imagine.mvvm.repositories
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.imagine.mvvm.models.videos.VideoSearchResult
 import com.example.imagine.retrofit.videos.VideosClient
@@ -10,15 +11,16 @@ class VideosRepository {
     val videos = MutableLiveData<VideoSearchResult>()
     val page = MutableLiveData<Int?>()
     val type = MutableLiveData<String>()
-
-
+    val orderBy = MutableLiveData<String>()
 
 
     //----------------------------------| Get Video Page |-----------------------------------
     fun getVideos(){
         videos.postValue(null)
         val pageNB = if(page.value == null) 1 else page.value!!+1
-        VideosClient.client.getVideos(null,pageNB)
+        if(orderBy.value != null) Log.d("TAG",orderBy.value!!)
+        else Log.d("TAG","null")
+        VideosClient.client.getVideos(null,pageNB,orderBy.value)
             .subscribeOn(Schedulers.io())
             .subscribe{
                 type.postValue("category")
@@ -32,7 +34,7 @@ class VideosRepository {
     fun getQueryVideos(q:String){
         videos.postValue(null)
         val pageNB = if(page.value == null) 1 else page.value
-        VideosClient.client.getVideos(q,pageNB)
+        VideosClient.client.getVideos(q,pageNB, orderBy.value)
             .subscribeOn(Schedulers.io())
             .subscribe{
                 type.postValue("search")
@@ -55,6 +57,9 @@ class VideosRepository {
     fun clearPage() {
         page.postValue(0)
     }
+
+    //apply sort method
+    fun applyFilter(orderType:String) = orderBy.postValue(orderType)
 
 
 
