@@ -35,7 +35,23 @@ class VideosFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
         }
 
+        
+        videoFiltersImageView.setOnClickListener { 
+            if(videoFilters.visibility == View.GONE) videoFilters.visibility = View.VISIBLE
+            else videoFilters.visibility = View.GONE
+        }
+        
+        
         videosViewModel.type.observe(viewLifecycleOwner){this.type = it}
+        listenToChanges()
+        getInitialVideos()
+        addNextPage()
+        detectSearch()
+    }
+
+    
+    //------------------------------| Listen to next page clicked or reset pages and get photos by that |------------------------------
+    private fun listenToChanges(){
         videosViewModel.page.observe(viewLifecycleOwner){
             if(it!=null){
                 Log.d("TAG",it.toString())
@@ -48,13 +64,12 @@ class VideosFragment : Fragment() {
                 }
             }
         }
-        getVideos()
-        addNextPage()
-        detectSearch()
     }
-
+    //====================================================================================================================================
+    
+    
     //-------------------| Setup Start Videos |-------------------------
-    private fun getVideos() {
+    private fun getInitialVideos() {
         videosViewModel.videos.observe(viewLifecycleOwner) {
             if (it != null) {
                 setItemsVisibility(VideosRecyclerViewAdapter(it.videos), View.GONE, View.VISIBLE)

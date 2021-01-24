@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".screens.VideosFragment">
 
 
@@ -97,21 +97,21 @@
             app:layout_constraintTop_toBottomOf="@+id/videoFiltersImageView" />
 
         <androidx.recyclerview.widget.RecyclerView
-                  android:id="@+id/videosRecyclerView"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="@dimen/dimen_24"
-                  android:clipToPadding="true"
-                  android:overScrollMode="never"
-                  android:paddingStart="5dp"
-                  android:paddingEnd="5dp"
-                  android:paddingBottom="12dp"
-                  android:scrollbars="none"
-                  app:layout_constraintEnd_toEndOf="parent"
-                  app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintTop_toBottomOf="@+id/searchVideoET" />
+            android:id="@+id/videosRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:clipToPadding="true"
+            android:overScrollMode="never"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="12dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchVideoET" />
 
-       <Button
+        <Button
             android:id="@+id/nextPageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -146,6 +146,16 @@
             app:layout_constraintTop_toBottomOf="@+id/videosRecyclerView"
             app:layout_constraintVertical_bias="0.0" />
 
+        <include
+            android:id="@+id/videoFilters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/videoFiltersImageView"
+            layout="@layout/video_filters" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
