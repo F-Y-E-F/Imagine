@@ -15,6 +15,7 @@
         app:showAsAction="ifRoom"/>
 
     <item
+        android:id="@+id/favoritesFragment"
         android:title="Favorites"
         android:icon="@drawable/ic_favourite"
         app:showAsAction="ifRoom"/>

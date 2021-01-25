@@ -17,4 +17,10 @@
         android:label="fragment_videos"
         tools:layout="@layout/fragment_videos" />
 
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.imagine.screens.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
+
 </navigation>
