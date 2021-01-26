@@ -1,5 +1,10 @@
 package com.example.imagine.mvvm.models.photos
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.google.gson.annotations.Expose
+
+@Entity(tableName = "favourites_table")
 data class Photo(
     val comments: Int,
     val downloads: Int,
@@ -22,5 +27,8 @@ data class Photo(
     val views: Int,
     val webformatHeight: Int,
     val webformatURL: String,
-    val webformatWidth: Int
+    val webformatWidth: Int,
+    @Expose
+    @PrimaryKey(autoGenerate = true)
+    var photoId: Int = 0
 )

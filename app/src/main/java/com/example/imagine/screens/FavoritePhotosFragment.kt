@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.imagine.ImagineApplication
 import com.example.imagine.R
+import com.example.imagine.favourite_database.FavouritesPhotosViewModel
+import com.example.imagine.favourite_database.FavouritesPhotosViewModelFactory
 import com.example.imagine.models.PhotoColor
 import com.example.imagine.mvvm.models.photos.Photo
 import com.example.imagine.mvvm.view_models.PhotosViewModel
@@ -17,7 +20,9 @@ import kotlinx.android.synthetic.main.fragment_favorite_photos.*
 
 class FavoritePhotosFragment : Fragment(),PhotosInterface {
 
-    private val photosVm by viewModels<PhotosViewModel>()
+    private val favouritePhotosViewModel: FavouritesPhotosViewModel by viewModels {
+        FavouritesPhotosViewModelFactory((requireActivity().application as ImagineApplication).repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,16 +37,18 @@ class FavoritePhotosFragment : Fragment(),PhotosInterface {
 
         favouritePhotosRecyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        favouritePhotosRecyclerView.adapter = PhotosRecyclerViewAdapter(arrayListOf(),this)
 
+        favouritePhotosViewModel.allFavPhotos.observe(viewLifecycleOwner){
+            favouritePhotosRecyclerView.adapter = PhotosRecyclerViewAdapter(it,this)
 
+        }
     }
 
     override fun setColor(listOfColors: ArrayList<PhotoColor>) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 
     override fun onChoosePhoto(photo: Photo, sharedView: ImageView) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 }
