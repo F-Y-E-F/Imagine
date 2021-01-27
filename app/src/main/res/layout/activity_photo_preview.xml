@@ -23,7 +23,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/favouriteIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:contentDescription="@string/back"
@@ -61,7 +61,7 @@
         android:textColor="@color/colorWhite"
         android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="@+id/photoPreviewBackButton"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintEnd_toStartOf="@+id/favouriteIcon"
         app:layout_constraintStart_toEndOf="@+id/photoPreviewBackButton"
         app:layout_constraintTop_toTopOf="@+id/photoPreviewBackButton"
         app:layout_constraintVertical_bias="0.0" />
@@ -113,7 +113,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="14dp"
-        android:drawableStart="@drawable/ic_up"
         android:drawablePadding="10dp"
         android:fontFamily="@font/montserrat_semibold"
         android:gravity="center"
@@ -123,7 +122,8 @@
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:drawableStartCompat="@drawable/ic_up" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

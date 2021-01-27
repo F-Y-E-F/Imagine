@@ -13,8 +13,10 @@ import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.PopupMenu
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -22,7 +24,10 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.example.imagine.ImagineApplication
 import com.example.imagine.R
+import com.example.imagine.favourite_database.FavouritesPhotosViewModel
+import com.example.imagine.favourite_database.FavouritesPhotosViewModelFactory
 import com.example.imagine.helpers.Dialogs
 import com.example.imagine.mvvm.models.photos.Photo
 import com.example.imagine.screens.adapters.PhotoInfoBottomSheet
@@ -36,6 +41,11 @@ import java.io.OutputStream
 class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
     private lateinit var photo: Photo
     val dialogs = Dialogs()
+
+    private val favouritePhotosViewModel: FavouritesPhotosViewModel by viewModels {
+        FavouritesPhotosViewModelFactory((application as ImagineApplication).repository)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_preview)
@@ -45,6 +55,7 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
         setupPhotoEvents()
         setupPhotoInfo()
         handlePhotoOptions()
+        addToFavourites()
     }
 
     //--------------------| Lazy load photo - first previewUrl then better quality photo |--------------------------
@@ -215,5 +226,40 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
     //============================================================================================================================
 
     private fun showSnack(text:String) = dialogs.showSnackBar(findViewById<View>(android.R.id.content).rootView, text)
+
+
+    //-------------------------| Add photo to favourites database |-----------------------------
+    private fun addToFavourites(){
+        favouritePhotosViewModel.allFavPhotos.observe(this){favPhotos->
+
+
+            //--------- Check if photo is in database -----------
+            var photoInDatabase : Photo? = null
+            favPhotos.forEach {
+                if(it.id == photo.id) photoInDatabase = it
+            }
+            //===================================================
+
+            //show good icon based if photo is in database
+            if(photoInDatabase!=null){
+                favouriteIcon.setImageResource(R.drawable.ic_favourite)
+            }else{
+                favouriteIcon.setImageResource(R.drawable.ic_favorite_border)
+            }
+
+            //set good onclick function based if photo is in database
+            favouriteIcon.setOnClickListener {
+                if(photoInDatabase!=null){
+                    favouritePhotosViewModel.deleteFavouritePhoto(photoInDatabase!!)
+                    showSnack("Removed From Favourites")
+                }else{
+                    favouritePhotosViewModel.insertFavouritePhoto(photo)
+                    showSnack("Add To Favourites")
+                }
+
+            }
+        }
+    }
+    //============================================================================================
 
 }

@@ -343,18 +343,7 @@ class PhotosFragment : Fragment(), PhotosInterface {
     }
 
     override fun onChoosePhoto(photo: Photo, sharedView: ImageView) {
-        val transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(
-            requireActivity(),
-            sharedView,
-            "trans"
-        )
-        val intent = Intent(requireContext(), PhotoPreviewActivity::class.java).apply {
-            putExtra("photo",Gson().toJson(photo))
-        }
-        startActivity(
-            intent,
-            transitionActivityOptions.toBundle()
-        )
+        ChoosePhotoAction.choosePhoto(requireActivity(),requireContext(), sharedView, photo)
     }
 
 

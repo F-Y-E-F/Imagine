@@ -1,5 +1,7 @@
-package com.example.imagine.screens
+    package com.example.imagine.screens
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +18,7 @@ import com.example.imagine.models.PhotoColor
 import com.example.imagine.mvvm.models.photos.Photo
 import com.example.imagine.mvvm.view_models.PhotosViewModel
 import com.example.imagine.screens.adapters.PhotosRecyclerViewAdapter
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_favorite_photos.*
 
 class FavoritePhotosFragment : Fragment(),PhotosInterface {
@@ -44,11 +47,9 @@ class FavoritePhotosFragment : Fragment(),PhotosInterface {
         }
     }
 
-    override fun setColor(listOfColors: ArrayList<PhotoColor>) {
-        //TODO("Not yet implemented")
-    }
+    override fun setColor(listOfColors: ArrayList<PhotoColor>) { /*TODO("Nothing here")*/ }
 
     override fun onChoosePhoto(photo: Photo, sharedView: ImageView) {
-        //TODO("Not yet implemented")
+        ChoosePhotoAction.choosePhoto(requireActivity(),requireContext(), sharedView, photo)
     }
 }

@@ -43,7 +43,7 @@ class PhotoInfoBottomSheet : BottomSheetDialogFragment() {
 
         //setup photo
         Glide.with(requireContext())
-            .load(photo.webformatURL)
+            .load(photo.userImageURL)
             .centerCrop()
             .into(bottomSheetPhotoPreview)
 

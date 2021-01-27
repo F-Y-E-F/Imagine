@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.imagine.mvvm.models.photos.Photo
 
-@Database(entities = [Photo::class], version = 1, exportSchema = false)
+@Database(entities = [Photo::class], version = 2, exportSchema = false)
 abstract class FavouritesPhotosDatabase : RoomDatabase() {
     abstract fun favouritesPhotoDao(): FavouritesPhotoDao
 
@@ -20,7 +20,7 @@ abstract class FavouritesPhotosDatabase : RoomDatabase() {
                     context,
                     FavouritesPhotosDatabase::class.java,
                     "favourites_table"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 return instance
             }
         }
