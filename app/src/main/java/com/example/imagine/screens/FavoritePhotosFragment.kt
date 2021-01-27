@@ -50,6 +50,6 @@ class FavoritePhotosFragment : Fragment(),PhotosInterface {
     override fun setColor(listOfColors: ArrayList<PhotoColor>) { /*TODO("Nothing here")*/ }
 
     override fun onChoosePhoto(photo: Photo, sharedView: ImageView) {
-        ChoosePhotoAction.choosePhoto(requireActivity(),requireContext(), sharedView, photo)
+        ChoosePhotoAction.choosePhoto(requireActivity(),requireContext(), sharedView, photo,true)
     }
 }

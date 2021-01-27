@@ -343,7 +343,7 @@ class PhotosFragment : Fragment(), PhotosInterface {
     }
 
     override fun onChoosePhoto(photo: Photo, sharedView: ImageView) {
-        ChoosePhotoAction.choosePhoto(requireActivity(),requireContext(), sharedView, photo)
+        ChoosePhotoAction.choosePhoto(requireActivity(),requireContext(), sharedView, photo,false)
     }
 
 

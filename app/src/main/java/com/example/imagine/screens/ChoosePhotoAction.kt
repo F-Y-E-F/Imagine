@@ -12,7 +12,7 @@ object ChoosePhotoAction {
 
     fun choosePhoto(
         activity: FragmentActivity, context: Context,
-        sharedView: ImageView, photo: Photo
+        sharedView: ImageView, photo: Photo,isFav:Boolean
     ) {
         val transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(
             activity,
@@ -21,6 +21,7 @@ object ChoosePhotoAction {
         )
         val intent = Intent(context, PhotoPreviewActivity::class.java).apply {
             putExtra("photo", Gson().toJson(photo))
+            putExtra("isFav",isFav)
         }
         context.startActivity(
             intent,

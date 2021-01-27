@@ -50,6 +50,9 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_preview)
         photo = Gson().fromJson(intent.getStringExtra("photo")!!, Photo::class.java)
+
+        if(intent.getBooleanExtra("isFav",false))
+            previewPhotoHandler.visibility = View.INVISIBLE
         loadPhoto()
 
         setupPhotoEvents()
@@ -60,8 +63,11 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
 
     //--------------------| Lazy load photo - first previewUrl then better quality photo |--------------------------
     private fun loadPhoto() {
-        Glide.with(applicationContext).load(photo.previewURL)
-            .into(previewPhotoHandler)
+        if(!intent.getBooleanExtra("isFav",false)){
+            Glide.with(applicationContext).load(photo.previewURL)
+                .into(previewPhotoHandler)
+        }
+
         Glide.with(applicationContext).load(photo.largeImageURL).listener(object :
             RequestListener<Drawable> {
             override fun onLoadFailed(
