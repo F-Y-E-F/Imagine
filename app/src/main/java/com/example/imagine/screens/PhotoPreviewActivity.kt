@@ -5,9 +5,7 @@ import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
-import android.os.Environment
+import android.os.*
 import android.provider.MediaStore
 import android.util.Log
 import android.view.ContextThemeWrapper
@@ -68,6 +66,8 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
                 .into(previewPhotoHandler)
         }
 
+
+
         Glide.with(applicationContext).load(photo.largeImageURL).listener(object :
             RequestListener<Drawable> {
             override fun onLoadFailed(
@@ -86,7 +86,9 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
                 dataSource: DataSource?,
                 isFirstResource: Boolean
             ): Boolean {
-                previewPhotoHandler.visibility = View.INVISIBLE
+                Handler(Looper.getMainLooper()).postDelayed({
+                    previewPhotoHandler.visibility = View.INVISIBLE
+                },500)
                 return false
             }
         })
