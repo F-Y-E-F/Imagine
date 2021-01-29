@@ -1,7 +1,6 @@
 package com.example.imagine.screens
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +36,6 @@ class FavoritePhotosFragment : Fragment(),PhotosInterface,FavouritePhotosInterfa
 
         favouritePhotosViewModel.allFavPhotos.observe(viewLifecycleOwner){
             favouritePhotosRecyclerView.adapter = PhotosRecyclerViewAdapter(it,this,this)
-
         }
     }
 

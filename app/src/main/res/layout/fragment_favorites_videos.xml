@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".screens.FavoritesVideosFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favouriteVideosRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:clipToPadding="true"
+        android:overScrollMode="never"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="12dp"
+        android:scrollbars="none"/>
+
+</LinearLayout>

@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.imagine.screens.FavoritePhotosFragment
+import com.example.imagine.screens.FavoritesVideosFragment
 import com.example.imagine.screens.PhotosFragment
 import com.example.imagine.screens.VideosFragment
 
@@ -13,6 +14,6 @@ class FavouritesViewPagerAdapter(fa: FragmentActivity): FragmentStateAdapter(fa)
     }
 
     override fun createFragment(position: Int): Fragment {
-        return if(position == 0) FavoritePhotosFragment() else PhotosFragment()
+        return if(position == 0)  FavoritePhotosFragment() else FavoritesVideosFragment()
     }
 }
