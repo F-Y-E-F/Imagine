@@ -1,11 +1,13 @@
 package com.example.imagine.favourite_database.video_database
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.imagine.mvvm.models.videos.Video
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface FavouriteVideosDao {
 
     @Insert

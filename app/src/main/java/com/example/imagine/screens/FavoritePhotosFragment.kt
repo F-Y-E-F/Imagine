@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_favorite_photos.*
 class FavoritePhotosFragment : Fragment(),PhotosInterface,FavouritePhotosInterface {
 
     private val favouritePhotosViewModel: FavouritesPhotosViewModel by viewModels {
-        FavouritesPhotosViewModelFactory((requireActivity().application as ImagineApplication).repository)
+        FavouritesPhotosViewModelFactory((requireActivity().application as ImagineApplication).photosRepository)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

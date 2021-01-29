@@ -40,7 +40,7 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
     val dialogs = Dialogs()
 
     private val favouritePhotosViewModel: FavouritesPhotosViewModel by viewModels {
-        FavouritesPhotosViewModelFactory((application as ImagineApplication).repository)
+        FavouritesPhotosViewModelFactory((application as ImagineApplication).photosRepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
