@@ -1,7 +1,5 @@
-    package com.example.imagine.screens
+package com.example.imagine.screens
 
-import android.app.ActivityOptions
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,9 +16,7 @@ import com.example.imagine.favourite_database.FavouritesPhotosViewModelFactory
 import com.example.imagine.helpers.Dialogs
 import com.example.imagine.models.PhotoColor
 import com.example.imagine.mvvm.models.photos.Photo
-import com.example.imagine.mvvm.view_models.PhotosViewModel
 import com.example.imagine.screens.adapters.PhotosRecyclerViewAdapter
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_favorite_photos.*
 
 class FavoritePhotosFragment : Fragment(),PhotosInterface,FavouritePhotosInterface {
@@ -29,11 +25,7 @@ class FavoritePhotosFragment : Fragment(),PhotosInterface,FavouritePhotosInterfa
         FavouritesPhotosViewModelFactory((requireActivity().application as ImagineApplication).repository)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_favorite_photos, container, false)
     }
 
@@ -55,15 +47,18 @@ class FavoritePhotosFragment : Fragment(),PhotosInterface,FavouritePhotosInterfa
         ChoosePhotoAction.choosePhoto(requireActivity(),requireContext(), sharedView, photo,true)
     }
 
+    //-----------------------------| Show delete dialog on long click on photo |---------------------------------
     override fun onLongPhotoClick(photo: Photo) {
-        Log.d("XD","XD234")
         Dialogs().showAlertAppDialog(requireActivity(),requireContext(),
             "Are you sure",
             "Are you sure to delete the photo from favorites?"
-        ) { this.onDeletePhoto(photo) }.show()
+        ) {this.onDeletePhoto(photo)}.show()
     }
+    //============================================================================================================
 
+    //-------------------------| Delete favourite photo from database |--------------------------------
     override fun onDeletePhoto(photo: Photo) {
         favouritePhotosViewModel.deleteFavouritePhoto(photo)
     }
+    //==================================================================================================
 }
