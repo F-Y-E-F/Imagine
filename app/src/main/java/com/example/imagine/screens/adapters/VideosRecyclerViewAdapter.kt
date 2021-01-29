@@ -1,5 +1,6 @@
 package com.example.imagine.screens.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Renderer
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
+import kotlinx.android.synthetic.main.player_bg.view.*
 
 class VideosRecyclerViewAdapter(private val listOfVideos:List<Video>):RecyclerView.Adapter<VideosViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideosViewHolder {
@@ -17,6 +19,9 @@ class VideosRecyclerViewAdapter(private val listOfVideos:List<Video>):RecyclerVi
     }
 
     override fun onBindViewHolder(holder: VideosViewHolder, position: Int) {
+        holder.playerView.favouriteVideoIcon.setOnClickListener {
+            Log.d("TAG","TAG")
+        }
         val player = SimpleExoPlayer.Builder(holder.itemView.context).build()
         holder.playerView.player = player
         val mediaItem: MediaItem = MediaItem.fromUri(listOfVideos[holder.adapterPosition].videos.small.url)
