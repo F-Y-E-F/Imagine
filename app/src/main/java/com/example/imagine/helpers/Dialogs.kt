@@ -3,13 +3,16 @@ package com.example.imagine.helpers
 import android.app.AlertDialog
 import android.app.WallpaperManager
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import com.example.imagine.R
+import com.example.imagine.mvvm.models.photos.Photo
 import com.example.imagine.screens.PhotoPreviewActivity
 import com.example.imagine.screens.WallpaperType
 import com.google.android.material.snackbar.Snackbar
@@ -55,7 +58,7 @@ class Dialogs {
 
     //--------------------------| Show snackBar with bigger and bold text |---------------------------
     fun showSnackBar(view: View, text: String) {
-        val snackbar =  Snackbar.make(view, text, Snackbar.LENGTH_SHORT)
+        val snackbar = Snackbar.make(view, text, Snackbar.LENGTH_SHORT)
             .setBackgroundTint(ContextCompat.getColor(view.context, R.color.colorBackgroundLight))
             .setTextColor(ContextCompat.getColor(view.context, R.color.colorPrimary))
         val snackbarActionTextView =
@@ -63,6 +66,28 @@ class Dialogs {
         snackbarActionTextView.textSize = 16f
         snackbarActionTextView.setTypeface(snackbarActionTextView.typeface, Typeface.BOLD)
         snackbar.show()
+    }
+
+
+    //------------------------------| Show On Long click Dialog |-----------------------------------
+    fun showAlertAppDialog(
+        activity: FragmentActivity,
+        title: String,
+        message: String,
+        onPositiveButtonClick: (photo: Photo) -> Unit,
+        photo: Photo
+    ): AlertDialog {
+        return activity.let {
+            AlertDialog.Builder(activity.applicationContext).setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("Delete") { dialog: DialogInterface, _: Int ->
+                    onPositiveButtonClick(photo)
+                    dialog.dismiss()
+                }.setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .create()
+        }
     }
 
 }

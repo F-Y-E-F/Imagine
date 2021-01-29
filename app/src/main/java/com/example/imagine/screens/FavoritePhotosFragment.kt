@@ -21,7 +21,7 @@ import com.example.imagine.screens.adapters.PhotosRecyclerViewAdapter
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_favorite_photos.*
 
-class FavoritePhotosFragment : Fragment(),PhotosInterface {
+class FavoritePhotosFragment : Fragment(),PhotosInterface,FavouritePhotosInterface {
 
     private val favouritePhotosViewModel: FavouritesPhotosViewModel by viewModels {
         FavouritesPhotosViewModelFactory((requireActivity().application as ImagineApplication).repository)
@@ -42,7 +42,7 @@ class FavoritePhotosFragment : Fragment(),PhotosInterface {
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
         favouritePhotosViewModel.allFavPhotos.observe(viewLifecycleOwner){
-            favouritePhotosRecyclerView.adapter = PhotosRecyclerViewAdapter(it,this)
+            favouritePhotosRecyclerView.adapter = PhotosRecyclerViewAdapter(it,this,this)
 
         }
     }
@@ -51,5 +51,13 @@ class FavoritePhotosFragment : Fragment(),PhotosInterface {
 
     override fun onChoosePhoto(photo: Photo, sharedView: ImageView) {
         ChoosePhotoAction.choosePhoto(requireActivity(),requireContext(), sharedView, photo,true)
+    }
+
+    override fun onLongPhotoClick(photo: Photo) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDeletePhoto(photo: Photo) {
+        
     }
 }

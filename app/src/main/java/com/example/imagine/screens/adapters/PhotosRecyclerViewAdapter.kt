@@ -1,6 +1,7 @@
 package com.example.imagine.screens.adapters
 
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +15,16 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.example.imagine.R
 import com.example.imagine.mvvm.models.photos.Photo
+import com.example.imagine.screens.FavouritePhotosInterface
 import com.example.imagine.screens.PhotosInterface
 import com.example.imagine.screens.adapters.view_holders.PhotosViewHolder
 
 
-class PhotosRecyclerViewAdapter(private val listOfPhotos: List<Photo>, private val listener: PhotosInterface):RecyclerView.Adapter<PhotosViewHolder>() {
+class PhotosRecyclerViewAdapter(
+    private val listOfPhotos: List<Photo>,
+    private val listener: PhotosInterface,
+    private val favouritesListener: FavouritePhotosInterface?
+) : RecyclerView.Adapter<PhotosViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosViewHolder {
         return PhotosViewHolder(
             LayoutInflater.from(parent.context).inflate(
@@ -31,38 +37,50 @@ class PhotosRecyclerViewAdapter(private val listOfPhotos: List<Photo>, private v
 
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
 
-        Glide.with(holder.itemView.context).load(listOfPhotos[holder.adapterPosition].webformatURL).fitCenter().listener(
-            object : RequestListener<Drawable> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    holder.progress.visibility = View.GONE
-                    holder.progress.isEnabled = false
-                    return false
-                }
+        Glide.with(holder.itemView.context).load(listOfPhotos[holder.adapterPosition].webformatURL)
+            .fitCenter().listener(
+                object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        holder.progress.visibility = View.GONE
+                        holder.progress.isEnabled = false
+                        return false
+                    }
 
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    holder.progress.visibility = View.GONE
-                    holder.progress.isEnabled = false
-                    return false
-                }
-            }).override(Target.SIZE_ORIGINAL).centerCrop().transform(RoundedCorners(2)).apply(
-            RequestOptions().override(
-                300,
-                300
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        holder.progress.visibility = View.GONE
+                        holder.progress.isEnabled = false
+                        return false
+                    }
+                }).override(Target.SIZE_ORIGINAL).centerCrop().transform(RoundedCorners(2)).apply(
+                RequestOptions().override(
+                    300,
+                    300
+                )
+            ).into(holder.photo)
+
+        holder.photo.setOnClickListener {
+            listener.onChoosePhoto(
+                listOfPhotos[holder.adapterPosition],
+                holder.photo
             )
-        ).into(holder.photo)
+        }
 
-        holder.photo.setOnClickListener{listener.onChoosePhoto(listOfPhotos[holder.adapterPosition],holder.photo)}
+        holder.photo.takeIf { favouritesListener != null }?.setOnLongClickListener {
+            
+            true
+        }
+
     }
 
     override fun getItemCount(): Int {

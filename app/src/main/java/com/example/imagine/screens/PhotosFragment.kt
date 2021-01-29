@@ -76,7 +76,7 @@ class PhotosFragment : Fragment(), PhotosInterface {
                 onEndLoad()
                 photosCount = it.photos.size
                 photosRecyclerView.apply {
-                    adapter = PhotosRecyclerViewAdapter(it.photos, this@PhotosFragment)
+                    adapter = PhotosRecyclerViewAdapter(it.photos, this@PhotosFragment,null)
                 }
             } else {
                 photosRecyclerView.adapter = null
