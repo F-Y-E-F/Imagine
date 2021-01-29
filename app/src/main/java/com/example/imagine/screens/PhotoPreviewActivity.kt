@@ -14,7 +14,6 @@ import android.widget.PopupMenu
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -24,8 +23,8 @@ import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.example.imagine.ImagineApplication
 import com.example.imagine.R
-import com.example.imagine.favourite_database.FavouritesPhotosViewModel
-import com.example.imagine.favourite_database.FavouritesPhotosViewModelFactory
+import com.example.imagine.favourite_database.photo_database.FavouritesPhotosViewModel
+import com.example.imagine.favourite_database.photo_database.FavouritesPhotosViewModelFactory
 import com.example.imagine.helpers.Dialogs
 import com.example.imagine.mvvm.models.photos.Photo
 import com.example.imagine.screens.adapters.PhotoInfoBottomSheet

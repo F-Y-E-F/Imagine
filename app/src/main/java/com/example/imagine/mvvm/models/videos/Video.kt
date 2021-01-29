@@ -1,5 +1,10 @@
 package com.example.imagine.mvvm.models.videos
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.google.gson.annotations.Expose
+
+@Entity(tableName = "video_table")
 data class Video(
     val comments: Int,
     val downloads: Int,
@@ -15,5 +20,8 @@ data class Video(
     val userImageURL: String,
     val user_id: Int,
     val videos: Videos,
-    val views: Int
+    val views: Int,
+    @Expose
+    @PrimaryKey(autoGenerate = true)
+    var videoId: Int = 0
 )

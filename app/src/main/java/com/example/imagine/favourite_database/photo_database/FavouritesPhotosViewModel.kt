@@ -1,4 +1,4 @@
-package com.example.imagine.favourite_database
+package com.example.imagine.favourite_database.photo_database
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.imagine.ImagineApplication
 import com.example.imagine.R
-import com.example.imagine.favourite_database.FavouritesPhotosViewModel
-import com.example.imagine.favourite_database.FavouritesPhotosViewModelFactory
+import com.example.imagine.favourite_database.photo_database.FavouritesPhotosViewModel
+import com.example.imagine.favourite_database.photo_database.FavouritesPhotosViewModelFactory
 import com.example.imagine.helpers.Dialogs
 import com.example.imagine.models.PhotoColor
 import com.example.imagine.mvvm.models.photos.Photo
