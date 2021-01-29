@@ -72,16 +72,16 @@ class Dialogs {
     //------------------------------| Show On Long click Dialog |-----------------------------------
     fun showAlertAppDialog(
         activity: FragmentActivity,
+        context: Context,
         title: String,
         message: String,
-        onPositiveButtonClick: (photo: Photo) -> Unit,
-        photo: Photo
+        onPositiveButtonClick: () -> Unit,
     ): AlertDialog {
         return activity.let {
-            AlertDialog.Builder(activity.applicationContext).setTitle(title)
+            AlertDialog.Builder(context, R.style.AlertDialogStyle).setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("Delete") { dialog: DialogInterface, _: Int ->
-                    onPositiveButtonClick(photo)
+                    onPositiveButtonClick()
                     dialog.dismiss()
                 }.setNegativeButton("Cancel") { dialog, _ ->
                     dialog.dismiss()

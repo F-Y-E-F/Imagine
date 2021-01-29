@@ -3,6 +3,7 @@
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.example.imagine.ImagineApplication
 import com.example.imagine.R
 import com.example.imagine.favourite_database.FavouritesPhotosViewModel
 import com.example.imagine.favourite_database.FavouritesPhotosViewModelFactory
+import com.example.imagine.helpers.Dialogs
 import com.example.imagine.models.PhotoColor
 import com.example.imagine.mvvm.models.photos.Photo
 import com.example.imagine.mvvm.view_models.PhotosViewModel
@@ -54,10 +56,14 @@ class FavoritePhotosFragment : Fragment(),PhotosInterface,FavouritePhotosInterfa
     }
 
     override fun onLongPhotoClick(photo: Photo) {
-        TODO("Not yet implemented")
+        Log.d("XD","XD234")
+        Dialogs().showAlertAppDialog(requireActivity(),requireContext(),
+            "Are you sure",
+            "Are you sure to delete the photo from favorites?"
+        ) { this.onDeletePhoto(photo) }.show()
     }
 
     override fun onDeletePhoto(photo: Photo) {
-        
+        favouritePhotosViewModel.deleteFavouritePhoto(photo)
     }
 }

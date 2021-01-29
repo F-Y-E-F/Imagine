@@ -77,7 +77,7 @@ class PhotosRecyclerViewAdapter(
         }
 
         holder.photo.takeIf { favouritesListener != null }?.setOnLongClickListener {
-            
+            favouritesListener!!.onLongPhotoClick(listOfPhotos[holder.adapterPosition])
             true
         }
 

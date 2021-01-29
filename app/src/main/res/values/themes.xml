@@ -27,4 +27,11 @@
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:selectableItemBackground">@color/colorPrimary</item>
     </style>
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:colorAccent">#fff</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textColorPrimary">#fff</item>
+        <item name="android:background">#202020</item>
+    </style>
 </resources>
