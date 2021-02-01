@@ -1,6 +1,5 @@
 package com.example.imagine.screens.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +16,6 @@ import kotlinx.android.synthetic.main.player_bg.view.*
 class VideosRecyclerViewAdapter(
     private val listOfVideos: List<Video>,
     private val listener: VideosInterface,
-    private val likedVideos: ArrayList<Video>
 ) : RecyclerView.Adapter<VideosViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideosViewHolder {
         return VideosViewHolder(
@@ -40,7 +38,6 @@ class VideosRecyclerViewAdapter(
         player.videoScalingMode = Renderer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
 
         player.prepare()
-
 
     }
 

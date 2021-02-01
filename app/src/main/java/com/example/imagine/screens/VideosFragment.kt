@@ -100,7 +100,7 @@ class VideosFragment : Fragment(), VideosInterface {
 
         videosViewModel.videos.observe(viewLifecycleOwner) {allVideos ->
             if (allVideos != null) {
-                setItemsVisibility(VideosRecyclerViewAdapter(allVideos.videos,this, (likedVideos as ArrayList<Video>)), View.GONE, View.VISIBLE)
+                setItemsVisibility(VideosRecyclerViewAdapter(allVideos.videos,this), View.GONE, View.VISIBLE)
             } else {
                 setItemsVisibility(null, View.VISIBLE, View.GONE)
             }
