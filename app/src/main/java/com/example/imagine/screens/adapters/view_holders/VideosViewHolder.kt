@@ -8,5 +8,4 @@ import kotlinx.android.synthetic.main.video.view.*
 
 class VideosViewHolder(v:View):RecyclerView.ViewHolder(v) {
     val playerView: PlayerView = v.playerView
-    val allVideoLayout: LinearLayout = v.allVideoLayout
 }

@@ -1,6 +1,7 @@
 package com.example.imagine.screens
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,24 +9,35 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.imagine.ImagineApplication
 import com.example.imagine.R
+import com.example.imagine.favourite_database.photo_database.FavouritesPhotosViewModel
+import com.example.imagine.favourite_database.photo_database.FavouritesPhotosViewModelFactory
+import com.example.imagine.favourite_database.video_database.FavouriteVideosViewModel
+import com.example.imagine.favourite_database.video_database.FavouriteVideosViewModelFactory
+import com.example.imagine.mvvm.models.videos.Video
 import com.example.imagine.mvvm.view_models.VideosViewModel
 import com.example.imagine.screens.adapters.VideosRecyclerViewAdapter
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_videos.*
 import kotlinx.android.synthetic.main.video_filters.*
 
 
-class VideosFragment : Fragment() {
+class VideosFragment : Fragment(), VideosInterface {
     private var type = "category"
     private val videosViewModel by viewModels<VideosViewModel>()
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? =
+
+    private lateinit var likedVideos:List<Video>
+
+    private val favouriteVideosViewModel: FavouriteVideosViewModel by viewModels {
+        FavouriteVideosViewModelFactory((requireActivity().application as ImagineApplication).videosRepository)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_videos, container, false)
 
 
@@ -82,10 +94,13 @@ class VideosFragment : Fragment() {
     
     //-------------------| Setup Start Videos |-------------------------
     private fun getInitialVideos() {
+        favouriteVideosViewModel.allVideos.observe(viewLifecycleOwner){
+            likedVideos = it
+        }
 
-        videosViewModel.videos.observe(viewLifecycleOwner) {
-            if (it != null) {
-                setItemsVisibility(VideosRecyclerViewAdapter(it.videos), View.GONE, View.VISIBLE)
+        videosViewModel.videos.observe(viewLifecycleOwner) {allVideos ->
+            if (allVideos != null) {
+                setItemsVisibility(VideosRecyclerViewAdapter(allVideos.videos,this, (likedVideos as ArrayList<Video>)), View.GONE, View.VISIBLE)
             } else {
                 setItemsVisibility(null, View.VISIBLE, View.GONE)
             }
@@ -107,6 +122,7 @@ class VideosFragment : Fragment() {
         videosRecyclerView.adapter = adapter
         loadingProgress.visibility = loadingProgressVisible
         nextPageButton.visibility = nextButtonVisible
+        Log.d("TAG","wykonalo sie 5")
     }
     //===========================================================================================================
 
@@ -149,6 +165,7 @@ class VideosFragment : Fragment() {
     }
 
 
+    //------------------| Apply filters to videos |-------------------
     private fun applyVideosFilters(){
         latestVideosCheckBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) popularVideosCheckBox.isChecked = false
@@ -168,6 +185,14 @@ class VideosFragment : Fragment() {
             videoFilters.visibility = View.INVISIBLE
             videosViewModel.clearPage()
         }
+    }
+    //==================================================================
+
+    override fun onFullScreenIconClicked(video: Video) {
+        val intent  = Intent(requireContext(),VideoFullScreenActivity::class.java).apply {
+            putExtra("video",Gson().toJson(video))
+        }
+        startActivity(intent)
     }
 
 
