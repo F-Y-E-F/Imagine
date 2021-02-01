@@ -2,8 +2,10 @@ package com.example.imagine.screens
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.text.method.LinkMovementMethod
+import com.bumptech.glide.Glide
 import com.example.imagine.R
+import com.example.imagine.helpers.Texts
 import com.example.imagine.mvvm.models.videos.Video
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Renderer
@@ -21,7 +23,7 @@ class VideoFullScreenActivity : AppCompatActivity() {
         video = Gson().fromJson(intent.getStringExtra("video"),Video::class.java)
 
         setupVideo()
-
+        setupVideoInfo()
     }
 
     //---------------| Setup video in player view |-----------------
@@ -38,4 +40,27 @@ class VideoFullScreenActivity : AppCompatActivity() {
         player.prepare()
     }
     //==============================================================
+
+    private fun setupVideoInfo(){
+        videoTitle.text = video.tags
+        videoAuthorName.text = "by " + video.user
+        videoAuthorName2.text = "Author :  ${video.user}"
+
+        Glide.with(applicationContext)
+            .load(video.userImageURL)
+            .centerCrop()
+            .into(videoAuthorImage)
+
+        videoLikes.text = video.likes.toString()
+        videoComments.text = video.comments.toString()
+        videoViews.text = video.views.toString()
+
+        videoOfficialSite.text = Texts.setupOfficialSiteLinkText(video.pageURL,this)
+        videoOfficialSite.movementMethod = LinkMovementMethod.getInstance()
+
+        videoResolution.text = "Size : ${video.videos.medium.width}x${video.videos.medium.height}"
+
+        videoTags.text = Texts.setupTagsText(video.tags,this)
+
+    }
 }

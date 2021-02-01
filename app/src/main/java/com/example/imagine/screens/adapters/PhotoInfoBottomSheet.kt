@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.imagine.R
+import com.example.imagine.helpers.Texts
 import com.example.imagine.mvvm.models.photos.Photo
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
@@ -54,39 +55,13 @@ class PhotoInfoBottomSheet : BottomSheetDialogFragment() {
         bottomSheetPhotoAuthor.text = "Author : ${photo.user}"
 
         bottomSheetPhotoSize.text = "Size : ${photo.imageWidth}x${photo.imageHeight}"
-        val tagSpannable = SpannableStringBuilder("Tags : ${photo.tags}")
-        tagSpannable.setSpan(
-            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorPrimary)),
-            7, // start
-            photo.tags.length + 7, // end
-            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-        )
-        bottomSheetPhotoTags.text = tagSpannable
+
+        bottomSheetPhotoTags.text = Texts.setupTagsText(photo.tags,requireContext())
 
 
-        val officialSiteSpannable = SpannableStringBuilder("Visit official site here")
 
-        val span1: ClickableSpan = object : ClickableSpan() {
-            override fun onClick(p0: View) {
-                val uri: Uri = Uri.parse(photo.pageURL)
-                val intent = Intent(Intent.ACTION_VIEW, uri)
-                startActivity(intent)
-            }
-        }
-        officialSiteSpannable.setSpan(span1, 20, 24, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-        officialSiteSpannable.setSpan(
-            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorPrimary)),
-            20, // start
-            24, // end
-            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-        )
-        officialSiteSpannable.setSpan(
-            UnderlineSpan(), 20,
-            24, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-        bottomSheetOfficialSite.text = officialSiteSpannable
+        bottomSheetOfficialSite.text = Texts.setupOfficialSiteLinkText(photo.pageURL,requireContext())
         bottomSheetOfficialSite.movementMethod = LinkMovementMethod.getInstance()
 
         bottomSheetUserLikes.text = photo.likes.toString()
