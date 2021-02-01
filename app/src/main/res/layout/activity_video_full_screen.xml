@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:fillViewport="true"
     android:background="@color/colorBackground"
+    android:fillViewport="true"
     tools:context=".screens.VideoFullScreenActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +34,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/videoTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
@@ -51,7 +51,24 @@
             app:layout_constraintTop_toBottomOf="@+id/allVideoLayout" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/textView14"
+            android:layout_width="411dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:paddingStart="@dimen/dimen_40"
+            android:paddingEnd="@dimen/dimen_40"
+            android:text="About Video"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="19sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/videoViews" />
+
+        <TextView
+            android:id="@+id/videoAuthorName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -62,7 +79,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+            app:layout_constraintTop_toBottomOf="@+id/videoTitle" />
 
 
         <ImageView
@@ -80,7 +97,7 @@
 
 
         <TextView
-            android:id="@+id/bottomSheetUserLikes2"
+            android:id="@+id/videoLikes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -97,7 +114,7 @@
 
 
         <TextView
-            android:id="@+id/bottomSheetUserLikes3"
+            android:id="@+id/videoComments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -113,7 +130,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
         <TextView
-            android:id="@+id/bottomSheetUserLikes4"
+            android:id="@+id/videoViews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -161,12 +178,14 @@
             android:background="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+            app:layout_constraintTop_toBottomOf="@+id/videoAuthorName" />
 
 
         <Button
+            android:id="@+id/addToFavVideosButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/rounded_border_50"
             android:backgroundTint="@color/colorPrimary"
             android:drawableStart="@drawable/ic_favourite"
@@ -177,11 +196,93 @@
             android:text="Add To Favourites"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
-            android:layout_marginBottom="20dp"
             app:drawableTint="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/videoAuthorImage"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/exo_ic_default_album_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+
+        <TextView
+            android:id="@+id/videoAuthorName2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_semibold"
+            android:maxLines="1"
+            android:text="Author: Some author name"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/videoAuthorImage"
+            app:layout_constraintTop_toTopOf="@+id/videoAuthorImage" />
+
+        <TextView
+            android:id="@+id/videoResolution"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_semibold"
+            android:maxLines="1"
+            android:text="Resolution: 2031x3123"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/videoAuthorImage"
+            app:layout_constraintTop_toBottomOf="@+id/videoAuthorName2" />
+
+        <TextView
+            android:id="@+id/videoTags"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_semibold"
+            android:maxLines="1"
+            android:text="Tags: dfsdf, sdf, dsf"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/videoAuthorImage"
+            app:layout_constraintTop_toBottomOf="@+id/videoResolution" />
+
+        <TextView
+            android:id="@+id/videoOfficialSite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_semibold"
+            android:maxLines="1"
+            android:text="Visit official site here"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/videoAuthorImage"
+            app:layout_constraintTop_toBottomOf="@+id/videoTags" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
