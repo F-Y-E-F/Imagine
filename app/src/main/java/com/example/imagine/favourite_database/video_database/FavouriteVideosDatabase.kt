@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.imagine.mvvm.models.videos.Video
 
-@Database(entities = [Video::class], version = 1, exportSchema = false)
+@Database(entities = [Video::class], version = 2, exportSchema = false)
 @TypeConverters(VideosTypeConverter::class)
 abstract class FavouriteVideosDatabase : RoomDatabase() {
 

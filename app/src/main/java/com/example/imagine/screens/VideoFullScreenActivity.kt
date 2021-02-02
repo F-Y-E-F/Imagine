@@ -10,7 +10,6 @@ import com.example.imagine.R
 import com.example.imagine.favourite_database.video_database.FavouriteVideosViewModel
 import com.example.imagine.favourite_database.video_database.FavouriteVideosViewModelFactory
 import com.example.imagine.helpers.Texts
-import com.example.imagine.mvvm.models.photos.Photo
 import com.example.imagine.mvvm.models.videos.Video
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Renderer
