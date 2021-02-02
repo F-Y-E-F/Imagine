@@ -27,7 +27,6 @@ class FavoritesVideosFragment : Fragment(), VideosInterface{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         favouriteVideosViewModel.allVideos.observe(viewLifecycleOwner){
             favouriteVideosRecyclerView.apply {
                 layoutManager = LinearLayoutManager(requireContext())

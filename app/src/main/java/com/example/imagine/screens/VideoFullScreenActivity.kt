@@ -1,7 +1,9 @@
 package com.example.imagine.screens
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -17,14 +19,15 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_video_full_screen.*
+import kotlinx.android.synthetic.main.player_bg.view.*
 
 
+@Suppress("UNSAFE_CALL_ON_PARTIALLY_DEFINED_RESOURCE")
 class VideoFullScreenActivity : AppCompatActivity() {
 
     private val favouriteVideosViewModel: FavouriteVideosViewModel by viewModels {
         FavouriteVideosViewModelFactory((application as ImagineApplication).videosRepository)
     }
-
     private lateinit var video: Video
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,21 +36,29 @@ class VideoFullScreenActivity : AppCompatActivity() {
         video = Gson().fromJson(intent.getStringExtra("video"), Video::class.java)
 
         setupVideo()
-        setupVideoInfo()
-        addToFavourite()
+        if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
+            setupVideoInfo()
+            addToFavourite()
+        }
+
     }
 
     //---------------| Setup video in player view |-----------------
     private fun setupVideo(){
         val player = SimpleExoPlayer.Builder(applicationContext).build()
         videoFullScreenPlayerView.player = player
-        val mediaItem: MediaItem =
+        val mediaItem: MediaItem = if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
             MediaItem.fromUri(video.videos.small.url)
+        }else{
+            MediaItem.fromUri(video.videos.medium.url)
+        }
         player.setMediaItem(mediaItem)
         videoFullScreenPlayerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
         player.videoScalingMode = Renderer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
-
-
+        videoFullScreenPlayerView.fullScreenIcon.setImageResource(R.drawable.ic_exit_full_screen)
+        videoFullScreenPlayerView.fullScreenIcon.setOnClickListener {
+            onBackPressed()
+        }
         player.prepare()
     }
     //==============================================================
@@ -75,6 +86,7 @@ class VideoFullScreenActivity : AppCompatActivity() {
 
     }
 
+    //---------------------| Add Video to favourites database |-----------------------
     private fun addToFavourite(){
 
         favouriteVideosViewModel.allVideos.observe(this){
@@ -88,22 +100,36 @@ class VideoFullScreenActivity : AppCompatActivity() {
 
             if(videoInDatabase==null){
                 addToFavVideosButton.text ="Add to favourites"
-                addToFavVideosButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favorite_border, 0, 0, 0)
+                addToFavVideosButton.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_favorite_border,
+                    0,
+                    0,
+                    0
+                )
             }else{
                 addToFavVideosButton.text ="Remove from favourites"
-                addToFavVideosButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favourite, 0, 0, 0)
+                addToFavVideosButton.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_favourite,
+                    0,
+                    0,
+                    0
+                )
             }
 
             addToFavVideosButton.setOnClickListener {
                 if(videoInDatabase==null){
                     favouriteVideosViewModel.insertFavVideo(video)
                 }else{
-                    favouriteVideosViewModel.deleteFavVideo(videoInDatabase!!)
+                    favouriteVideosViewModel.deleteFavVideo(videoInDatabase)
                 }
-
             }
         }
+    }
+    //==========================================================================================================
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("TAG","WYKONALO SIE RELEASE")
+        videoFullScreenPlayerView.player!!.release()
     }
 }

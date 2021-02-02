@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/allVideoLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:fillViewport="true"
+    tools:context=".screens.VideoFullScreenActivity">
+
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/videoFullScreenPlayerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:controller_layout_id="@layout/player_bg"
+        app:show_buffering="when_playing">
+
+
+    </com.google.android.exoplayer2.ui.PlayerView>
+
+</LinearLayout>
