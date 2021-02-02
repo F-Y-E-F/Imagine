@@ -183,7 +183,7 @@
 
         <Button
             android:id="@+id/addToFavVideosButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:background="@drawable/rounded_border_50"
@@ -194,6 +194,8 @@
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
             android:text="Add To Favourites"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="50dp"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             app:drawableTint="@color/colorWhite"
