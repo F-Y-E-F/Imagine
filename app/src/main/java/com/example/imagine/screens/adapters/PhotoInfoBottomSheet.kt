@@ -1,6 +1,8 @@
 package com.example.imagine.screens.adapters
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.Spannable
@@ -14,6 +16,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import com.example.imagine.R
 import com.example.imagine.helpers.Texts
 import com.example.imagine.mvvm.models.photos.Photo
@@ -46,8 +54,23 @@ class PhotoInfoBottomSheet : BottomSheetDialogFragment() {
         Glide.with(requireContext())
             .load(photo.userImageURL)
             .centerCrop()
-            .into(bottomSheetPhotoPreview)
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                    return false
+                }
 
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    progressHandlerBottomSheet.visibility = View.GONE
+                    return false
+                }
+            })
+            .into(bottomSheetPhotoPreview)
 
 
         //setup photo info texts

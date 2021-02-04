@@ -48,8 +48,7 @@ class VideosRecyclerViewAdapter(
 
     override fun onViewDetachedFromWindow(holder: VideosViewHolder) {
         super.onViewDetachedFromWindow(holder)
-        if (holder.playerView.player != null)
-            holder.playerView.player!!.release()
+        holder.playerView.player!!.release()
     }
 
 

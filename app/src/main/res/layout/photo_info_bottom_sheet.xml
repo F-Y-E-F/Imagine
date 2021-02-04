@@ -28,6 +28,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bottomSheetUserLikes" />
 
+    <ProgressBar
+        android:id="@+id/progressHandlerBottomSheet"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:visibility="visible"
+        android:backgroundTint="@color/colorWhite"
+        android:indeterminateTint="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomSheetPhotoPreview"
+        app:layout_constraintEnd_toEndOf="@+id/bottomSheetPhotoPreview"
+        app:layout_constraintStart_toStartOf="@+id/bottomSheetPhotoPreview"
+        app:layout_constraintTop_toTopOf="@+id/bottomSheetPhotoPreview" />
+
     <ImageView
         android:id="@+id/bottomSheetPhotoPreview"
         android:layout_width="120dp"
