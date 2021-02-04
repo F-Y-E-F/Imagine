@@ -1,21 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBackground"
-    tools:context=".screens.FavoritesVideosFragment">
+    android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/favouriteVideosRecyclerView"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_16"
-        android:clipToPadding="true"
-        android:overScrollMode="never"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="12dp"
-        android:scrollbars="none"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorBackground"
+        tools:context=".screens.FavoritesVideosFragment">
 
-</LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/favouriteVideosRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:clipToPadding="true"
+            android:overScrollMode="never"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="12dp"
+            android:scrollbars="none" />
+
+        <Button
+            android:id="@+id/nextPageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_border_5"
+            android:backgroundTint="#3B3B3B"
+            android:fontFamily="@font/montserrat_semibold"
+            android:paddingStart="@dimen/dimen_16"
+            android:paddingEnd="@dimen/dimen_16"
+            android:text="Next Page"
+            android:layout_gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite" />
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
