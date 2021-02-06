@@ -38,6 +38,16 @@ class FavoritesVideosFragment : Fragment(), VideosInterface {
             currentPage = savedInstanceState.getInt("currentPage")
 
 
+        getInitialVideos()
+
+        onNextButtonClick()
+        onBackButtonClick()
+    }
+
+
+    //-----------------------------| Get Initial Current Page Videos From Database |---------------------------------
+
+    private fun getInitialVideos(){
         favouriteVideosViewModel.allVideos.observe(viewLifecycleOwner) { list ->
             when {
                 list.isEmpty() -> {
@@ -65,12 +75,11 @@ class FavoritesVideosFragment : Fragment(), VideosInterface {
                 nextPageFavButton.performClick()
             }
         }
-
-        onNextButtonClick()
-        onBackButtonClick()
     }
+    //======================================================================================================================
 
 
+    //click on fullscreen icon
     override fun onFullScreenIconClicked(video: Video) {
         val intent = Intent(requireContext(), VideoFullScreenActivity::class.java).apply {
             putExtra("video", Gson().toJson(video))
@@ -78,6 +87,9 @@ class FavoritesVideosFragment : Fragment(), VideosInterface {
         startActivity(intent)
     }
 
+
+
+    //------------------------------------------| On next Button click |----------------------------------------------
     private fun onNextButtonClick() {
         nextPageFavButton.setOnClickListener {
             favouriteVideosRecyclerView.adapter = null
@@ -105,8 +117,10 @@ class FavoritesVideosFragment : Fragment(), VideosInterface {
         }
 
     }
+    //=====================================================================================================================
 
 
+    //----------------------------------------| On Back button click |----------------------------------
     private fun onBackButtonClick(){
         backPageFavButton.setOnClickListener {
             currentPage -= 2
@@ -115,6 +129,7 @@ class FavoritesVideosFragment : Fragment(), VideosInterface {
                 backPageFavButton.visibility = View.GONE
         }
     }
+    //===================================================================================================
 
 
     override fun onStop() {
