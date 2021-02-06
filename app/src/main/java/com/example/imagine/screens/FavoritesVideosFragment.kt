@@ -37,6 +37,7 @@ class FavoritesVideosFragment : Fragment(), VideosInterface {
         if(savedInstanceState!=null)
             currentPage = savedInstanceState.getInt("currentPage")
 
+
         favouriteVideosViewModel.allVideos.observe(viewLifecycleOwner) { list ->
             when {
                 list.isEmpty() -> {
@@ -50,7 +51,6 @@ class FavoritesVideosFragment : Fragment(), VideosInterface {
                 }
             }
 
-
             if (currentPage == 1) {
                 backPageFavButton.visibility = View.GONE
                 val videos =
@@ -60,6 +60,9 @@ class FavoritesVideosFragment : Fragment(), VideosInterface {
                     layoutManager = LinearLayoutManager(requireContext())
                     adapter = VideosRecyclerViewAdapter(videos, this@FavoritesVideosFragment)
                 }
+            }else{
+                currentPage--
+                nextPageFavButton.performClick()
             }
         }
 
@@ -114,15 +117,13 @@ class FavoritesVideosFragment : Fragment(), VideosInterface {
     }
 
 
-
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onStop() {
+        super.onStop()
         favouriteVideosRecyclerView.adapter = null
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
         outState.putInt("currentPage",currentPage)
     }
 

@@ -15,8 +15,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imagine.ImagineApplication
 import com.example.imagine.R
-import com.example.imagine.favourite_database.photo_database.FavouritesPhotosViewModel
-import com.example.imagine.favourite_database.photo_database.FavouritesPhotosViewModelFactory
 import com.example.imagine.favourite_database.video_database.FavouriteVideosViewModel
 import com.example.imagine.favourite_database.video_database.FavouriteVideosViewModelFactory
 import com.example.imagine.mvvm.models.videos.Video
@@ -193,6 +191,11 @@ class VideosFragment : Fragment(), VideosInterface {
             putExtra("video",Gson().toJson(video))
         }
         startActivity(intent)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        videosRecyclerView.adapter = null
     }
 
 
