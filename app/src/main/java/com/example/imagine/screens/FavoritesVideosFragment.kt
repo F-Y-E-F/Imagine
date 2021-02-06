@@ -64,6 +64,7 @@ class FavoritesVideosFragment : Fragment(), VideosInterface {
         }
 
         onNextButtonClick()
+        onBackButtonClick()
     }
 
 
@@ -101,7 +102,18 @@ class FavoritesVideosFragment : Fragment(), VideosInterface {
         }
 
     }
-    
+
+
+    private fun onBackButtonClick(){
+        backPageFavButton.setOnClickListener {
+            currentPage -= 2
+            nextPageFavButton.performClick()
+            if(currentPage == 1)
+                backPageFavButton.visibility = View.GONE
+        }
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
