@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.imagine.R
@@ -63,6 +64,12 @@ class PhotosFragment : Fragment(), PhotosInterface {
             if (filters.visibility == View.GONE) filters.visibility = View.VISIBLE
             else filters.visibility = View.GONE
         }
+
+        settingsButton.setOnClickListener {
+            findNavController().navigate(R.id.action_photosFragment_to_settingsFragment)
+        }
+
+
     }
 
     //---------------| Get Start Photos |------------------
