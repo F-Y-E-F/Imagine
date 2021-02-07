@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.imagine.R
+import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : Fragment() {
 
@@ -19,6 +20,11 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+        arrayListOf<View>(settingsBackButton, settingsText).forEach {
+            it.setOnClickListener {
+                requireActivity().onBackPressed()
+            }
+        }
     }
 
 

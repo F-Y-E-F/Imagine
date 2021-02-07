@@ -27,16 +27,328 @@
             app:tint="@color/colorPrimary" />
 
         <TextView
+            android:id="@+id/settingsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_light"
             android:text="Settings"
             android:textColor="@color/colorPrimary"
-            android:textSize="22sp"
-            android:fontFamily="@font/montserrat_light"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/settingsBackButton"
             app:layout_constraintStart_toEndOf="@+id/settingsBackButton"
             app:layout_constraintTop_toTopOf="@+id/settingsBackButton" />
 
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:text="GENERAL SETTINGS"
+            android:textColor="#737373"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/settingsBackButton" />
+
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_48"
+            android:text="HELP CENTER"
+            android:textColor="#737373"
+            app:layout_constraintStart_toStartOf="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_48"
+            android:text="APPLICATION"
+            android:textColor="#737373"
+            app:layout_constraintStart_toStartOf="@+id/imageView13"
+            app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:background="@drawable/rounded_border_5"
+            android:backgroundTint="@color/colorPrimary"
+            android:contentDescription="nightmodeicon"
+            android:padding="7dp"
+            android:rotation="180"
+            android:src="@drawable/ic_night_icon"
+            app:layout_constraintStart_toStartOf="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/textView12"
+            app:tint="@color/colorWhite" />
+
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Night Mode"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchCompat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_24"
+            app:layout_constraintBottom_toBottomOf="@+id/textView13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView13"
+            app:layout_constraintVertical_bias="0.0"
+            app:thumbTint="@color/colorPrimary"
+            app:trackTint="#1AFFFFFF" />
+
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/rounded_border_5"
+            android:backgroundTint="@color/colorPrimary"
+            android:contentDescription="nightmodeicon"
+            android:padding="7dp"
+            android:src="@drawable/ic_delete_all_videos"
+            app:layout_constraintStart_toStartOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:tint="@color/colorWhite" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:background="@drawable/rounded_border_5"
+            android:backgroundTint="@color/colorPrimary"
+            android:contentDescription="nightmodeicon"
+            android:padding="7dp"
+            android:src="@drawable/ic_star"
+            app:layout_constraintStart_toStartOf="@+id/textView18"
+            app:layout_constraintTop_toBottomOf="@+id/textView18"
+            app:tint="@color/colorWhite" />
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:background="@drawable/rounded_border_5"
+            android:backgroundTint="@color/colorPrimary"
+            android:contentDescription="nightmodeicon"
+            android:padding="7dp"
+            android:src="@drawable/ic_info"
+            app:layout_constraintStart_toStartOf="@+id/textView21"
+            app:layout_constraintTop_toBottomOf="@+id/textView21"
+            app:tint="@color/colorWhite" />
+
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:background="@drawable/rounded_border_5"
+            android:backgroundTint="@color/colorPrimary"
+            android:contentDescription="nightmodeicon"
+            android:padding="7dp"
+            android:src="@drawable/ic_android"
+            app:layout_constraintStart_toStartOf="@+id/imageView15"
+            app:layout_constraintTop_toBottomOf="@+id/imageView15"
+            app:tint="@color/colorWhite" />
+
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:background="@drawable/rounded_border_5"
+            android:backgroundTint="@color/colorPrimary"
+            android:contentDescription="nightmodeicon"
+            android:padding="7dp"
+            android:src="@drawable/ic_bug"
+            app:layout_constraintEnd_toEndOf="@+id/imageView11"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView18"
+            app:layout_constraintTop_toBottomOf="@+id/imageView11"
+            app:tint="@color/colorWhite" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:background="@drawable/rounded_border_5"
+            android:backgroundTint="@color/colorPrimary"
+            android:contentDescription="nightmodeicon"
+            android:padding="7dp"
+            android:src="@drawable/ic_delete_all_photos"
+            app:layout_constraintStart_toStartOf="@+id/imageView7"
+            app:layout_constraintTop_toBottomOf="@+id/imageView7"
+            app:tint="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Delete Favorites Videos"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+            app:layout_constraintStart_toEndOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Rate My App"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView11"
+            app:layout_constraintStart_toEndOf="@+id/imageView11"
+            app:layout_constraintTop_toTopOf="@+id/imageView11" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Bug report"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+            app:layout_constraintStart_toEndOf="@+id/imageView13"
+            app:layout_constraintTop_toTopOf="@+id/imageView13" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="About"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView15"
+            app:layout_constraintStart_toEndOf="@+id/imageView15"
+            app:layout_constraintTop_toTopOf="@+id/imageView15" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="App Version"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView17"
+            app:layout_constraintStart_toEndOf="@+id/imageView17"
+            app:layout_constraintTop_toTopOf="@+id/imageView17" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Delete Favorites Photos"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+            app:layout_constraintStart_toEndOf="@+id/imageView8"
+            app:layout_constraintTop_toTopOf="@+id/imageView8" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="5dp"
+            android:rotation="180"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView16"
+            app:layout_constraintEnd_toEndOf="@+id/switchCompat"
+            app:layout_constraintTop_toTopOf="@+id/textView16"
+            app:tint="@color/colorWhite" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="5dp"
+            android:rotation="180"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView17"
+            app:layout_constraintEnd_toEndOf="@+id/imageView10"
+            app:layout_constraintTop_toTopOf="@+id/textView17"
+            app:tint="@color/colorWhite" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="5dp"
+            android:rotation="180"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView19"
+            app:layout_constraintEnd_toEndOf="@+id/imageView9"
+            app:layout_constraintTop_toTopOf="@+id/textView19"
+            app:tint="@color/colorWhite" />
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="5dp"
+            android:rotation="180"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView20"
+            app:layout_constraintEnd_toEndOf="@+id/imageView12"
+            app:layout_constraintTop_toTopOf="@+id/textView20"
+            app:tint="@color/colorWhite" />
+
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="5dp"
+            android:rotation="180"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView22"
+            app:layout_constraintEnd_toEndOf="@+id/imageView14"
+            app:layout_constraintTop_toTopOf="@+id/textView22"
+            app:tint="@color/colorWhite" />
+
+        <ImageView
+            android:id="@+id/imageView18"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="5dp"
+            android:rotation="180"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView24"
+            app:layout_constraintEnd_toEndOf="@+id/imageView16"
+            app:layout_constraintTop_toTopOf="@+id/textView24"
+            app:tint="@color/colorWhite" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
