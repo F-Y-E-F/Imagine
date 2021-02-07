@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/rounded_border_5"
-    android:backgroundTint="#181818"
+    android:backgroundTint="@color/colorBackgroundLight"
     android:padding="20dp">
 
     <TextView
@@ -219,7 +219,7 @@
         android:paddingEnd="20dp"
         android:paddingBottom="6dp"
         android:text="Apply"
-        android:textColor="#181818"
+        android:textColor="@color/colorBackground"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="12dp"
         app:layout_constraintHorizontal_bias="0.5"
@@ -240,7 +240,7 @@
         android:paddingBottom="6dp"
         android:textSize="13sp"
         android:text="Reset Filters"
-        android:textColor="@color/colorWhite"
+        android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/popularCheckBox" />

@@ -2,8 +2,10 @@
 <resources>
     <color name="colorPrimary">#FF8000</color>
     <color name="colorPrimaryDark">#131313</color>
-    <color name="colorAccent">#FFFFFF</color>
-    <color name="colorWhite">#FFFFFF</color>
-    <color name="colorBackground">#131313</color>
-    <color name="colorBackgroundLight">#222222</color>
+    <color name="colorAccent">#222222</color>
+    <color name="colorWhite">#131313</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorBackgroundLight">#EEEEEE</color>
+    <color name="searchBarColor">#DDDDDD</color>
+    <color name="searchBarTextColor">#666666</color>
 </resources>
