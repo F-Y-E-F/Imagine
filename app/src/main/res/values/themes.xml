@@ -23,8 +23,8 @@
     </style>
 
     <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
-        <item name="android:itemBackground">#181818</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:itemBackground">@color/bottomNavBarBackground</item>
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:selectableItemBackground">@color/colorPrimary</item>
     </style>
 

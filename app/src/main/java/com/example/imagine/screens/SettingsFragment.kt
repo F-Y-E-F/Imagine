@@ -35,7 +35,7 @@ class SettingsFragment : Fragment() {
         setupDarkMode()
     }
 
-
+//dodac opcje do jakosci exportu zdjecia
     private fun setupDarkMode() {
         val sp = requireActivity().getSharedPreferences("SETTINGS", MODE_PRIVATE)
         nightModeSwitch.setOnCheckedChangeListener { _, isChecked ->
