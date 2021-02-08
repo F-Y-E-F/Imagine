@@ -8,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.navigation.fragment.findNavController
 import com.example.imagine.R
+import com.example.imagine.helpers.Dialogs
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : Fragment() {
 
+    private val dialogs = Dialogs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,9 +36,11 @@ class SettingsFragment : Fragment() {
             }
         }
         setupDarkMode()
+        setupAppInfo()
+        setupAbout()
     }
 
-//dodac opcje do jakosci exportu zdjecia
+    //dodac opcje do jakosci exportu zdjecia
     private fun setupDarkMode() {
         val sp = requireActivity().getSharedPreferences("SETTINGS", MODE_PRIVATE)
         nightModeSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -52,4 +57,20 @@ class SettingsFragment : Fragment() {
             }
         }
     }
+
+
+    private fun setupAppInfo(){
+        appVersionButton.setOnClickListener {
+            (dialogs.showAlertAppDialog(requireActivity(),requireContext(),"App version", "v1.0","Ok"){}).show()
+        }
+    }
+
+
+    private fun setupAbout(){
+        aboutButton.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_aboutFragment)
+        }
+    }
+
+
 }

@@ -327,7 +327,7 @@
             app:tint="@color/colorWhite" />
 
         <ImageView
-            android:id="@+id/imageView16"
+            android:id="@+id/aboutButton"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:padding="5dp"
@@ -339,14 +339,14 @@
             app:tint="@color/colorWhite" />
 
         <ImageView
-            android:id="@+id/imageView18"
+            android:id="@+id/appVersionButton"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:padding="5dp"
             android:rotation="180"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="@+id/textView24"
-            app:layout_constraintEnd_toEndOf="@+id/imageView16"
+            app:layout_constraintEnd_toEndOf="@+id/aboutButton"
             app:layout_constraintTop_toTopOf="@+id/textView24"
             app:tint="@color/colorWhite" />
 

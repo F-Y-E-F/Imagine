@@ -75,12 +75,13 @@ class Dialogs {
         context: Context,
         title: String,
         message: String,
+        buttonText:String,
         onPositiveButtonClick: () -> Unit,
     ): AlertDialog {
         return activity.let {
             AlertDialog.Builder(context, R.style.AlertDialogStyle).setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("Delete") { dialog: DialogInterface, _: Int ->
+                .setPositiveButton(buttonText) { dialog: DialogInterface, _: Int ->
                     onPositiveButtonClick()
                     dialog.dismiss()
                 }.setNegativeButton("Cancel") { dialog, _ ->

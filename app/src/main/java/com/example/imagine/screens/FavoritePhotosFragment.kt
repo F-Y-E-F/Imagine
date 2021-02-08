@@ -49,7 +49,7 @@ class FavoritePhotosFragment : Fragment(),PhotosInterface,FavouritePhotosInterfa
     override fun onLongPhotoClick(photo: Photo) {
         Dialogs().showAlertAppDialog(requireActivity(),requireContext(),
             "Are you sure",
-            "Are you sure to delete the photo from favorites?"
+            "Are you sure to delete the photo from favorites?","Delete"
         ) {this.onDeletePhoto(photo)}.show()
     }
     //============================================================================================================
