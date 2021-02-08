@@ -84,7 +84,7 @@
             android:src="@drawable/ic_night_icon"
             app:layout_constraintStart_toStartOf="@+id/textView12"
             app:layout_constraintTop_toBottomOf="@+id/textView12"
-            app:tint="@color/colorWhite" />
+            app:tint="#fff" />
 
 
         <TextView
@@ -111,7 +111,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView13"
             app:layout_constraintVertical_bias="0.0"
             app:thumbTint="@color/colorPrimary"
-            app:trackTint="#1AFFFFFF" />
+            app:trackTint="@color/switchTrackColor" />
 
 
         <ImageView
@@ -126,7 +126,7 @@
             android:src="@drawable/ic_delete_all_videos"
             app:layout_constraintStart_toStartOf="@+id/imageView3"
             app:layout_constraintTop_toBottomOf="@+id/imageView3"
-            app:tint="@color/colorWhite" />
+            app:tint="#fff" />
 
         <ImageView
             android:id="@+id/imageView11"
@@ -140,7 +140,7 @@
             android:src="@drawable/ic_star"
             app:layout_constraintStart_toStartOf="@+id/textView18"
             app:layout_constraintTop_toBottomOf="@+id/textView18"
-            app:tint="@color/colorWhite" />
+            app:tint="#fff" />
 
         <ImageView
             android:id="@+id/imageView15"
@@ -154,7 +154,7 @@
             android:src="@drawable/ic_info"
             app:layout_constraintStart_toStartOf="@+id/textView21"
             app:layout_constraintTop_toBottomOf="@+id/textView21"
-            app:tint="@color/colorWhite" />
+            app:tint="#fff" />
 
         <ImageView
             android:id="@+id/imageView17"
@@ -168,7 +168,7 @@
             android:src="@drawable/ic_android"
             app:layout_constraintStart_toStartOf="@+id/imageView15"
             app:layout_constraintTop_toBottomOf="@+id/imageView15"
-            app:tint="@color/colorWhite" />
+            app:tint="#fff" />
 
         <ImageView
             android:id="@+id/imageView13"
@@ -184,7 +184,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView18"
             app:layout_constraintTop_toBottomOf="@+id/imageView11"
-            app:tint="@color/colorWhite" />
+            app:tint="#fff" />
 
         <ImageView
             android:id="@+id/imageView8"
@@ -198,7 +198,7 @@
             android:src="@drawable/ic_delete_all_photos"
             app:layout_constraintStart_toStartOf="@+id/imageView7"
             app:layout_constraintTop_toBottomOf="@+id/imageView7"
-            app:tint="@color/colorWhite" />
+            app:tint="#fff" />
 
         <TextView
             android:id="@+id/textView16"

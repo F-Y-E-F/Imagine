@@ -6,6 +6,9 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBackground">#131313</color>
     <color name="colorBackgroundLight">#222222</color>
+    <color name="bottomNavBarBackground">#181818</color>
     <color name="searchBarColor">#3B3B3B</color>
     <color name="searchBarTextColor">#3B3B3B</color>
+    <color name="switchTrackColor">#1AFFFFFF</color>
+    <color name="colorPlayerBackground">#101010</color>
 </resources>

@@ -117,7 +117,7 @@
             android:layout_marginTop="@dimen/dimen_4"
             android:layout_marginBottom="20dp"
             android:background="@drawable/rounded_border_5"
-            android:backgroundTint="#3B3B3B"
+            android:backgroundTint="@color/colorBackgroundLight"
             android:fontFamily="@font/montserrat_semibold"
             android:paddingStart="@dimen/dimen_16"
             android:paddingEnd="@dimen/dimen_16"
