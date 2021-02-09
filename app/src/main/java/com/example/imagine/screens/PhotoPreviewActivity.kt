@@ -202,8 +202,11 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
             val image = File(imagesDir, filename)
             fos = FileOutputStream(image)
         }
+        val prefs = getSharedPreferences("SETTINGS", MODE_PRIVATE)
+        val quality = prefs.getInt("exportQuality",100)
+
         fos?.use {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, it)
             showSnack("Image has been saved")
         }
     }

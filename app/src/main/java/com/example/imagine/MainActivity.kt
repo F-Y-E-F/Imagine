@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         }
 
             navController.addOnDestinationChangedListener{_,destination,_ ->
-            if(destination.id == R.id.settingsFragment || destination.id == R.id.aboutFragment) bottomNavViewModel.hideBottomNav()
+            if(destination.id == R.id.settingsFragment || destination.id == R.id.aboutFragment || destination.id == R.id.exportQualityFragment) bottomNavViewModel.hideBottomNav()
             else bottomNavViewModel.showBottomNav()
         }
 

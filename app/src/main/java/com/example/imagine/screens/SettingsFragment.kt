@@ -55,9 +55,10 @@ class SettingsFragment : Fragment() {
         setupAbout()
         deleteFavouriteVideos()
         deleteFavouritesPhotos()
+        setupExportPhotoQuality()
     }
 
-    //dodac opcje do jakosci exportu zdjecia
+   //------------------------------------| Setup Night mode settings |-----------------------------------------
     private fun setupDarkMode() {
         val sp = requireActivity().getSharedPreferences("SETTINGS", MODE_PRIVATE)
         nightModeSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -74,8 +75,10 @@ class SettingsFragment : Fragment() {
             }
         }
     }
+    //===========================================================================================================
 
 
+    //--------------------| Setup App version alert dialog |-------------------------
     private fun setupAppVersion(){
         arrayListOf(appVersionText,appVersionButton).forEach {
             it.setOnClickListener {
@@ -83,8 +86,10 @@ class SettingsFragment : Fragment() {
             }
         }
     }
+    //================================================================================
 
 
+    //--------------------------| Setup about Button |---------------------------
     private fun setupAbout(){
         arrayListOf(aboutText,aboutButton).forEach {
             it.setOnClickListener {
@@ -92,7 +97,9 @@ class SettingsFragment : Fragment() {
             }
         }
     }
+    //============================================================================
 
+    //----------------------| Delete all favourite Videos From database |--------------------------
     private fun deleteFavouriteVideos(){
         arrayListOf(deleteFavVideosButton,deleteFavVideosText)
             .forEach {
@@ -103,13 +110,25 @@ class SettingsFragment : Fragment() {
                 }
             }
     }
+    //=============================================================================================
 
+    //----------------------| Delete all favourite Photos From database |--------------------------
     private fun deleteFavouritesPhotos(){
         arrayListOf(deleteFavPhotosText,deleteFavPhotosButton).forEach {
             it.setOnClickListener {
                 (dialogs.showAlertAppDialog(requireActivity(), requireContext(), "Are you sure?","Are you sure to delete all favourite photos?", "Confirm") {
                     favouritePhotosViewModel.deleteAllFavouritesPhotos()
                 }).show()
+            }
+        }
+    }
+    //=============================================================================================
+
+
+    private fun setupExportPhotoQuality(){
+        arrayListOf(exportQualityButton,exportQualityText).forEach {
+            it.setOnClickListener {
+                findNavController().navigate(R.id.action_settingsFragment_to_exportQualityFragment)
             }
         }
     }
