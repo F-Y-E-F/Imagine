@@ -8,14 +8,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.imagine.ImagineApplication
 import com.example.imagine.R
+import com.example.imagine.favourite_database.photo_database.FavouritesPhotosViewModel
+import com.example.imagine.favourite_database.photo_database.FavouritesPhotosViewModelFactory
+import com.example.imagine.favourite_database.video_database.FavouriteVideosViewModel
+import com.example.imagine.favourite_database.video_database.FavouriteVideosViewModelFactory
 import com.example.imagine.helpers.Dialogs
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : Fragment() {
 
     private val dialogs = Dialogs()
+
+    private val favouriteVideosViewModel: FavouriteVideosViewModel by viewModels {
+        FavouriteVideosViewModelFactory((requireActivity().application as ImagineApplication).videosRepository)
+    }
+
+    private val favouritePhotosViewModel: FavouritesPhotosViewModel by viewModels {
+        FavouritesPhotosViewModelFactory((requireActivity().application as ImagineApplication).photosRepository)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,8 +51,10 @@ class SettingsFragment : Fragment() {
             }
         }
         setupDarkMode()
-        setupAppInfo()
+        setupAppVersion()
         setupAbout()
+        deleteFavouriteVideos()
+        deleteFavouritesPhotos()
     }
 
     //dodac opcje do jakosci exportu zdjecia
@@ -59,16 +76,41 @@ class SettingsFragment : Fragment() {
     }
 
 
-    private fun setupAppInfo(){
-        appVersionButton.setOnClickListener {
-            (dialogs.showAlertAppDialog(requireActivity(),requireContext(),"App version", "v1.0","Ok"){}).show()
+    private fun setupAppVersion(){
+        arrayListOf(appVersionText,appVersionButton).forEach {
+            it.setOnClickListener {
+                (dialogs.showAlertAppDialog(requireActivity(), requireContext(), "App version", "v1.0", "Ok") {}).show()
+            }
         }
     }
 
 
     private fun setupAbout(){
-        aboutButton.setOnClickListener {
-            findNavController().navigate(R.id.action_settingsFragment_to_aboutFragment)
+        arrayListOf(aboutText,aboutButton).forEach {
+            it.setOnClickListener {
+                findNavController().navigate(R.id.action_settingsFragment_to_aboutFragment)
+            }
+        }
+    }
+
+    private fun deleteFavouriteVideos(){
+        arrayListOf(deleteFavVideosButton,deleteFavVideosText)
+            .forEach {
+                it.setOnClickListener {
+                    (dialogs.showAlertAppDialog(requireActivity(), requireContext(), "Are you sure?","Are you sure to delete all favourite videos?", "Confirm") {
+                        favouriteVideosViewModel.deleteAllFavVideo()
+                    }).show()
+                }
+            }
+    }
+
+    private fun deleteFavouritesPhotos(){
+        arrayListOf(deleteFavPhotosText,deleteFavPhotosButton).forEach {
+            it.setOnClickListener {
+                (dialogs.showAlertAppDialog(requireActivity(), requireContext(), "Are you sure?","Are you sure to delete all favourite photos?", "Confirm") {
+                    favouritePhotosViewModel.deleteAllFavouritesPhotos()
+                }).show()
+            }
         }
     }
 

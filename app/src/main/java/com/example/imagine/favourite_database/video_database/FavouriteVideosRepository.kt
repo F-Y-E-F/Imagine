@@ -14,4 +14,7 @@ class FavouriteVideosRepository(private val videosDao: FavouriteVideosDao) {
     @WorkerThread
     suspend fun deleteVideo(video: Video) = videosDao.deleteFavouriteVideo(video)
 
+    @WorkerThread
+    suspend fun deleteAllFavouriteVideos() = videosDao.deleteAllFavouriteVideos()
+
 }

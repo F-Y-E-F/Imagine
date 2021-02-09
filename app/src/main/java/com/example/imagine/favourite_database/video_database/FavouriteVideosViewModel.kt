@@ -20,5 +20,8 @@ class FavouriteVideosViewModel(private val videosRepository: FavouriteVideosRepo
         videosRepository.deleteVideo(video)
     }
 
+    fun deleteAllFavVideo() = viewModelScope.launch {
+        videosRepository.deleteAllFavouriteVideos()
+    }
 
 }

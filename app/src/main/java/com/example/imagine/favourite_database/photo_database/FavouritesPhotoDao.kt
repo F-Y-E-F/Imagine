@@ -19,4 +19,8 @@ interface FavouritesPhotoDao {
     @Query("SELECT * FROM favourites_table")
     fun getAllFavouritesPhotos() : Flow<List<Photo>>
 
+    @Query("DELETE FROM favourites_table")
+    suspend fun deleteAllFavouritesPhotos()
+
+
 }

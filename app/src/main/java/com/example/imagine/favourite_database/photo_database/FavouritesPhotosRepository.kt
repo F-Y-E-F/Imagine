@@ -16,4 +16,8 @@ class FavouritesPhotosRepository(private val favouritesPhotoDao: FavouritesPhoto
     suspend fun deleteFavouritePhoto(photo: Photo)
             = favouritesPhotoDao.deleteFavouritePhoto(photo)
 
+
+    @WorkerThread
+    suspend fun deleteAllFavouritesPhotos() = favouritesPhotoDao.deleteAllFavouritesPhotos()
+
 }

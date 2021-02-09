@@ -18,4 +18,8 @@ class FavouritesPhotosViewModel(private val favouritesPhotosRepository: Favourit
     fun deleteFavouritePhoto(photo: Photo) = viewModelScope.launch {
         favouritesPhotosRepository.deleteFavouritePhoto(photo)
     }
+
+    fun deleteAllFavouritesPhotos() = viewModelScope.launch {
+        favouritesPhotosRepository.deleteAllFavouritesPhotos()
+    }
 }

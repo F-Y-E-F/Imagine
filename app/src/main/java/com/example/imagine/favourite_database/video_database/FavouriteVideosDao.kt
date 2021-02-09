@@ -19,4 +19,8 @@ interface FavouriteVideosDao {
 
     @Query("SELECT * FROM video_table")
     fun getAllFavouriteVideos() : Flow<List<Video>>
+
+
+    @Query("DELETE FROM video_table")
+    suspend fun deleteAllFavouriteVideos()
 }
