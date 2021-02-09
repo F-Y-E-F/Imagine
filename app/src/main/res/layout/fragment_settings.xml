@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorBackground"
     android:fillViewport="true"
     tools:context=".screens.SettingsFragment">
@@ -201,129 +201,147 @@
             app:tint="#fff" />
 
         <TextView
-            android:id="@+id/textView16"
-            android:layout_width="wrap_content"
+            android:id="@+id/deleteFavVideosText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:fontFamily="@font/montserrat_semibold"
+            android:paddingEnd="10dp"
             android:text="Delete Favorites Videos"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+            app:layout_constraintEnd_toStartOf="@+id/deleteFavVideosButton"
             app:layout_constraintStart_toEndOf="@+id/imageView7"
-            app:layout_constraintTop_toTopOf="@+id/imageView7" />
+            app:layout_constraintTop_toTopOf="@+id/imageView7"
+            tools:ignore="RtlSymmetry" />
 
         <TextView
-            android:id="@+id/textView19"
-            android:layout_width="wrap_content"
+            android:id="@+id/rateMyAppText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:fontFamily="@font/montserrat_semibold"
+            android:paddingEnd="10dp"
             android:text="Rate My App"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView11"
+            app:layout_constraintEnd_toStartOf="@+id/rateMyAppButton"
             app:layout_constraintStart_toEndOf="@+id/imageView11"
-            app:layout_constraintTop_toTopOf="@+id/imageView11" />
+            app:layout_constraintTop_toTopOf="@+id/imageView11"
+            tools:ignore="RtlSymmetry" />
 
         <TextView
-            android:id="@+id/textView20"
-            android:layout_width="wrap_content"
+            android:id="@+id/bugReportText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:fontFamily="@font/montserrat_semibold"
+            android:paddingEnd="10dp"
             android:text="Bug report"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+            app:layout_constraintEnd_toStartOf="@+id/bugReportButton"
             app:layout_constraintStart_toEndOf="@+id/imageView13"
-            app:layout_constraintTop_toTopOf="@+id/imageView13" />
+            app:layout_constraintTop_toTopOf="@+id/imageView13"
+            tools:ignore="RtlSymmetry" />
 
         <TextView
-            android:id="@+id/textView22"
-            android:layout_width="wrap_content"
+            android:id="@+id/aboutText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:fontFamily="@font/montserrat_semibold"
+            android:paddingEnd="10dp"
             android:text="About"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView15"
+            app:layout_constraintEnd_toStartOf="@+id/aboutButton"
             app:layout_constraintStart_toEndOf="@+id/imageView15"
-            app:layout_constraintTop_toTopOf="@+id/imageView15" />
+            app:layout_constraintTop_toTopOf="@+id/imageView15"
+            tools:ignore="RtlSymmetry" />
 
         <TextView
-            android:id="@+id/textView24"
-            android:layout_width="wrap_content"
+            android:id="@+id/appVersionText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:fontFamily="@font/montserrat_semibold"
+            android:paddingEnd="10dp"
             android:text="App Version"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView17"
+            app:layout_constraintEnd_toStartOf="@+id/appVersionButton"
             app:layout_constraintStart_toEndOf="@+id/imageView17"
-            app:layout_constraintTop_toTopOf="@+id/imageView17" />
+            app:layout_constraintTop_toTopOf="@+id/imageView17"
+            tools:ignore="RtlSymmetry" />
 
         <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
+            android:id="@+id/deleteFavPhotosText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:fontFamily="@font/montserrat_semibold"
+            android:paddingEnd="10dp"
             android:text="Delete Favorites Photos"
             android:textColor="@color/colorAccent"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+            app:layout_constraintEnd_toStartOf="@+id/deleteFavPhotosButton"
             app:layout_constraintStart_toEndOf="@+id/imageView8"
-            app:layout_constraintTop_toTopOf="@+id/imageView8" />
+            app:layout_constraintTop_toTopOf="@+id/imageView8"
+            tools:ignore="RtlSymmetry" />
 
         <ImageView
-            android:id="@+id/imageView10"
+            android:id="@+id/deleteFavVideosButton"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:padding="5dp"
             android:rotation="180"
             android:src="@drawable/ic_back"
-            app:layout_constraintBottom_toBottomOf="@+id/textView16"
+            app:layout_constraintBottom_toBottomOf="@+id/deleteFavVideosText"
             app:layout_constraintEnd_toEndOf="@+id/nightModeSwitch"
-            app:layout_constraintTop_toTopOf="@+id/textView16"
+            app:layout_constraintTop_toTopOf="@+id/deleteFavVideosText"
             app:tint="@color/colorWhite" />
 
         <ImageView
-            android:id="@+id/imageView9"
+            android:id="@+id/deleteFavPhotosButton"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:padding="5dp"
             android:rotation="180"
             android:src="@drawable/ic_back"
-            app:layout_constraintBottom_toBottomOf="@+id/textView17"
-            app:layout_constraintEnd_toEndOf="@+id/imageView10"
-            app:layout_constraintTop_toTopOf="@+id/textView17"
+            app:layout_constraintBottom_toBottomOf="@+id/deleteFavPhotosText"
+            app:layout_constraintEnd_toEndOf="@+id/deleteFavVideosButton"
+            app:layout_constraintTop_toTopOf="@+id/deleteFavPhotosText"
             app:tint="@color/colorWhite" />
 
         <ImageView
-            android:id="@+id/imageView12"
+            android:id="@+id/rateMyAppButton"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:padding="5dp"
             android:rotation="180"
             android:src="@drawable/ic_back"
-            app:layout_constraintBottom_toBottomOf="@+id/textView19"
-            app:layout_constraintEnd_toEndOf="@+id/imageView9"
-            app:layout_constraintTop_toTopOf="@+id/textView19"
+            app:layout_constraintBottom_toBottomOf="@+id/rateMyAppText"
+            app:layout_constraintEnd_toEndOf="@+id/deleteFavPhotosButton"
+            app:layout_constraintTop_toTopOf="@+id/rateMyAppText"
             app:tint="@color/colorWhite" />
 
         <ImageView
-            android:id="@+id/imageView14"
+            android:id="@+id/bugReportButton"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:padding="5dp"
             android:rotation="180"
             android:src="@drawable/ic_back"
-            app:layout_constraintBottom_toBottomOf="@+id/textView20"
-            app:layout_constraintEnd_toEndOf="@+id/imageView12"
-            app:layout_constraintTop_toTopOf="@+id/textView20"
+            app:layout_constraintBottom_toBottomOf="@+id/bugReportText"
+            app:layout_constraintEnd_toEndOf="@+id/rateMyAppButton"
+            app:layout_constraintTop_toTopOf="@+id/bugReportText"
             app:tint="@color/colorWhite" />
 
         <ImageView
@@ -333,9 +351,9 @@
             android:padding="5dp"
             android:rotation="180"
             android:src="@drawable/ic_back"
-            app:layout_constraintBottom_toBottomOf="@+id/textView22"
-            app:layout_constraintEnd_toEndOf="@+id/imageView14"
-            app:layout_constraintTop_toTopOf="@+id/textView22"
+            app:layout_constraintBottom_toBottomOf="@+id/aboutText"
+            app:layout_constraintEnd_toEndOf="@+id/bugReportButton"
+            app:layout_constraintTop_toTopOf="@+id/aboutText"
             app:tint="@color/colorWhite" />
 
         <ImageView
@@ -345,9 +363,9 @@
             android:padding="5dp"
             android:rotation="180"
             android:src="@drawable/ic_back"
-            app:layout_constraintBottom_toBottomOf="@+id/textView24"
+            app:layout_constraintBottom_toBottomOf="@+id/appVersionText"
             app:layout_constraintEnd_toEndOf="@+id/aboutButton"
-            app:layout_constraintTop_toTopOf="@+id/textView24"
+            app:layout_constraintTop_toTopOf="@+id/appVersionText"
             app:tint="@color/colorWhite" />
 
 
