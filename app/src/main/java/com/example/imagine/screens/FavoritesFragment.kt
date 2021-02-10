@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.example.imagine.R
@@ -26,6 +27,11 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         changeMultimediaType()
+
+
+        favoritesSettingsButton.setOnClickListener {
+            findNavController().navigate(R.id.action_favoritesFragment_to_settingsFragment)
+        }
     }
 
 

@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imagine.ImagineApplication
 import com.example.imagine.R
@@ -41,6 +42,12 @@ class VideosFragment : Fragment(), VideosInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
+        videosSettingsButton.setOnClickListener {
+            findNavController().navigate(R.id.action_videosFragment_to_settingsFragment)
+        }
 
         videosRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())

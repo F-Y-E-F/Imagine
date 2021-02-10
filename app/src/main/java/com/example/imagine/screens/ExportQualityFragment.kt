@@ -32,6 +32,7 @@ class ExportQualityFragment : Fragment() {
     }
 
 
+    //----------------------------| Setup radio buttons checks |--------------------------------
     private fun listenToButtonCheck(){
         val prefs = requireActivity().getSharedPreferences("SETTINGS", MODE_PRIVATE)
 
@@ -51,4 +52,5 @@ class ExportQualityFragment : Fragment() {
             }
         }
     }
+    //==========================================================================================
 }

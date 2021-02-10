@@ -16,7 +16,7 @@
         android:background="@color/colorBackground">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/videosSettingsButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="@dimen/dimen_16"
@@ -36,9 +36,9 @@
             android:contentDescription="@string/filter"
             android:padding="5dp"
             android:src="@drawable/ic_filter"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintBottom_toBottomOf="@+id/videosSettingsButton"
+            app:layout_constraintStart_toEndOf="@+id/videosSettingsButton"
+            app:layout_constraintTop_toTopOf="@+id/videosSettingsButton"
             app:tint="@color/colorPrimary" />
 
 
@@ -93,7 +93,7 @@
             android:textColorHint="#ACACAC"
             app:layout_constraintEnd_toEndOf="@+id/textView3"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/videosSettingsButton"
             app:layout_constraintTop_toBottomOf="@+id/videoFiltersImageView" />
 
         <androidx.recyclerview.widget.RecyclerView
