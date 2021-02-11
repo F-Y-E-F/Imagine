@@ -74,12 +74,14 @@
         app:layout_constraintTop_toTopOf="@+id/photosButton" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/favouritesShareButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dimen_16"
         android:fontFamily="@font/opensans_regular"
         android:text="@string/share"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView"

@@ -27,7 +27,7 @@
 
 
         <com.hanks.htextview.rainbow.RainbowTextView
-            android:id="@+id/nothingHereVideosText"
+            android:id="@+id/nothingHereFavVideosText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_semibold"

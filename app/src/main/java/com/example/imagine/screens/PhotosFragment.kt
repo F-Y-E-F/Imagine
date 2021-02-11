@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.imagine.R
+import com.example.imagine.helpers.ShareApp
 import com.example.imagine.models.PhotoColor
 import com.example.imagine.mvvm.models.Filters
 import com.example.imagine.mvvm.models.photos.Photo
@@ -69,6 +70,8 @@ class PhotosFragment : Fragment(), PhotosInterface {
             findNavController().navigate(R.id.action_photosFragment_to_settingsFragment)
         }
 
+        shareApp()
+
 
     }
 
@@ -83,7 +86,7 @@ class PhotosFragment : Fragment(), PhotosInterface {
                 onEndLoad()
                 photosCount = it.photos.size
                 photosRecyclerView.apply {
-                    adapter = PhotosRecyclerViewAdapter(it.photos, this@PhotosFragment,null)
+                    adapter = PhotosRecyclerViewAdapter(it.photos, this@PhotosFragment, null)
                 }
             } else {
                 photosRecyclerView.adapter = null
@@ -202,7 +205,7 @@ class PhotosFragment : Fragment(), PhotosInterface {
 
     //set check of orientation checkboxes
     private fun setOrientationCheckBoxChecked(firstState: Boolean, secondState: Boolean) {
-        if(verticalCheckBox!=null && horizontalCheckBox != null){
+        if (verticalCheckBox != null && horizontalCheckBox != null) {
             verticalCheckBox.isChecked = firstState
             horizontalCheckBox.isChecked = secondState
         }
@@ -330,7 +333,7 @@ class PhotosFragment : Fragment(), PhotosInterface {
     //-----------------------| Reset filters checkboxes to start state |----------------------------
     private fun resetFilters() {
         setOrientationCheckBoxChecked(firstState = true, secondState = true)
-        if(transparentCheckBox!=null){
+        if (transparentCheckBox != null) {
             transparentCheckBox.isChecked = false
             grayscaleCheckBox.isChecked = false
             popularCheckBox.isChecked = true
@@ -350,7 +353,14 @@ class PhotosFragment : Fragment(), PhotosInterface {
     }
 
     override fun onChoosePhoto(photo: Photo, sharedView: ImageView) {
-        ChoosePhotoAction.choosePhoto(requireActivity(),requireContext(), sharedView, photo,false)
+        ChoosePhotoAction.choosePhoto(requireActivity(), requireContext(), sharedView, photo, false)
+    }
+
+
+    private fun shareApp() {
+        photosShareText.setOnClickListener {
+            ShareApp.shareApp(requireContext())
+        }
     }
 
 

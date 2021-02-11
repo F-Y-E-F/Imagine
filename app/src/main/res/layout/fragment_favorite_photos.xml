@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorBackground"
+    android:orientation="vertical"
     tools:context=".screens.FavoritePhotosFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -17,4 +19,15 @@
         android:paddingEnd="5dp"
         android:scrollbars="none"/>
 
+    <com.hanks.htextview.rainbow.RainbowTextView
+        android:id="@+id/nothingHereFavPhotosText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="Nothing here yet..."
+        android:textAlignment="center"
+        android:textSize="22sp"
+        app:colorSpace="150dp"
+        android:visibility="gone"
+        app:colorSpeed="10dp" />
 </LinearLayout>

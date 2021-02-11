@@ -51,17 +51,18 @@ class FavoritesVideosFragment : Fragment(), VideosInterface {
         favouriteVideosViewModel.allVideos.observe(viewLifecycleOwner) { list ->
             when {
                 list.isEmpty() -> {
-                    nothingHereVideosText.visibility = View.VISIBLE
+                    nothingHereFavVideosText.visibility = View.VISIBLE
                     nextPageFavButton.visibility = View.GONE
                     backPageFavButton.visibility = View.GONE
+                    favouriteVideosRecyclerView.adapter =null
                     return@observe
                 }
                 3 >= list.size -> {
-                    nothingHereVideosText.visibility = View.GONE
+                    nothingHereFavVideosText.visibility = View.GONE
                     nextPageFavButton.visibility = View.GONE
                 }
                 else -> {
-                    nothingHereVideosText.visibility = View.GONE
+                    nothingHereFavVideosText.visibility = View.GONE
                     nextPageFavButton.visibility = View.VISIBLE
                 }
             }

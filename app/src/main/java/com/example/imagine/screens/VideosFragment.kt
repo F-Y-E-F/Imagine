@@ -9,7 +9,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,6 +17,7 @@ import com.example.imagine.ImagineApplication
 import com.example.imagine.R
 import com.example.imagine.favourite_database.video_database.FavouriteVideosViewModel
 import com.example.imagine.favourite_database.video_database.FavouriteVideosViewModelFactory
+import com.example.imagine.helpers.ShareApp
 import com.example.imagine.mvvm.models.videos.Video
 import com.example.imagine.mvvm.view_models.VideosViewModel
 import com.example.imagine.screens.adapters.VideosRecyclerViewAdapter
@@ -76,6 +76,7 @@ class VideosFragment : Fragment(), VideosInterface {
         addNextPage()
         detectSearch()
         applyVideosFilters()
+        shareApp()
     }
 
     
@@ -203,6 +204,13 @@ class VideosFragment : Fragment(), VideosInterface {
     override fun onStop() {
         super.onStop()
         videosRecyclerView.adapter = null
+    }
+
+
+    private fun shareApp(){
+        videosShareText.setOnClickListener {
+            ShareApp.shareApp(requireContext())
+        }
     }
 
 

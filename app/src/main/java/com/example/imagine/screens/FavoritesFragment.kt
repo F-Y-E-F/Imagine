@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.example.imagine.R
+import com.example.imagine.helpers.ShareApp
 import com.example.imagine.screens.adapters.FavouritesViewPagerAdapter
 import kotlinx.android.synthetic.main.fragment_favorites.*
 
@@ -31,6 +32,10 @@ class FavoritesFragment : Fragment() {
 
         favoritesSettingsButton.setOnClickListener {
             findNavController().navigate(R.id.action_favoritesFragment_to_settingsFragment)
+        }
+
+        favouritesShareButton.setOnClickListener {
+            ShareApp.shareApp(requireContext())
         }
     }
 

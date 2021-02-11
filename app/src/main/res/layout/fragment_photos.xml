@@ -56,10 +56,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/photosShareText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dimen_16"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:fontFamily="@font/opensans_regular"
             android:text="@string/share"
             android:textColor="@color/colorPrimary"
@@ -90,7 +92,7 @@
             android:singleLine="true"
             android:textColor="@color/searchBarTextColor"
             android:textColorHint="#ACACAC"
-            app:layout_constraintEnd_toEndOf="@+id/textView3"
+            app:layout_constraintEnd_toEndOf="@+id/photosShareText"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/settingsButton"
             app:layout_constraintTop_toBottomOf="@+id/filtersImageView" />

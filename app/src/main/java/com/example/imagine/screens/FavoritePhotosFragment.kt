@@ -35,7 +35,13 @@ class FavoritePhotosFragment : Fragment(),PhotosInterface,FavouritePhotosInterfa
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
         favouritePhotosViewModel.allFavPhotos.observe(viewLifecycleOwner){
-            favouritePhotosRecyclerView.adapter = PhotosRecyclerViewAdapter(it,this,this)
+            if(it.isNullOrEmpty()){
+                nothingHereFavPhotosText.visibility = View.VISIBLE
+                favouritePhotosRecyclerView.adapter = null
+            }else{
+                nothingHereFavPhotosText.visibility = View.GONE
+                favouritePhotosRecyclerView.adapter = PhotosRecyclerViewAdapter(it,this,this)
+            }
         }
     }
 
