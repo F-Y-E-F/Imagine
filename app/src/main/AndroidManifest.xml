@@ -16,7 +16,15 @@
         <activity android:name=".screens.VideoFullScreenActivity" />
         <activity
             android:name=".screens.PhotoPreviewActivity"
-            android:launchMode="standard" />
+            android:launchMode="standard" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="image/*"/>
+            </intent-filter>
+
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

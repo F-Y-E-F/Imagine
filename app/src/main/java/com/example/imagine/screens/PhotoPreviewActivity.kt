@@ -2,6 +2,7 @@ package com.example.imagine.screens
 
 import android.app.WallpaperManager
 import android.content.ContentValues
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -48,7 +49,7 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
         setContentView(R.layout.activity_photo_preview)
         photo = Gson().fromJson(intent.getStringExtra("photo")!!, Photo::class.java)
 
-        if(intent.getBooleanExtra("isFav",false))
+        if (intent.getBooleanExtra("isFav", false))
             previewPhotoHandler.visibility = View.INVISIBLE
         loadPhoto()
 
@@ -56,11 +57,12 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
         setupPhotoInfo()
         handlePhotoOptions()
         addToFavourites()
+        shareImage()
     }
 
     //--------------------| Lazy load photo - first previewUrl then better quality photo |--------------------------
     private fun loadPhoto() {
-        if(!intent.getBooleanExtra("isFav",false)){
+        if (!intent.getBooleanExtra("isFav", false)) {
             Glide.with(applicationContext).load(photo.previewURL)
                 .into(previewPhotoHandler)
         }
@@ -87,7 +89,7 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
             ): Boolean {
                 Handler(Looper.getMainLooper()).postDelayed({
                     previewPhotoHandler.visibility = View.INVISIBLE
-                },500)
+                }, 500)
                 return false
             }
         })
@@ -142,7 +144,8 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
 
     //---------------------------------| Make Action Based on chosen option from popup menu |-------------------------------------
     private fun getPhoto(type: String) {
-        Glide.with(applicationContext).asBitmap().load(photo.largeImageURL).centerCrop().into(object : CustomTarget<Bitmap>() {
+        Glide.with(applicationContext).asBitmap().load(photo.largeImageURL).centerCrop()
+            .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(
                     resource: Bitmap,
                     transition: Transition<in Bitmap>?
@@ -166,7 +169,7 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
                         }
                     } else {
                         try {
-                            saveMediaToStorage(resource)
+                            saveMediaToStorage(resource,"Image has been saved")
                         } catch (ex: Exception) {
                             Log.d("TAG", "blad $ex")
                         }
@@ -180,10 +183,10 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
     //=============================================================================================================================
 
     //----------------------------------| Save image to gallery |--------------------------------------
-    private fun saveMediaToStorage(bitmap: Bitmap) {
+    private fun saveMediaToStorage(bitmap: Bitmap,snackText:String): Uri {
         val filename = "${System.currentTimeMillis()}.jpg"
         var fos: OutputStream? = null
-
+        var imageUri: Uri? = null
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             applicationContext?.contentResolver?.also { resolver ->
                 val contentValues = ContentValues().apply {
@@ -192,7 +195,7 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
                     put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
                 }
 
-                val imageUri: Uri? =
+                imageUri =
                     resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
 
                 fos = imageUri?.let { resolver.openOutputStream(it) }
@@ -203,12 +206,13 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
             fos = FileOutputStream(image)
         }
         val prefs = getSharedPreferences("SETTINGS", MODE_PRIVATE)
-        val quality = prefs.getInt("exportQuality",100)
+        val quality = prefs.getInt("exportQuality", 100)
 
         fos?.use {
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, it)
-            showSnack("Image has been saved")
+            showSnack(snackText)
         }
+        return imageUri!!
     }
     //==================================================================================================
 
@@ -235,34 +239,33 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
 
     //============================================================================================================================
 
-    private fun showSnack(text:String) = dialogs.showSnackBar(findViewById<View>(android.R.id.content).rootView, text)
+    private fun showSnack(text: String) =
+        dialogs.showSnackBar(findViewById<View>(android.R.id.content).rootView, text)
 
 
     //-------------------------| Add photo to favourites database |-----------------------------
-    private fun addToFavourites(){
-        favouritePhotosViewModel.allFavPhotos.observe(this){favPhotos->
-
-
+    private fun addToFavourites() {
+        favouritePhotosViewModel.allFavPhotos.observe(this) { favPhotos ->
             //--------- Check if photo is in database -----------
-            var photoInDatabase : Photo? = null
+            var photoInDatabase: Photo? = null
             favPhotos.forEach {
-                if(it.id == photo.id) photoInDatabase = it
+                if (it.id == photo.id) photoInDatabase = it
             }
             //===================================================
 
             //show good icon based if photo is in database
-            if(photoInDatabase!=null){
+            if (photoInDatabase != null) {
                 favouriteIcon.setImageResource(R.drawable.ic_favourite)
-            }else{
+            } else {
                 favouriteIcon.setImageResource(R.drawable.ic_favorite_border)
             }
 
             //set good onclick function based if photo is in database
             favouriteIcon.setOnClickListener {
-                if(photoInDatabase!=null){
+                if (photoInDatabase != null) {
                     favouritePhotosViewModel.deleteFavouritePhoto(photoInDatabase!!)
                     showSnack("Removed From Favourites")
-                }else{
+                } else {
                     favouritePhotosViewModel.insertFavouritePhoto(photo)
                     showSnack("Add To Favourites")
                 }
@@ -271,5 +274,27 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
         }
     }
     //============================================================================================
+
+    //-------------------| Share photo via implicit intent |--------------------
+    private fun shareImage() {
+        photoAuthor.setOnClickListener {
+            Glide.with(applicationContext)
+                .asBitmap()
+                .load(photo.webformatURL)
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        val i = Intent(Intent.ACTION_SEND)
+                        i.type = "image/*"
+                        i.putExtra(Intent.EXTRA_STREAM, saveMediaToStorage(resource,"Sharing image..."))
+                        startActivity(Intent.createChooser(i, "Share Image"))
+                    }
+                    override fun onLoadCleared(placeholder: Drawable?) {}
+                })
+        }
+    }
+    //============================================================================
 
 }
