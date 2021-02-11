@@ -34,6 +34,8 @@ import kotlinx.android.synthetic.main.activity_photo_preview.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
+import java.lang.reflect.Field
+import java.lang.reflect.Method
 
 
 class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
@@ -57,7 +59,6 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
         setupPhotoInfo()
         handlePhotoOptions()
         addToFavourites()
-        shareImage()
     }
 
     //--------------------| Lazy load photo - first previewUrl then better quality photo |--------------------------
@@ -121,10 +122,10 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
         val ctw = ContextThemeWrapper(this, R.style.PopupMenu)
         options.setOnClickListener {
             PopupMenu(ctw, options).apply {
+
                 inflate(R.menu.photo_options_popup_menu)
                 setOnMenuItemClickListener { item ->
                     when (item.itemId) {
-
                         //set image as wallpaper
                         R.id.setWallpaper -> {
                             getPhoto("wallpaper")
@@ -132,8 +133,27 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
                         R.id.exportToGallery -> {
                             getPhoto("gallery_export")
                         }
+                        R.id.sharePhoto -> {
+                            shareImage()
+                        }
                     }
                     true
+                }
+                val fields: Array<Field> = this.javaClass.declaredFields
+                for (field in fields) {
+                    if ("mPopup" == field.name) {
+                        field.isAccessible = true
+                        val menuPopupHelper: Any = field.get(this)!!
+                        val classPopupHelper = Class.forName(
+                            menuPopupHelper
+                                .javaClass.name
+                        )
+                        val setForceIcons: Method = classPopupHelper.getMethod(
+                            "setForceShowIcon", Boolean::class.javaPrimitiveType
+                        )
+                        setForceIcons.invoke(menuPopupHelper, true)
+                        break
+                    }
                 }
                 show()
             }
@@ -169,7 +189,7 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
                         }
                     } else {
                         try {
-                            saveMediaToStorage(resource,"Image has been saved")
+                            saveMediaToStorage(resource, "Image has been saved")
                         } catch (ex: Exception) {
                             Log.d("TAG", "blad $ex")
                         }
@@ -183,7 +203,7 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
     //=============================================================================================================================
 
     //----------------------------------| Save image to gallery |--------------------------------------
-    private fun saveMediaToStorage(bitmap: Bitmap,snackText:String): Uri {
+    private fun saveMediaToStorage(bitmap: Bitmap, snackText: String): Uri {
         val filename = "${System.currentTimeMillis()}.jpg"
         var fos: OutputStream? = null
         var imageUri: Uri? = null
@@ -277,7 +297,6 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
 
     //-------------------| Share photo via implicit intent |--------------------
     private fun shareImage() {
-        photoAuthor.setOnClickListener {
             Glide.with(applicationContext)
                 .asBitmap()
                 .load(photo.webformatURL)
@@ -288,12 +307,17 @@ class PhotoPreviewActivity : AppCompatActivity(), WallpaperType {
                     ) {
                         val i = Intent(Intent.ACTION_SEND)
                         i.type = "image/*"
-                        i.putExtra(Intent.EXTRA_STREAM, saveMediaToStorage(resource,"Sharing image..."))
+                        i.putExtra(
+                            Intent.EXTRA_STREAM, saveMediaToStorage(
+                                resource,
+                                "Sharing image..."
+                            )
+                        )
                         startActivity(Intent.createChooser(i, "Share Image"))
                     }
+
                     override fun onLoadCleared(placeholder: Drawable?) {}
                 })
-        }
     }
     //============================================================================
 

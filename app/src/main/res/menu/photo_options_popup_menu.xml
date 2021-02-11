@@ -2,8 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/setWallpaper"
-        android:title="@string/set_as_wallpaper" />
+        android:title="@string/set_as_wallpaper"
+        android:icon="@drawable/ic_wallpaper"/>
     <item
         android:id="@+id/exportToGallery"
-        android:title="@string/export_to_gallery" />
+        android:title="@string/export_to_gallery"
+        android:icon="@drawable/ic_image"/>
+
+    <item
+        android:id="@+id/sharePhoto"
+        android:title="Share Photo"
+        android:icon="@drawable/ic_share"/>
 </menu>
