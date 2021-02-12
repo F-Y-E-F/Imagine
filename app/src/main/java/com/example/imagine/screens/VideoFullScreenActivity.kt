@@ -1,5 +1,6 @@
 package com.example.imagine.screens
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -46,6 +47,7 @@ class VideoFullScreenActivity : AppCompatActivity() {
         if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             setupVideoInfo()
             addToFavourite()
+            setupVideoShare()
         }
 
     }
@@ -155,6 +157,15 @@ class VideoFullScreenActivity : AppCompatActivity() {
         super.onDestroy()
         Log.d("TAG", "WYKONALO SIE RELEASE")
         videoFullScreenPlayerView.player!!.release()
+    }
+
+    private fun setupVideoShare(){
+        shareVideoButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_TEXT, "Look on than beautiful video from Imagine : " + video.videos.large.url)
+            startActivity(Intent.createChooser(intent, "Share Image"))
+        }
     }
 
 }
