@@ -138,8 +138,8 @@ class FavoritesVideosFragment : Fragment(), VideosInterface {
     //===================================================================================================
 
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroyView() {
+        super.onDestroyView()
         favouriteVideosRecyclerView.adapter = null
     }
 

@@ -225,8 +225,8 @@ class VideosFragment : Fragment(), VideosInterface {
         startActivity(intent)
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroyView() {
+        super.onDestroyView()
         videosRecyclerView.adapter = null
     }
 
