@@ -83,12 +83,19 @@ class PhotosFragment : Fragment(), PhotosInterface {
         )
         photosVm.photos.observe(viewLifecycleOwner) {
             if (it != null) {
-                onEndLoad()
-                photosCount = it.photos.size
-                photosRecyclerView.apply {
-                    adapter = PhotosRecyclerViewAdapter(it.photos, this@PhotosFragment, null)
+                if(it.photos.isEmpty()){
+                    cannotFindPhotosText.visibility = View.VISIBLE
+                    loadMoreButton.visibility = View.GONE
+                    loadMoreProgress.visibility = View.GONE
+                }else{
+                    onEndLoad()
+                    photosCount = it.photos.size
+                    photosRecyclerView.apply {
+                        adapter = PhotosRecyclerViewAdapter(it.photos, this@PhotosFragment, null)
+                    }
                 }
             } else {
+                cannotFindPhotosText.visibility = View.GONE
                 photosRecyclerView.adapter = null
             }
         }
@@ -112,6 +119,7 @@ class PhotosFragment : Fragment(), PhotosInterface {
 
     //start loading photos
     private fun onStartLoad() {
+        cannotFindPhotosText.visibility = View.GONE
         loadMoreButton.visibility = View.GONE
         loadMoreProgress.visibility = View.VISIBLE
     }

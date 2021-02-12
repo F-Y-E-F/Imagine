@@ -113,6 +113,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchVideoET" />
 
+
+        <com.hanks.htextview.rainbow.RainbowTextView
+            android:id="@+id/cannotFindVideosText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/videosRecyclerView"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Cannot find Videos..."
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:layout_marginTop="30dp"
+            android:visibility="gone"
+            app:colorSpace="150dp"
+            app:colorSpeed="10dp"/>
+
         <Button
             android:id="@+id/nextPageButton"
             android:layout_width="wrap_content"

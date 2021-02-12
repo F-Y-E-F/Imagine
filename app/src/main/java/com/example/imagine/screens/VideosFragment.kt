@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -30,13 +31,17 @@ class VideosFragment : Fragment(), VideosInterface {
     private var type = "category"
     private val videosViewModel by viewModels<VideosViewModel>()
 
-    private lateinit var likedVideos:List<Video>
+    private lateinit var likedVideos: List<Video>
 
     private val favouriteVideosViewModel: FavouriteVideosViewModel by viewModels {
         FavouriteVideosViewModelFactory((requireActivity().application as ImagineApplication).videosRepository)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? =
         inflater.inflate(R.layout.fragment_videos, container, false)
 
 
@@ -53,19 +58,19 @@ class VideosFragment : Fragment(), VideosInterface {
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-        
-        videoFiltersImageView.setOnClickListener { 
-            if(videoFilters.visibility == View.GONE) videoFilters.visibility = View.VISIBLE
+
+        videoFiltersImageView.setOnClickListener {
+            if (videoFilters.visibility == View.GONE) videoFilters.visibility = View.VISIBLE
             else videoFilters.visibility = View.GONE
         }
-        
-        
-        videosViewModel.type.observe(viewLifecycleOwner){this.type = it}
-        videosViewModel.orderBy.observe(viewLifecycleOwner){
-            if(it==null || it == "popular"){
+
+
+        videosViewModel.type.observe(viewLifecycleOwner) { this.type = it }
+        videosViewModel.orderBy.observe(viewLifecycleOwner) {
+            if (it == null || it == "popular") {
                 popularVideosCheckBox.isChecked = true
                 latestVideosCheckBox.isChecked = false
-            }else{
+            } else {
                 latestVideosCheckBox.isChecked = true
                 popularVideosCheckBox.isChecked = false
             }
@@ -79,15 +84,15 @@ class VideosFragment : Fragment(), VideosInterface {
         shareApp()
     }
 
-    
+
     //------------------------------| Listen to next page clicked or reset pages and get photos by that |------------------------------
-    private fun listenToChanges(){
-        videosViewModel.page.observe(viewLifecycleOwner){
-            if(it!=null){
-                Log.d("TAG",it.toString())
-                if(it==0) videosViewModel.nextPage()
-                else{
-                    when(type){
+    private fun listenToChanges() {
+        videosViewModel.page.observe(viewLifecycleOwner) {
+            if (it != null) {
+                Log.d("TAG", it.toString())
+                if (it == 0) videosViewModel.nextPage()
+                else {
+                    when (type) {
                         "category" -> videosViewModel.getVideos()
                         "search" -> videosViewModel.getQueryVideos(searchVideoET.text.toString())
                     }
@@ -96,19 +101,33 @@ class VideosFragment : Fragment(), VideosInterface {
         }
     }
     //====================================================================================================================================
-    
-    
+
+
     //-------------------| Setup Start Videos |-------------------------
     private fun getInitialVideos() {
-        favouriteVideosViewModel.allVideos.observe(viewLifecycleOwner){
+        favouriteVideosViewModel.allVideos.observe(viewLifecycleOwner) {
             likedVideos = it
         }
 
-        videosViewModel.videos.observe(viewLifecycleOwner) {allVideos ->
+        videosViewModel.videos.observe(viewLifecycleOwner) { allVideos ->
             if (allVideos != null) {
-                setItemsVisibility(VideosRecyclerViewAdapter(allVideos.videos,this), View.GONE, View.VISIBLE)
+                if (allVideos.videos.isEmpty()) {
+                    setItemsVisibility(
+                        null, View.GONE,
+                        View.GONE,
+                        View.VISIBLE
+                    )
+                } else {
+                    setItemsVisibility(
+                        VideosRecyclerViewAdapter(allVideos.videos, this),
+                        View.GONE,
+                        View.VISIBLE,
+                        View.GONE
+                    )
+                }
+
             } else {
-                setItemsVisibility(null, View.VISIBLE, View.GONE)
+                setItemsVisibility(null, View.VISIBLE, View.GONE,View.GONE)
             }
         }
         videosViewModel.getVideos()
@@ -124,11 +143,17 @@ class VideosFragment : Fragment(), VideosInterface {
     //=========================================================================
 
     //-----------------------| Set items visibility on search and on end search |-------------------------------
-    private fun setItemsVisibility(adapter: VideosRecyclerViewAdapter?, loadingProgressVisible: Int, nextButtonVisible: Int) {
+    private fun setItemsVisibility(
+        adapter: VideosRecyclerViewAdapter?,
+        loadingProgressVisible: Int,
+        nextButtonVisible: Int,
+        cannotFindVideosVisibility:Int
+    ) {
         videosRecyclerView.adapter = adapter
         loadingProgress.visibility = loadingProgressVisible
         nextPageButton.visibility = nextButtonVisible
-        Log.d("TAG","wykonalo sie 5")
+        cannotFindVideosText.visibility = cannotFindVideosVisibility
+        Log.d("TAG", "wykonalo sie 5")
     }
     //===========================================================================================================
 
@@ -154,7 +179,7 @@ class VideosFragment : Fragment(), VideosInterface {
                         text.clear()
                     }
 
-                    type="category"
+                    type = "category"
                     videosViewModel.clearPage()
                     return@OnTouchListener true
                 }
@@ -165,27 +190,26 @@ class VideosFragment : Fragment(), VideosInterface {
     //==============================================================
 
 
-    private fun search(){
-        type="search"
+    private fun search() {
+        type = "search"
         videosViewModel.clearPage()
     }
 
 
     //------------------| Apply filters to videos |-------------------
-    private fun applyVideosFilters(){
+    private fun applyVideosFilters() {
         latestVideosCheckBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) popularVideosCheckBox.isChecked = false
         }
 
-        popularVideosCheckBox.setOnCheckedChangeListener{_,isChecked ->
+        popularVideosCheckBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) latestVideosCheckBox.isChecked = false
         }
 
         applyVideosFiltersButton.setOnClickListener {
-            if(popularVideosCheckBox.isChecked){
+            if (popularVideosCheckBox.isChecked) {
                 videosViewModel.applyFilter("popular")
-            }
-            else{
+            } else {
                 videosViewModel.applyFilter("latest")
             }
             videoFilters.visibility = View.INVISIBLE
@@ -195,8 +219,8 @@ class VideosFragment : Fragment(), VideosInterface {
     //==================================================================
 
     override fun onFullScreenIconClicked(video: Video) {
-        val intent  = Intent(requireContext(),VideoFullScreenActivity::class.java).apply {
-            putExtra("video",Gson().toJson(video))
+        val intent = Intent(requireContext(), VideoFullScreenActivity::class.java).apply {
+            putExtra("video", Gson().toJson(video))
         }
         startActivity(intent)
     }
@@ -207,7 +231,7 @@ class VideosFragment : Fragment(), VideosInterface {
     }
 
 
-    private fun shareApp(){
+    private fun shareApp() {
         videosShareText.setOnClickListener {
             ShareApp.shareApp(requireContext())
         }
