@@ -52,7 +52,10 @@ class PhotosFragment : Fragment(), PhotosInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getInitialPhotos()
+        photosVm.photos.observe(viewLifecycleOwner){ photosResult ->
+            if(photosResult != null) getInitialPhotos()
+        }
+
         loadMorePhotos()
         detectSearch()
 
