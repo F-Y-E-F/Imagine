@@ -15,9 +15,8 @@ A Few resources to get when you start write your first project in kotlin:
 - [Kotlin Documentation](https://kotlinlang.org/docs/reference/)
 
 
-##### It's a easily to use and modern app, which you can find your favourite photo, save it into gallery or set it as wallpaper. Also you can share photo to your friends. App of course provides videos, which you can watch, save to favourites or share to your friends. 
+#### It's a easily to use and modern app, which you can find your favourite photo, save it into gallery or set it as wallpaper. Also you can share photo to your friends. App of course provides videos, which you can watch, save to favourites or share to your friends. 
 
-<br>
 <br>
 
 ### Used technology:
@@ -31,3 +30,7 @@ A Few resources to get when you start write your first project in kotlin:
 - MVVM Clean Architecture 💡️ [link](https://developer.android.com/jetpack/guide)
 - Glide Image Fetching 👀️ [link](https://github.com/bumptech/glide)
 - Htextview Animated TextViews 🌞️ [link](https://github.com/hanks-zyh/HTextView)
+
+<br>
+
+### Thanks for reading. Hope you like my app 💗
